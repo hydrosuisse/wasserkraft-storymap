@@ -1,0 +1,39 @@
+/* chart.css — standalone BFE chart pages (embedded in the story)
+   Frutiger is a licensed font. It is used when
+   (a) it is installed on the reader's computer (local()), or
+   (b) hydrosuisse places licensed web-font files in assets/fonts/ with these names.
+   Otherwise the browser skips this face and Roboto is used. */
+@font-face {
+  font-family: "Frutiger Web";
+  font-weight: 400;
+  font-display: swap;
+  src: local("Frutiger LT Com 55 Roman"), local("FrutigerLTCom-Roman"),
+       local("Frutiger Neue Regular"), local("FrutigerNeue-Regular"),
+       local("Frutiger 55 Roman"), local("Frutiger-Roman"),
+       url("fonts/FrutigerNeue-Regular.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Frutiger Web";
+  font-weight: 700;
+  font-display: swap;
+  src: local("Frutiger LT Com 65 Bold"), local("FrutigerLTCom-Bold"),
+       local("Frutiger Neue Bold"), local("FrutigerNeue-Bold"),
+       local("Frutiger 65 Bold"), local("Frutiger-Bold"),
+       url("fonts/FrutigerNeue-Bold.woff2") format("woff2");
+}
+
+html, body { margin: 0; padding: 0; background: #F9FAFB; }
+body {
+  font-family: "Frutiger Web", "Frutiger LT Com", "Frutiger Neue", Frutiger, Roboto,
+               "Helvetica Neue", Arial, sans-serif;
+  color: #000;
+  overflow: hidden;            /* the frame grows to fit, no inner scrollbar */
+}
+.bfe-chart { padding: 16px 8px 0; }
+.bfe-chart .html-widget { width: 100% !important; }
+.bfe-chart .modebar { opacity: .5; }
+.bfe-stand {
+  margin: 0; padding: 4px 16px 12px;
+  font-size: 11px; color: #555;
+}
+.bfe-stand a { color: #555; }

@@ -1,0 +1,190 @@
+---
+pagetitle: "Wasserkraft und Spotpreise in der Schweiz"
+lang: de
+output:
+  html_document:
+    theme: null
+    highlight: null
+    mathjax: null
+    self_contained: false
+    lib_dir: libs
+    section_divs: true
+    css: assets/storymap.css
+    includes:
+      in_header: assets/head.html
+      after_body: assets/after-body.html
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+library(mapgl)
+library(sf)
+source("R/storymap.R", encoding = "UTF-8")
+
+# Embedded pages. The two chart pages are built by build.R into charts/ and
+# refreshed daily by GitHub Actions; the dashboard stays on shinyapps.io.
+dashboard_url <- "https://hydrosuisse.shinyapps.io/wasserkraft-ch/"
+bfe_quelle <- 'Quelle: Bundesamt für Energie BFE, <a href="https://energiedashboard.admin.ch" target="_blank" rel="noopener">Energie-Dashboard</a>'
+```
+
+```{r cover}
+tagList(
+  sm_header(logo = "assets/logo.svg", logo_alt = "hydrosuisse",
+            logo_href = "https://www.hydrosuisse.ch"),
+  sm_cover(
+    title   = "Wasserkraft und Spotpreise in der Schweiz",
+    summary = "Produktion aus Lauf-, Speicher- und Pumpspeicherkraftwerken im Vergleich zu allen anderen Quellen – mit Day-ahead-Preis und grenzüberschreitendem Handel",
+    byline  = "hydrosuisse",
+    image   = "assets/cover.svg",
+    credit  = "Titelbild: Platzhalter"
+  ),
+  sm_nav(c(
+    einleitung   = "Einleitung",
+    dashboard    = "Wasserkraft & Spotpreise",
+    speicherseen = "Speicherseen",
+    produktion   = "Stromproduktion",
+    karte        = "Kraftwerke",
+    quellen      = "Quellen"
+  ))
+)
+```
+
+## Einleitung {#einleitung}
+
+Hier steht der Einleitungstext des Papiers. Absätze, **Hervorhebungen**, [Links](https://www.hydrosuisse.ch) und Listen schreiben Sie wie gewohnt in Markdown.
+
+Ein zweiter Absatz führt zur zentralen Frage: Welche Rolle spielt die Wasserkraft für Versorgung und Preise im Schweizer Strommarkt?
+
+## Wasserkraft und Spotpreise {#dashboard}
+
+Erzeugung aus Lauf-, Speicher- und Pumpspeicherkraftwerken im Vergleich zu allen anderen Quellen, mit Day-ahead-Preis und grenzüberschreitendem Handel. Zeitraum und Darstellung wählen Sie direkt im Dashboard.
+
+```{r dashboard}
+sm_frame(
+  src = dashboard_url,
+  title = "Dashboard Wasserkraft und Spotpreise",
+  height = "1300px", height_mobile = "1900px",
+  loading_text = "Dashboard wird gestartet … (kann einige Sekunden dauern)",
+  caption = "Interaktives Dashboard «Wasserkraft und Spotpreise».",
+  source = "Daten: Energy-Charts.info (Fraunhofer ISE), Bundesnetzagentur | SMARD.de, EZB"
+)
+```
+
+*Hinweis:* Pumpspeicher als Brutto-Turbinenleistung – der Strom für das Hochpumpen ist nicht abgezogen. Exportüberschuss: positive Werte = Nettoexport, negative Werte = Nettoimport der Schweiz.
+
+## Füllstände der Speicherseen {#speicherseen}
+
+Füllstand der Schweizer Speicherseen im Jahresverlauf, im Vergleich zum Mittel und zu den Extremwerten der letzten zehn Jahre, inklusive Wasserkraftreserve.
+
+```{r speicherseen}
+sm_frame(
+  src = "charts/speicherseen.html",
+  title = "Füllstände der Speicherseen",
+  height = "560px", auto_height = TRUE,
+  caption = "Energieinhalt der Schweizer Speicherseen und Wasserkraftreserve. Täglich aktualisiert.",
+  source = bfe_quelle
+)
+```
+
+## Stromproduktion und Landesverbrauch {#produktion}
+
+Tägliche Stromproduktion nach Energieträger, Nettoimporte und Landesverbrauch inklusive Speicherpumpen.
+
+```{r produktion}
+sm_frame(
+  src = "charts/produktion.html",
+  title = "Stromproduktion und Landesverbrauch",
+  height = "540px", auto_height = TRUE,
+  caption = "Produktion und Landesverbrauch inkl. Verbrauch der Speicherpumpen. Täglich aktualisiert.",
+  source = bfe_quelle
+)
+```
+
+## Wasserkraftwerke {#karte}
+
+Ausgewählte Speicher-, Pumpspeicher- und Laufwasserkraftwerke (Beispieldaten – Standorte bitte prüfen bzw. durch eigene Daten ersetzen).
+
+```{r karte}
+kraftwerke <- read.csv("data/kraftwerke.csv") |>
+  st_as_sf(coords = c("lon", "lat"), crs = 4326)
+kraftwerke$popup <- sprintf("<h4>%s</h4>%s · Kanton %s",
+                            kraftwerke$name, kraftwerke$typ, kraftwerke$kanton)
+
+# colours as in the Energie-Dashboard
+typ_farben <- c(Laufwasser = "#1B84CB", Speicher = "#59BBA4", Pumpspeicher = "#126057")
+
+uebersicht <- maplibre(
+  style = swisstopo_light,             # or carto_style("positron")
+  bounds = kraftwerke,
+  projection = "mercator",
+  scrollZoom = FALSE,                   # don't hijack page scrolling
+  fitBoundsOptions = list(padding = 60)
+) |>
+  add_navigation_control(position = "top-left") |>
+  add_fullscreen_control(position = "top-left") |>
+  add_scale_control(position = "bottom-right") |>
+  add_circle_layer(
+    id = "kraftwerke", source = kraftwerke,
+    circle_color = match_expr("typ", values = names(typ_farben), stops = unname(typ_farben)),
+    circle_radius = 8, circle_stroke_color = "#ffffff", circle_stroke_width = 2,
+    popup = "popup", tooltip = "name"
+  ) |>
+  add_categorical_legend(
+    legend_title = "Kraftwerkstyp", values = names(typ_farben),
+    colors = unname(typ_farben), circular_patches = TRUE, position = "top-right"
+  )
+
+sm_map(uebersicht,
+       caption = "Ausgewählte Wasserkraftwerke der Schweiz (Beispieldaten). Hintergrundkarte: © swisstopo",
+       width = "wide", height = "70vh")
+```
+
+Beim Weiterscrollen fliegt die Karte zu einzelnen Anlagen.
+
+```{r tour}
+tour <- maplibre(style = swisstopo_light, center = c(8.2, 46.8), zoom = 7,
+                 projection = "mercator", scrollZoom = FALSE) |>
+  add_navigation_control(position = "top-right")
+for (typ in names(typ_farben)) {
+  tour <- tour |> add_circle_layer(
+    id = tolower(typ), source = kraftwerke[kraftwerke$typ == typ, ],
+    circle_color = typ_farben[[typ]], circle_radius = 9,
+    circle_stroke_color = "#fff", circle_stroke_width = 2, popup = "popup"
+  )
+}
+
+sm_sidecar(
+  tour,
+  sm_slide(title = "Wasserkraft in der Schweiz",
+           tags$p("Übersicht über die ausgewählten Anlagen."),
+           center = c(8.2, 46.8), zoom = 7,
+           show = c("laufwasser", "speicher", "pumpspeicher")),
+  sm_slide(title = "Grande Dixence",
+           tags$p("Text zur Speicheranlage. Die Karte zoomt und neigt sich zum Ort."),
+           center = c(7.403, 46.08), zoom = 12.5, pitch = 50, bearing = -30),
+  sm_slide(title = "Nant de Drance",
+           tags$p("Text zum Pumpspeicherkraftwerk."),
+           center = c(6.928, 46.078), zoom = 13, pitch = 45, bearing = 20),
+  sm_slide(title = "Laufwasserkraftwerke",
+           tags$p("Nur Laufwasserkraftwerke – Ebenen lassen sich pro Folie ein- und ausblenden."),
+           center = c(7.9, 47.2), zoom = 8, pitch = 0, bearing = 0,
+           show = "laufwasser", hide = c("speicher", "pumpspeicher"))
+)
+```
+
+## Quellen {#quellen}
+
+```{r quellen}
+sm_credits(
+  sm_credit("Dashboard: Produktions- und Preisdaten",
+            "Energy-Charts.info (Fraunhofer ISE), CC BY 4.0 · Preise: Bundesnetzagentur | SMARD.de, CC BY 4.0 · Wechselkurs: Europäische Zentralbank"),
+  sm_credit("Speicherseen, Stromproduktion",
+            'Bundesamt für Energie BFE, <a href="https://energiedashboard.admin.ch">energiedashboard.admin.ch</a>'),
+  sm_credit("Hintergrundkarten", "© swisstopo"),
+  sm_credit("Titelbild", "Platzhalter – Fotograf/in, Jahr")
+)
+```
+
+```{r footer}
+sm_footer("© hydrosuisse · Erstellt mit R, R Markdown und mapgl")
+```

@@ -1,0 +1,13 @@
+Type: Project
+Package: wasserkraftstorymap
+Title: Wasserkraft CH story map (R Markdown + mapgl + plotly)
+Version: 0.1.0
+Imports:
+    rmarkdown,
+    knitr,
+    htmltools,
+    htmlwidgets,
+    jsonlite,
+    sf,
+    mapgl,
+    plotly
