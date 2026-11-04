@@ -123,13 +123,33 @@
       ifr.src = ifr.dataset.src;
     }
 
+    // frames with data-load="after_page": start `data-delay` ms after the page
+    // (images, maps, scripts) has finished loading
+    function afterPage() {
+      frames.forEach(function (f) {
+        if (f.dataset.load === "after_page") {
+          setTimeout(function () { load(f); }, Number(f.dataset.delay || 2000));
+        }
+      });
+    }
+    if (document.readyState === "complete") afterPage();
+    else window.addEventListener("load", afterPage);
+
+    // scrolling: lazy frames start 800 px before they come into view;
+    // after_page frames only if the reader actually reaches them before the delay
     if ("IntersectionObserver" in window) {
-      var io = new IntersectionObserver(function (entries) {
-        entries.forEach(function (e) {
-          if (e.isIntersecting) { load(e.target); io.unobserve(e.target); }
-        });
-      }, { rootMargin: "800px 0px" });           // start loading before it is visible
-      frames.forEach(function (f) { io.observe(f); });
+      function observer(margin) {
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) {
+            if (e.isIntersecting) { load(e.target); io.unobserve(e.target); }
+          });
+        }, { rootMargin: margin });
+        return io;
+      }
+      var ioLazy = observer("800px 0px"), ioVisible = observer("0px");
+      frames.forEach(function (f) {
+        (f.dataset.load === "after_page" ? ioVisible : ioLazy).observe(f);
+      });
     } else {
       frames.forEach(load);
     }

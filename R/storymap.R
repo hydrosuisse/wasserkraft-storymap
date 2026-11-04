@@ -147,12 +147,17 @@ sm_sidecar <- function(map, ..., panel = c("left", "right")) {
 #  * fits its height automatically if the embedded page reports it
 #    (auto_height = TRUE; the BFE chart pages do this via assets/chart.js),
 #    otherwise uses `height` (desktop) / `height_mobile` (< 860 px wide).
+#  `load`: "lazy" = when the reader scrolls near it;
+#          "after_page" = `delay_ms` after the story page has finished loading
+#          (or earlier, if the reader scrolls to it first).
 sm_frame <- function(src, title, height = "600px", height_mobile = height,
-                     auto_height = FALSE, caption = NULL, source = NULL,
+                     auto_height = FALSE, load = c("lazy", "after_page"),
+                     delay_ms = 2000, caption = NULL, source = NULL,
                      loading_text = "Wird geladen …",
                      open_label = "In neuem Fenster öffnen",
                      width = c("wide", "standard", "full")) {
   width <- match.arg(width)
+  load <- match.arg(load)
   tags$figure(
     class = paste0("sm-block sm-", width, " sm-frame"),
     tags$div(
@@ -161,7 +166,9 @@ sm_frame <- function(src, title, height = "600px", height_mobile = height,
       tags$div(class = "sm-frame-loading", tags$span(class = "sm-spinner"),
                tags$span(loading_text)),
       tags$iframe(`data-src` = src, title = title, allow = "fullscreen",
-                  `data-auto-height` = if (auto_height) "true")
+                  `data-auto-height` = if (auto_height) "true",
+                  `data-load` = load,
+                  `data-delay` = if (load == "after_page") delay_ms)
     ),
     tags$figcaption(
       class = "sm-caption",

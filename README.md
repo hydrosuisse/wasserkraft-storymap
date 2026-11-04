@@ -15,8 +15,10 @@ only when the reader scrolls near them:
 | Dashboard "Wasserkraft und Spotpreise" | unchanged at https://hydrosuisse.shinyapps.io/wasserkraft-ch/ | as before |
 
 The story page itself needs no server and appears immediately. The two charts
-are plain HTML pages and also load instantly. Only the dashboard needs a few
-seconds to start on shinyapps.io; until then a loading notice is shown.
+are plain HTML pages that load when the reader scrolls near them. The dashboard
+starts loading 2 seconds after the story page has finished loading (or as soon
+as the reader reaches it, if that is earlier), so the shinyapps.io app is usually
+awake by the time it is needed. Until then a loading notice is shown.
 
 ## Files
 
@@ -75,7 +77,8 @@ To use Frutiger for the story text too, set `--sm-font-head` in `assets/storymap
 
 ## Embedding the dashboard
 
-`sm_frame()` in `index.Rmd` loads the shinyapps.io app in a frame with a fixed height
+`sm_frame()` in `index.Rmd` loads the shinyapps.io app with `load = "after_page", delay_ms = 2000`
+(start 2 s after the page has loaded; use `load = "lazy"` to load only on scrolling). It uses a fixed height
 (`height = "1300px"`, `height_mobile = "1900px"`). The app is on another domain,
 so it cannot report its height. Adjust these values if the dashboard grows or shrinks.
 The free shinyapps.io plan has a monthly limit of active hours. Each story visit that reaches

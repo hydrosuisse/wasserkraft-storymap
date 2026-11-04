@@ -64,6 +64,7 @@ sm_frame(
   src = dashboard_url,
   title = "Dashboard Wasserkraft und Spotpreise",
   height = "1300px", height_mobile = "1900px",
+  load = "after_page", delay_ms = 2000,   # start 2 s after the story has loaded
   loading_text = "Dashboard wird gestartet … (kann einige Sekunden dauern)",
   caption = "Interaktives Dashboard «Wasserkraft und Spotpreise».",
   source = "Daten: Energy-Charts.info (Fraunhofer ISE), Bundesnetzagentur | SMARD.de, EZB"
