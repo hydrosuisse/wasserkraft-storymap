@@ -29,11 +29,11 @@ bfe_quelle <- 'Quelle: Bundesamt für Energie BFE, <a href="https://energiedashb
 
 ```{r cover}
 tagList(
-  sm_header(logo = "assets/logo.svg", logo_alt = "hydrosuisse",
+  sm_header(logo = "assets/Logo_hydrosuisse.svg", logo_alt = "hydrosuisse",
             logo_href = "https://www.hydrosuisse.ch"),
   sm_cover(
-    title   = "Wasserkraft und Spotpreise in der Schweiz",
-    summary = "Produktion aus Lauf-, Speicher- und Pumpspeicherkraftwerken im Vergleich zu allen anderen Quellen – mit Day-ahead-Preis und grenzüberschreitendem Handel",
+    title   = "Exporte trotz tiefem Füllstand der Speicherseen?",
+    summary = "Wasserstrom speichern. Eine interaktive Übersicht zur Funktionsweise verschiedener Speicheranlagen, den Speicherständen, grenzüberschreitendem Handel, sowie den Strompreisen."
     byline  = "hydrosuisse",
     image   = "assets/cover.svg",
     credit  = "Titelbild: Platzhalter"
