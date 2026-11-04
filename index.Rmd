@@ -33,23 +33,27 @@ tagList(
             logo_href = "https://www.hydrosuisse.ch"),
   sm_cover(
     title   = "Exporte trotz tiefem Füllstand der Speicherseen?",
-    summary = "Wasserstrom speichern. Eine interaktive Übersicht zur Funktionsweise verschiedener Speicheranlagen, den Speicherständen, grenzüberschreitendem Handel, sowie den Strompreisen."
+    summary = "Wasserstrom speichern. Eine interaktive Übersicht zur Funktionsweise und statistischer Klassfizierung verschiedener Speicheranlagen, den Füllständen, grenzüberschreitendem Handel, sowie Strompreisen."
     byline  = "hydrosuisse",
     image   = "assets/cover.svg",
     credit  = "Titelbild: Platzhalter"
   ),
   sm_nav(c(
-    einleitung   = "Einleitung",
-    dashboard    = "Wasserkraft & Spotpreise",
-    speicherseen = "Speicherseen",
-    produktion   = "Stromproduktion",
-    karte        = "Kraftwerke",
+    einleitung   = "Anlagen 'sui generis' ",
+    statistische_klassifizierung = "Statistische Zugehörigkeit",
+    fuellstaende = "Füllstände",
+    beispiele = "Beispiele",
+    handel = "Export und Preise", 
+    missverstaendnisse   = "Missverständnisse",
+    dashboard    = "Vergleiche nach Kraftwerkskategorie über Zeit",
     quellen      = "Quellen"
   ))
 )
 ```
 
-## Einleitung {#einleitung}
+## Anlagen *sui generis* {#einleitung}
+
+Der Schweizer Wasserkraftwerkspark besteht aus lauter Einzelfällen und kennt viele Mischformen: In der Realität ist es nicht immer eindeutig, ob man die Produktion einer Wasserkraftanlage (WKA) der Speicher-, Pumpspeicher- oder Laufwasserkategorie zuordnen sollte. Diese Diversität kann man in den Statistiken nicht abbilden.
 
 Hier steht der Einleitungstext des Papiers. Absätze, **Hervorhebungen**, [Links](https://www.hydrosuisse.ch) und Listen schreiben Sie wie gewohnt in Markdown.
 
