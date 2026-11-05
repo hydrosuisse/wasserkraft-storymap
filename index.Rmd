@@ -92,6 +92,9 @@ AusgewÃ¤hlte Speicher-, Pumpspeicher- und Laufwasserkraftwerke (Beispieldaten â€
 Beim Weiterscrollen fliegt die Karte in 3D zu vier Staumauern.
 
 ```{r tour}
+# colours as in the Energie-Dashboard
+typ_farben <- c(Laufwasser = "#1B84CB", Speicher = "#59BBA4", Pumpspeicher = "#126057")
+
 # Dams: positions and figures from the federal dam register
 # (BFE, "Stauanlagen unter Bundesaufsicht", map.geo.admin.ch)
 staumauern <- read.csv("data/staumauern.csv", encoding = "UTF-8") |>
