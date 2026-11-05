@@ -55,7 +55,7 @@ tagList(
 
 ## Anlagen *sui generis* {#einleitung}
 
-Der Schweizer Wasserkraftwerkspark besteht aus lauter Einzelfällen und kennt viele Mischformen: In der Realität ist es nicht immer eindeutig, ob man die Produktion einer Wasserkraftanlage (WKA) der Speicher-, Pumpspeicher- oder Laufwasserkategorie zuordnen sollte. Diese Diversität kann man in den Statistiken nicht abbilden.
+Der Schweizer Wasserkraftwerkspark besteht aus lauter Einzelfällen und kennt viele Mischformen: In der Realität ist es nicht immer eindeutig, ob man die Produktion einer Wasserkraftanlage (WKA) der Speicher-, Pumpspeicher- oder Laufwasserkategorie zuordnen sollte. Diese Diversität kann man in den Statistiken nicht abbilden. 
 
 Hier steht der Einleitungstext des Papiers. Absätze, **Hervorhebungen**, [Links](https://www.hydrosuisse.ch) und Listen schreiben Sie wie gewohnt in Markdown.
 
