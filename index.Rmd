@@ -57,24 +57,19 @@ tagList(
 Erst kürzlich haben es Menschen "geschafft", den Winter zu einer Fussnote im Jahr verkommen zu lassen. Aber ganz ist der Respekt davor nicht verschwunden: Wir feiern Erntedankfeste im Herbst und freuen uns mit der Fasnacht über den Frühling. Allerspätestens seit den Volatilitäten auf den Energiemärkten im Herbst 2022 infolge des russischen Kriegs in der Ukraine und Elcom-Präsident Werner Luginbühls pointierter Aussage, dass man sich [Kerzen und Brennholz für den bevorstehenden Winter besorgen solle](https://www.bernerzeitung.ch/elcom-chef-raet-zum-kauf-von-kerzen-und-holz-825536238032), ist die Versorgungssicherheit der kritischen Infrastruktur Strom zurück in aller Munde. Zeit, sich anzuschauen, wie die Wasserkraft, das Rückgrat der Schweizer Stromproduktion, funktioniert --- und weshalb statistische Konventionen und physikalische Realitäten zur Konfusion beitragen. 
 
 ## Eine Wasserkraftanlage begründet oft ihren eigenen Typ {#typen}
-In der Tat besteht der Schweizer Wasserkraftwerkspark aus lauter Einzelfällen. Die Statistik der Wasserkraft in der Schweiz (WASTA) kennt vier Idealtypen, wobei eine Anlage in der Statistik zentralenscharf abgebildet ist (Anlagen des gleichen Typs in derselben Zentrale werden zusammengenommen). Grundsätzlich entscheiden wir bei den Ausleitkraftwerken, d.h. jene, die den Gewässern Wasser entnehmen, in einer Leitung/Tunnel/Zulauf den Turbinen zuleiten, turbinieren und wieder zurückgeben, vier Idealtypen: 
+In der Tat besteht der Schweizer Wasserkraftwerkspark aus lauter Einzelfällen. Die Statistik der Wasserkraft in der Schweiz (WASTA) kennt vier Idealtypen, wobei eine Anlage in der Statistik zentralenscharf abgebildet ist (Anlagen des gleichen Typs in derselben Zentrale werden zusammengenommen). Grundsätzlich werden bei den Ausleitkraftwerken, d.h. jenen, die den Gewässern Wasser entnehmen, in einer Leitung/Tunnel/Zulauf den Turbinen zuleiten, turbinieren und wieder ins Gewässer zurückgeben, vier Idealtypen: 
 
 1. **Laufwasserkraftwerke**: Nutzen die Strömung eines Fliessgewässers und die Höhendifferenz über kleinere Staudämme oder -Mauern. 
 2. **Speicherkraftwerke**: Stauen i.d.R. verschiedene kleine Gewässer über eine Talsperre (Staudamm/Staumauer) und nutzen die Höhendifferenz zwischen dem gestauten Bergwasser und der Turbine unten im Tal. 
 3. **Pumpspeicherkraftwerke**: Eine Art von Speicherkraftwerken, welche (ein Teil des) turbinierten Wassers wieder zurück in den Stausee pumpt. Ein solches hat i.d.R. natürliche Zuflüsse.  
 4. **reine Umwälzkraftwerke**: ein Speicherkraftwerk ohne natürlichen Zufluss. Die Netto-Stromproduktion ist daher i.d.R. nahe bei null oder ein bisschen negativ, weil die gesamte Menge turbinierten Wassers auch wieder hochgepumpt werden muss und die Pumpen einen hohen aber nicht 100%-igen Wirkungsgrad haben.  
 
-Ein einzelnes Unternehmen, wie z.B. die [Kraftwerke Oberhasli AG (KWO)](https://www.grimselstrom.ch/strom-aus-wasserkraft/interaktives-anlageschema) betreibt 13 Zentralen mit 28 Anlagen. Obwohl man gemeinhin denkt, die KWO sei der Speicher am Grimsel hat die KWO einen mittleren erwarteten Laufwasseranteil von   
+## Statistik trifft Physik {#statistische_klassifizierung}
 
-In der Realität ist es nicht immer eindeutig, ob man die Produktion einer Wasserkraftanlage (WKA) der Speicher-, Pumpspeicher- oder Laufwasserkategorie zuordnen sollte. Diese Diversität kann man in den Statistiken nicht abbilden. 
+Ein einzelnes Unternehmen, wie z.B. die [Kraftwerke Oberhasli AG (KWO)](https://www.grimselstrom.ch/strom-aus-wasserkraft/interaktives-anlageschema) betreibt 13 Zentralen mit 28 Anlagen. Obwohl man gemeinhin denkt, die KWO sei der Speicher am Grimsel hat die KWO daher einen mittleren erwarteten Laufwasseranteil von 2.2% (WASTA 2026 fürs Jahr 2025). 
 
-Hier steht der Einleitungstext des Papiers. Absätze, **Hervorhebungen**, [Links](https://www.hydrosuisse.ch) und Listen schreiben Sie wie gewohnt in Markdown.
+In der Realität ist es nicht immer eindeutig, ob man die Produktion einer Wasserkraftanlage (WKA) der Speicher-, Pumpspeicher- oder Laufwasserkategorie zuordnen sollte. Diese Diversität kann man in den Statistiken nicht abbilden.
 
-Ein zweiter Absatz führt zur zentralen Frage: Welche Rolle spielt die Wasserkraft für Versorgung und Preise im Schweizer Strommarkt?
-
-## Statistische Zugehörigkeit {#statistische_klassifizierung}
-
-*Text folgt.*
 
 ## Füllstände der Speicherseen {#fuellstaende}
 
