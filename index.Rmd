@@ -32,13 +32,14 @@ tagList(
   sm_header(logo = "assets/Logo_hydrosuisse.svg", logo_alt = "hydrosuisse",
             logo_href = "https://www.hydrosuisse.ch"),
   sm_cover(
-    title   = "Winter is coming. Genügt das Speicherwasser?",
-    summary = "Wasserstrom speichern. Eine interaktive Übersicht zur Funktionsweise und statistischer Klassfizierung verschiedener Speicheranlagen, den Füllständen, grenzüberschreitendem Handel, sowie Strompreisen.",
+    title   = "Füllstände und saisonale Produktion in der Wasserkraft.",
+    summary = "Winter is coming - eine interaktive Übersicht zu Produktionslogik und statistischen Konventionen",
     byline  = "hydrosuisse",
     image   = "assets/Llac-de-moiry_1596657829.jpg",
     credit = htmltools::HTML(
     'Bild: <a href="https://map.geo.admin.ch/#/map?lang=de&center=2610219.79,1108336.27&z=7&bgLayer=ch.swisstopo.pixelkarte-farbe&crosshair=marker" target="_blank" rel="noopener">Lac de Moiry</a>'
-  ),
+  )
+),
   sm_nav(c(
     einleitung   = "Anlagen 'sui generis' ",
     statistische_klassifizierung = "Statistische Zugehörigkeit",
