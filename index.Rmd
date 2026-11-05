@@ -176,8 +176,7 @@ sm_frame(
 ```
 
 ## Missverständnisse {#missverstaendnisse}
-
-*Text folgt.*
+Schaut man sich die obenstehende Grafik an, könnte man den Eindruck gewinnen, dass die Speicherwasserkraft in den Export geht. Das ist aber ein graphische Irreführung, man hätte die Speicherwasserkraft auch als unterste Lage der Grafik abtragen können, wo jetzt die Laufwasserkraft steht. Stattdessen zeigen die Spitzen über der Landesverbrauchskurve nur die Menge an Exporte an, nicht aber den Exporttypen. Aus physikalischen Gründen entspricht der Erzeugermix im Export dem Erzeugermix im Inland - jeder der Typen exportiert proportional zur vorhandenen Gesamtmenge an Strom. 
 
 ## Wasserkraft und Spotpreise {#dashboard}
 
