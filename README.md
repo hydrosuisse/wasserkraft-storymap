@@ -31,7 +31,9 @@ R/bfe_charts.R              BFE data download + the two plotly charts
 assets/storymap.css/.js     story styling (Summit) and behaviour
 assets/chart.css/.js        chart pages: dashboard look, Frutiger, auto-height
 assets/fonts/               place licensed Frutiger web fonts here (optional)
-data/kraftwerke.csv         example points for the map (approximate – replace)
+data/kraftwerke.csv         example points for the overview map (approximate – replace)
+data/staumauern.csv         the four dams of the 3D map tour (BFE dam register)
+assets/vendor/              plugin for swisstopo 3D terrain (BSD-3) + decoder (MIT)
 data/snapshot/              last good BFE data (fallback, updated by the workflow)
 .github/workflows/build-deploy.yml   daily build + deploy to GitHub Pages
 ```

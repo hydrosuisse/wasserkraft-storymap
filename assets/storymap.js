@@ -6,6 +6,46 @@
   var reduceMotion = window.matchMedia &&
     window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+  // folder of this script (assets/), to find assets/vendor/
+  var assetBase = (document.currentScript && document.currentScript.src || "")
+    .replace(/[^\/]*$/, "");
+
+  /* ---------- swisstopo 3D terrain --------------------------------------- */
+  // swisstopo publishes its terrain as quantized-mesh (ch.swisstopo.terrain.3d).
+  // The plugin in assets/vendor/ converts it on the fly into a MapLibre
+  // raster-dem source (256 px tiles, terrarium encoding, zoom 0-14).
+  var terrainSpec = null;
+  function swisstopoTerrain() {
+    if (!terrainSpec) {
+      terrainSpec = Promise.all([
+        import(assetBase + "vendor/quantized-mesh-decoder-1.2.8.js"),
+        import(assetBase + "vendor/maplibre-gl-3dtiles-terrain-0.1.0.js")
+      ]).then(function (mods) {
+        var decode = mods[0].default, plugin = mods[1];
+        return plugin.loadQuantizedMeshDataset(
+          "https://3d.geo.admin.ch/ch.swisstopo.terrain.3d/v1/layer.json",
+          { attribution: "Terrain: &copy; swisstopo",
+            boundsOverride: { west: 5.6, south: 45.5, east: 11.0, north: 48.2 },
+            maxZoom: 14 }
+        ).then(function (dataset) {
+          return plugin.registerQuantizedMeshTerrain(window.maplibregl,
+                                                     { dataset: dataset, decode: decode }).sourceSpec;
+        });
+      });
+    }
+    return terrainSpec;
+  }
+
+  function addTerrain(map, exaggeration) {
+    return swisstopoTerrain().then(function (spec) {
+      if (!map.getSource("swisstopo-terrain")) map.addSource("swisstopo-terrain", spec);
+      if (map.setMaxPitch) map.setMaxPitch(85);
+      map.setTerrain({ source: "swisstopo-terrain", exaggeration: exaggeration || 1.3 });
+    }).catch(function (e) {
+      if (window.console) console.warn("swisstopo terrain not available, map stays flat", e);
+    });
+  }
+
   /* ---------- sticky nav: shadow + active section ------------------------ */
   function initNav() {
     var nav = document.querySelector(".sm-nav");
@@ -94,6 +134,7 @@
       whenMapReady(mapId, function (m) {
         map = m;
         if (map.resize) map.resize();
+        if (sc.dataset.terrain === "swisstopo") addTerrain(map, Number(sc.dataset.exaggeration));
         if (pending) applySlide(map, pending);
       });
 

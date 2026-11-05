@@ -32,6 +32,10 @@ summit <- list(
 # Alternative: mapgl::carto_style("positron") — close to Esri "Human Geography Light".
 swisstopo_light <- "https://vectortiles.geo.admin.ch/styles/ch.swisstopo.lightbasemap.vt/style.json"
 
+# swisstopo base map in colour: place names, relief shading, contour lines.
+# Used for the 3D map tour (draped over swisstopo terrain, see sm_sidecar()).
+swisstopo_color <- "https://vectortiles.geo.admin.ch/styles/ch.swisstopo.basemap.vt/style.json"
+
 sm_header <- function(logo = NULL, logo_text = NULL, logo_href = NULL,
                       logo_alt = "") {
   brand <- if (!is.null(logo)) {
@@ -123,8 +127,15 @@ sm_slide <- function(..., title = NULL, center = NULL, zoom = NULL,
 }
 
 # Docked sidecar: narrative on the left (or right), map pinned on the other side.
+# terrain: NULL (flat) or "swisstopo" = 3D relief from swisstopo's terrain model
+#   (ch.swisstopo.terrain.3d). It is loaded in the browser with the plugin in
+#   assets/vendor/ and served to MapLibre as a 256 px raster-dem up to zoom 14
+#   (about 7 m per pixel in Switzerland) - the finest level swisstopo publishes
+#   for this layer. Coarser levels are used automatically when zoomed out.
+# exaggeration: vertical exaggeration of the relief (1 = true scale).
 .sm_counter <- new.env()
-sm_sidecar <- function(map, ..., panel = c("left", "right")) {
+sm_sidecar <- function(map, ..., panel = c("left", "right"),
+                       terrain = NULL, exaggeration = 1.3) {
   panel <- match.arg(panel)
   if (is.null(map$elementId)) {
     .sm_counter$n <- (if (is.null(.sm_counter$n)) 0 else .sm_counter$n) + 1
@@ -136,6 +147,8 @@ sm_sidecar <- function(map, ..., panel = c("left", "right")) {
   tags$section(
     class = paste0("sm-sidecar sm-panel-", panel),
     `data-map` = map_id,
+    `data-terrain` = terrain,
+    `data-exaggeration` = if (!is.null(terrain)) exaggeration,
     tags$div(class = "sm-sidecar-media", map),
     tags$div(class = "sm-sidecar-narrative", ...)
   )

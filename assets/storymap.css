@@ -157,11 +157,14 @@ hr { border: 0; border-top: 2px solid var(--sm-rule); margin-top: 3rem; margin-b
 .sm-nav ul {
   list-style: none; margin: 0 auto; padding: 0 16px;
   height: 100%;
-  display: flex; justify-content: center; gap: 4px;
+  display: flex; justify-content: flex-start; gap: 4px;   /* centred via auto margins below,
+     so long menus scroll instead of cutting off the first entries */
   overflow-x: auto; scrollbar-width: none;
 }
 .sm-nav ul::-webkit-scrollbar { display: none; }
 .sm-nav li { margin: 0; display: flex; }
+.sm-nav li:first-child { margin-left: auto; }
+.sm-nav li:last-child { margin-right: auto; }
 .sm-nav a {
   display: flex; align-items: center;
   padding: 0 14px;

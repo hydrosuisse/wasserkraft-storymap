@@ -33,7 +33,11 @@ tagList(
             logo_href = "https://www.hydrosuisse.ch"),
   sm_cover(
     title   = "Füllstände und saisonale Produktion in der Wasserkraft.",
+<<<<<<< Updated upstream
     summary = "Winter is coming - eine interaktive Übersicht zu Produktionslogik und statistischen Konventionen",
+=======
+    summary = "Eine interaktive Übersicht zu Produktionslogik und statistischer Datenerfassung",
+>>>>>>> Stashed changes
     byline  = "hydrosuisse",
     image   = "assets/Llac-de-moiry_1596657829.jpg",
     credit = htmltools::HTML(
@@ -41,7 +45,12 @@ tagList(
   )
 ),
   sm_nav(c(
+<<<<<<< Updated upstream
     einleitung   = "Anlagen 'sui generis' ",
+=======
+    einleitung   = "Der Winter",
+    typen = "Idealtypen",
+>>>>>>> Stashed changes
     statistische_klassifizierung = "Statistische Zugehörigkeit",
     fuellstaende = "Füllstände",
     beispiele = "Beispiele",
@@ -53,33 +62,36 @@ tagList(
 )
 ```
 
+<<<<<<< Updated upstream
 ## Anlagen *sui generis* {#einleitung}
 
 Der Schweizer Wasserkraftwerkspark besteht aus lauter Einzelfällen und kennt viele Mischformen: In der Realität ist es nicht immer eindeutig, ob man die Produktion einer Wasserkraftanlage (WKA) der Speicher-, Pumpspeicher- oder Laufwasserkategorie zuordnen sollte. Diese Diversität kann man in den Statistiken nicht abbilden. 
+=======
+## Winter is coming --- seit Jahrtausenden {#einleitung}
+Die Menschen haben es erst kürzlich "geschafft", den Winter zu einer Fussnote im Jahr verkommen zu lassen. Aber ganz ist der Respekt davor nicht verschwunden: Wir feiern Erntedankfeste im Herbst und freuen uns mit der Fasnacht über den Frühling. Allerspätestens seit den Volatilitäten auf den Energiemärkten im Herbst 2022 infolge des russischen Kriegs in der Ukraine und Elcom-Präsident Werner Luginbühls pointierte Aussage, dass man sich [Kerzen und Brennholz für den bevorstehenden Winter besorgen solle](https://www.bernerzeitung.ch/elcom-chef-raet-zum-kauf-von-kerzen-und-holz-825536238032), ist die Versorgungssicherheit der kritischen Infrastruktur Strom zurück in aller Munde. Zeit, sich anzuschauen, wie die Wasserkraft, das Rückgrat der Schweizer Stromproduktion, funktioniert --- und weshalb statistische Konventionen und physikalische Realitäten zur Konfusion beitragen. 
+
+## Eine Wasserkraftanlage begründet oft ihren eigenen Typ {#typen}
+In der Tat besteht der Schweizer Wasserkraftwerkspark aus lauter Einzelfällen. Die Statistik der Wasserkraft in der Schweiz (WASTA) kennt vier Idealtypen, wobei eine Anlage in der Statistik zentralenscharf abgebildet ist (Anlagen des gleichen Typs in derselben Zentrale werden zusammengenommen). Grundsätzlich entscheiden wir bei den Ausleitkraftwerken, d.h. jene, die den Gewässern Wasser entnehmen, in einer Leitung/Tunnel/Zulauf den Turbinen zuleiten, turbinieren und wieder zurückgeben, vier Idealtypen: 
+
+1. **Laufwasserkraftwerke**: Nutzen die Strömung eines Fliessgewässers und die Höhendifferenz über kleinere Staudämme oder -Mauern. 
+2. **Speicherkraftwerke**: Stauen i.d.R. verschiedene kleine Gewässer über eine Talsperre (Staudamm/Staumauer) und nutzen die Höhendifferenz zwischen dem gestauten Bergwasser und der Turbine unten im Tal. 
+3. **Pumpspeicherkraftwerke**: Eine Art von Speicherkraftwerken, welche (ein Teil des) turbinierten Wassers wieder zurück in den Stausee pumpt. Ein solches hat i.d.R. natürliche Zuflüsse.  
+4. **reine Umwälzkraftwerke**: ein Speicherkraftwerk ohne natürlichen Zufluss. Die Netto-Stromproduktion ist daher i.d.R. nahe bei null oder ein bisschen negativ, weil die gesamte Menge turbinierten Wassers auch wieder hochgepumpt werden muss und die Pumpen einen hohen aber nicht 100%-igen Wirkungsgrad haben.  
+
+Ein einzelnes Unternehmen, wie z.B. die [Kraftwerke Oberhasli AG (KWO)](https://www.grimselstrom.ch/strom-aus-wasserkraft/interaktives-anlageschema) betreibt 13 Zentralen mit 28 Anlagen. Obwohl man gemeinhin denkt, die KWO sei der Speicher am Grimsel hat die KWO einen mittleren erwarteten Laufwasseranteil von   
+
+In der Realität ist es nicht immer eindeutig, ob man die Produktion einer Wasserkraftanlage (WKA) der Speicher-, Pumpspeicher- oder Laufwasserkategorie zuordnen sollte. Diese Diversität kann man in den Statistiken nicht abbilden. 
+>>>>>>> Stashed changes
 
 Hier steht der Einleitungstext des Papiers. Absätze, **Hervorhebungen**, [Links](https://www.hydrosuisse.ch) und Listen schreiben Sie wie gewohnt in Markdown.
 
 Ein zweiter Absatz führt zur zentralen Frage: Welche Rolle spielt die Wasserkraft für Versorgung und Preise im Schweizer Strommarkt?
 
-## Wasserkraft und Spotpreise {#dashboard}
+## Statistische Zugehörigkeit {#statistische_klassifizierung}
 
-Erzeugung aus Lauf-, Speicher- und Pumpspeicherkraftwerken im Vergleich zu allen anderen Quellen, mit Day-ahead-Preis und grenzüberschreitendem Handel. Zeitraum und Darstellung wählen Sie direkt im Dashboard.
+*Text folgt.*
 
-```{r dashboard}
-sm_frame(
-  src = dashboard_url,
-  title = "Dashboard Wasserkraft und Spotpreise",
-  height = "1300px", height_mobile = "1900px",
-  load = "after_page", delay_ms = 2000,   # start 2 s after the story has loaded
-  loading_text = "Dashboard wird gestartet … (kann einige Sekunden dauern)",
-  caption = "Interaktives Dashboard «Wasserkraft und Spotpreise».",
-  source = "Daten: Energy-Charts.info (Fraunhofer ISE), Bundesnetzagentur | SMARD.de, EZB"
-)
-```
-
-*Hinweis:* Pumpspeicher als Brutto-Turbinenleistung – der Strom für das Hochpumpen ist nicht abgezogen. Exportüberschuss: positive Werte = Nettoexport, negative Werte = Nettoimport der Schweiz.
-
-## Füllstände der Speicherseen {#speicherseen}
+## Füllstände der Speicherseen {#fuellstaende}
 
 Füllstand der Schweizer Speicherseen im Jahresverlauf, im Vergleich zum Mittel und zu den Extremwerten der letzten zehn Jahre, inklusive Wasserkraftreserve.
 
@@ -93,21 +105,7 @@ sm_frame(
 )
 ```
 
-## Stromproduktion und Landesverbrauch {#produktion}
-
-Tägliche Stromproduktion nach Energieträger, Nettoimporte und Landesverbrauch inklusive Speicherpumpen.
-
-```{r produktion}
-sm_frame(
-  src = "charts/produktion.html",
-  title = "Stromproduktion und Landesverbrauch",
-  height = "540px", auto_height = TRUE,
-  caption = "Produktion und Landesverbrauch inkl. Verbrauch der Speicherpumpen. Täglich aktualisiert.",
-  source = bfe_quelle
-)
-```
-
-## Wasserkraftwerke {#karte}
+## Beispiele: Wasserkraftwerke und Staumauern {#beispiele}
 
 Ausgewählte Speicher-, Pumpspeicher- und Laufwasserkraftwerke (Beispieldaten – Standorte bitte prüfen bzw. durch eigene Daten ersetzen).
 
@@ -146,38 +144,102 @@ sm_map(uebersicht,
        width = "wide", height = "70vh")
 ```
 
-Beim Weiterscrollen fliegt die Karte zu einzelnen Anlagen.
+Beim Weiterscrollen fliegt die Karte in 3D zu vier Staumauern.
 
 ```{r tour}
-tour <- maplibre(style = swisstopo_light, center = c(8.2, 46.8), zoom = 7,
-                 projection = "mercator", scrollZoom = FALSE) |>
-  add_navigation_control(position = "top-right")
+# Dams: positions and figures from the federal dam register
+# (BFE, "Stauanlagen unter Bundesaufsicht", map.geo.admin.ch)
+staumauern <- read.csv("data/staumauern.csv", encoding = "UTF-8") |>
+  st_as_sf(coords = c("lon", "lat"), crs = 4326)
+staumauern$popup <- sprintf("<h4>Staumauer %s</h4>%s · %s, %s m hoch · %s",
+                            staumauern$name, staumauern$see, staumauern$typ,
+                            staumauern$hoehe_m, staumauern$baujahr)
+
+# 3D tour: swisstopo base map in colour (names, relief shading) draped over
+# swisstopo terrain (terrain = "swisstopo" in sm_sidecar below)
+tour <- maplibre(style = swisstopo_color, center = c(8.2, 46.75), zoom = 7.2,
+                 projection = "mercator", scrollZoom = FALSE, maxPitch = 85) |>
+  add_navigation_control(position = "top-right", visualize_pitch = TRUE)
 for (typ in names(typ_farben)) {
   tour <- tour |> add_circle_layer(
     id = tolower(typ), source = kraftwerke[kraftwerke$typ == typ, ],
-    circle_color = typ_farben[[typ]], circle_radius = 9,
+    circle_color = typ_farben[[typ]], circle_radius = 7,
     circle_stroke_color = "#fff", circle_stroke_width = 2, popup = "popup"
   )
 }
+tour <- tour |> add_circle_layer(
+  id = "staumauern", source = staumauern,
+  circle_color = summit$accent2, circle_radius = 10,
+  circle_stroke_color = "#ffffff", circle_stroke_width = 3,
+  popup = "popup", tooltip = "name"
+)
 
 sm_sidecar(
   tour,
-  sm_slide(title = "Wasserkraft in der Schweiz",
-           tags$p("Übersicht über die ausgewählten Anlagen."),
-           center = c(8.2, 46.8), zoom = 7,
-           show = c("laufwasser", "speicher", "pumpspeicher")),
-  sm_slide(title = "Grande Dixence",
-           tags$p("Text zur Speicheranlage. Die Karte zoomt und neigt sich zum Ort."),
-           center = c(7.403, 46.08), zoom = 12.5, pitch = 50, bearing = -30),
-  sm_slide(title = "Nant de Drance",
-           tags$p("Text zum Pumpspeicherkraftwerk."),
-           center = c(6.928, 46.078), zoom = 13, pitch = 45, bearing = 20),
-  sm_slide(title = "Laufwasserkraftwerke",
-           tags$p("Nur Laufwasserkraftwerke – Ebenen lassen sich pro Folie ein- und ausblenden."),
-           center = c(7.9, 47.2), zoom = 8, pitch = 0, bearing = 0,
-           show = "laufwasser", hide = c("speicher", "pumpspeicher"))
+  terrain = "swisstopo", exaggeration = 1.3,
+  sm_slide(title = "Vier Staumauern",
+           tags$p("Rot markiert: die Staumauern Rossens, Gebidem, Spitallamm und Robiei. ",
+                  "Beim Weiterscrollen fliegt die Karte zu jeder Anlage."),
+           center = c(8.0, 46.6), zoom = 7.6, pitch = 0, bearing = 0,
+           show = c("staumauern", "laufwasser", "speicher", "pumpspeicher")),
+  sm_slide(title = "Rossens – Lac de la Gruyère",
+           tags$p("Bogenmauer an der Saane, 83 m hoch, 1947 fertiggestellt. ",
+                  "Sie staut den Lac de la Gruyère mit rund 200 Mio. m³ Inhalt (FR)."),
+           center = c(7.1123, 46.7180), zoom = 14.3, pitch = 55, bearing = 160),
+  sm_slide(title = "Gebidem – Massa",
+           tags$p("Bogenmauer in der Massaschlucht (Naters/Bitsch), 122 m hoch, 1967. ",
+                  "Der Stausee Gebidem (9,2 Mio. m³) fängt das Schmelzwasser des Grossen Aletschgletschers (VS)."),
+           center = c(8.0025, 46.3712), zoom = 14.3, pitch = 58, bearing = 10),
+  sm_slide(title = "Spitallamm – Grimselsee (KWO)",
+           tags$p("Bogengewichtsmauer von 1932, 114 m hoch, beim Grimsel Hospiz. ",
+                  "Seit 2019 hat die KWO unmittelbar davor eine neue doppelt gekrümmte Bogenmauer gebaut (BE)."),
+           center = c(8.3296, 46.5722), zoom = 14, pitch = 50, bearing = -100),
+  sm_slide(title = "Robiei – Val Bavona",
+           tags$p("Gewichtsmauer auf rund 1900 m ü. M., 68 m hoch, 1967. ",
+                  "Der Lago di Robièi (6,9 Mio. m³) gehört zu den Maggia-Kraftwerken (TI)."),
+           center = c(8.5154, 46.4439), zoom = 14.8, pitch = 45, bearing = -60)
 )
 ```
+
+## Export und Preise {#handel}
+
+*Text folgt.*
+
+### Stromproduktion und Landesverbrauch
+
+Tägliche Stromproduktion nach Energieträger, Nettoimporte und Landesverbrauch inklusive Speicherpumpen.
+
+```{r produktion}
+sm_frame(
+  src = "charts/produktion.html",
+  title = "Stromproduktion und Landesverbrauch",
+  height = "540px", auto_height = TRUE,
+  caption = "Produktion und Landesverbrauch inkl. Verbrauch der Speicherpumpen. Täglich aktualisiert.",
+  source = bfe_quelle
+)
+```
+
+## Missverständnisse {#missverstaendnisse}
+
+*Text folgt.*
+
+## Wasserkraft und Spotpreise {#dashboard}
+
+Erzeugung aus Lauf-, Speicher- und Pumpspeicherkraftwerken im Vergleich zu allen anderen Quellen, mit Day-ahead-Preis und grenzüberschreitendem Handel. Zeitraum und Darstellung wählen Sie direkt im Dashboard.
+
+```{r dashboard}
+sm_frame(
+  src = dashboard_url,
+  title = "Dashboard Wasserkraft und Spotpreise",
+  height = "1300px", height_mobile = "1900px",
+  load = "after_page", delay_ms = 2000,   # start 2 s after the story has loaded
+  loading_text = "Dashboard wird gestartet … (kann einige Sekunden dauern)",
+  caption = "Interaktives Dashboard «Wasserkraft und Spotpreise».",
+  source = "Daten: Energy-Charts.info (Fraunhofer ISE), Bundesnetzagentur | SMARD.de, EZB"
+)
+```
+
+*Hinweis:* Pumpspeicher als Brutto-Turbinenleistung – der Strom für das Hochpumpen ist nicht abgezogen. Exportüberschuss: positive Werte = Nettoexport, negative Werte = Nettoimport der Schweiz.
 
 ## Quellen {#quellen}
 
@@ -187,8 +249,9 @@ sm_credits(
             "Energy-Charts.info (Fraunhofer ISE), CC BY 4.0 · Preise: Bundesnetzagentur | SMARD.de, CC BY 4.0 · Wechselkurs: Europäische Zentralbank"),
   sm_credit("Speicherseen, Stromproduktion",
             'Bundesamt für Energie BFE, <a href="https://energiedashboard.admin.ch">energiedashboard.admin.ch</a>'),
-  sm_credit("Hintergrundkarten", "© swisstopo"),
-  sm_credit("Titelbild", "Platzhalter – Fotograf/in, Jahr")
+  sm_credit("Hintergrundkarten und Höhenmodell (3D)", "© swisstopo"),
+  sm_credit("Staumauern", "Bundesamt für Energie BFE, Stauanlagen unter Bundesaufsicht"),
+  sm_credit("Titelbild", "Lac de Moiry (VS) – Fotograf/in, Jahr ergänzen")
 )
 ```
 
