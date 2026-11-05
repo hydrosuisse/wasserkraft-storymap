@@ -33,7 +33,7 @@ tagList(
             logo_href = "https://www.hydrosuisse.ch"),
   sm_cover(
     title   = "Exporte trotz tiefem Füllstand der Speicherseen?",
-    summary = "Wasserstrom speichern. Eine interaktive Übersicht zur Funktionsweise und statistischer Klassfizierung verschiedener Speicheranlagen, den Füllständen, grenzüberschreitendem Handel, sowie Strompreisen."
+    summary = "Wasserstrom speichern. Eine interaktive Übersicht zur Funktionsweise und statistischer Klassfizierung verschiedener Speicheranlagen, den Füllständen, grenzüberschreitendem Handel, sowie Strompreisen.",
     byline  = "hydrosuisse",
     image   = "assets/Llac-de-moiry_1596657829.jpg",
     credit  = "[Lac de Moiry](https://map.geo.admin.ch/#/map?lang=de&center=2610219.79,1108336.27&z=7&topic=ech&layers=ch.swisstopo.zeitreihen@year=1864,f;ch.bfs.gebaeude_wohnungs_register,f;ch.bav.haltestellen-oev,f;ch.swisstopo.swisstlm3d-wanderwege,f;ch.vbs.schiessanzeigen,f;ch.astra.wanderland-sperrungen_umleitungen,f&bgLayer=ch.swisstopo.pixelkarte-farbe)"
