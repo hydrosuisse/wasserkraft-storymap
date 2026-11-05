@@ -35,9 +35,6 @@ tagList(
     title   = "Füllstände und saisonale Produktion in der Wasserkraft.",
 <<<<<<< Updated upstream
     summary = "Winter is coming - eine interaktive Übersicht zu Produktionslogik und statistischen Konventionen",
-=======
-    summary = "Eine interaktive Übersicht zu Produktionslogik und statistischer Datenerfassung",
->>>>>>> Stashed changes
     byline  = "hydrosuisse",
     image   = "assets/Llac-de-moiry_1596657829.jpg",
     credit = htmltools::HTML(
@@ -45,12 +42,8 @@ tagList(
   )
 ),
   sm_nav(c(
-<<<<<<< Updated upstream
-    einleitung   = "Anlagen 'sui generis' ",
-=======
     einleitung   = "Der Winter",
     typen = "Idealtypen",
->>>>>>> Stashed changes
     statistische_klassifizierung = "Statistische Zugehörigkeit",
     fuellstaende = "Füllstände",
     beispiele = "Beispiele",
@@ -62,11 +55,6 @@ tagList(
 )
 ```
 
-<<<<<<< Updated upstream
-## Anlagen *sui generis* {#einleitung}
-
-Der Schweizer Wasserkraftwerkspark besteht aus lauter Einzelfällen und kennt viele Mischformen: In der Realität ist es nicht immer eindeutig, ob man die Produktion einer Wasserkraftanlage (WKA) der Speicher-, Pumpspeicher- oder Laufwasserkategorie zuordnen sollte. Diese Diversität kann man in den Statistiken nicht abbilden. 
-=======
 ## Winter is coming --- seit Jahrtausenden {#einleitung}
 Die Menschen haben es erst kürzlich "geschafft", den Winter zu einer Fussnote im Jahr verkommen zu lassen. Aber ganz ist der Respekt davor nicht verschwunden: Wir feiern Erntedankfeste im Herbst und freuen uns mit der Fasnacht über den Frühling. Allerspätestens seit den Volatilitäten auf den Energiemärkten im Herbst 2022 infolge des russischen Kriegs in der Ukraine und Elcom-Präsident Werner Luginbühls pointierte Aussage, dass man sich [Kerzen und Brennholz für den bevorstehenden Winter besorgen solle](https://www.bernerzeitung.ch/elcom-chef-raet-zum-kauf-von-kerzen-und-holz-825536238032), ist die Versorgungssicherheit der kritischen Infrastruktur Strom zurück in aller Munde. Zeit, sich anzuschauen, wie die Wasserkraft, das Rückgrat der Schweizer Stromproduktion, funktioniert --- und weshalb statistische Konventionen und physikalische Realitäten zur Konfusion beitragen. 
 
@@ -81,7 +69,6 @@ In der Tat besteht der Schweizer Wasserkraftwerkspark aus lauter Einzelfällen. 
 Ein einzelnes Unternehmen, wie z.B. die [Kraftwerke Oberhasli AG (KWO)](https://www.grimselstrom.ch/strom-aus-wasserkraft/interaktives-anlageschema) betreibt 13 Zentralen mit 28 Anlagen. Obwohl man gemeinhin denkt, die KWO sei der Speicher am Grimsel hat die KWO einen mittleren erwarteten Laufwasseranteil von   
 
 In der Realität ist es nicht immer eindeutig, ob man die Produktion einer Wasserkraftanlage (WKA) der Speicher-, Pumpspeicher- oder Laufwasserkategorie zuordnen sollte. Diese Diversität kann man in den Statistiken nicht abbilden. 
->>>>>>> Stashed changes
 
 Hier steht der Einleitungstext des Papiers. Absätze, **Hervorhebungen**, [Links](https://www.hydrosuisse.ch) und Listen schreiben Sie wie gewohnt in Markdown.
 
