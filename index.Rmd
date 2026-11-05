@@ -85,6 +85,12 @@ sm_frame(
 )
 ```
 
+```{r karte}
+# colours as in the Energie-Dashboard
+typ_farben <- c(Laufwasser = "#1B84CB", Speicher = "#59BBA4", Pumpspeicher = "#126057")
+```
+
+
 ## Beispiele: Wasserkraftwerke und Staumauern {#beispiele}
 
 Ausgewählte Speicher-, Pumpspeicher- und Laufwasserkraftwerke (Beispieldaten – Standorte bitte prüfen bzw. durch eigene Daten ersetzen).
@@ -92,9 +98,6 @@ Ausgewählte Speicher-, Pumpspeicher- und Laufwasserkraftwerke (Beispieldaten �
 Beim Weiterscrollen fliegt die Karte in 3D zu vier Staumauern.
 
 ```{r tour}
-# colours as in the Energie-Dashboard
-typ_farben <- c(Laufwasser = "#1B84CB", Speicher = "#59BBA4", Pumpspeicher = "#126057")
-
 # Dams: positions and figures from the federal dam register
 # (BFE, "Stauanlagen unter Bundesaufsicht", map.geo.admin.ch)
 staumauern <- read.csv("data/staumauern.csv", encoding = "UTF-8") |>
