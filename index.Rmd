@@ -85,7 +85,12 @@ sm_frame(
 )
 ```
 
-```{r karte}
+```{r vorbereitung}
+kraftwerke <- read.csv("data/kraftwerke.csv") |>
+  st_as_sf(coords = c("lon", "lat"), crs = 4326)
+kraftwerke$popup <- sprintf("<h4>%s</h4>%s · Kanton %s",
+                            kraftwerke$name, kraftwerke$typ, kraftwerke$kanton)
+
 # colours as in the Energie-Dashboard
 typ_farben <- c(Laufwasser = "#1B84CB", Speicher = "#59BBA4", Pumpspeicher = "#126057")
 ```
