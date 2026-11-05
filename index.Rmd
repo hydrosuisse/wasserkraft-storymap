@@ -140,7 +140,7 @@ sm_sidecar(
   sm_slide(title = "Gebidem – Massa",
            tags$p("Bogenmauer in der Massaschlucht (Naters/Bitsch), 122 m hoch, 1967. ",
                   "Der Stausee Gebidem (9,2 Mio. m³) fängt das Schmelzwasser des Grossen Aletschgletschers (VS)."),
-           center = c(8.0025, 46.3712), zoom = 12, pitch = 58, bearing = 10),
+           center = c(8.0025, 46.3712), zoom = 12, pitch = 40, bearing = 10),
   sm_slide(title = "Spitallamm – Grimselsee (KWO)",
            tags$p("Bogengewichtsmauer von 1932, 114 m hoch, beim Grimsel Hospiz. ",
                   "Seit 2019 hat die KWO unmittelbar davor eine neue doppelt gekrümmte Bogenmauer gebaut (BE)."),
