@@ -93,12 +93,18 @@ sm_map <- function(map, caption = NULL, width = c("wide", "standard", "full"),
   )
 }
 
+# zoom = TRUE: click opens the image enlarged (same viewer as sm_slide_image)
 sm_image <- function(src, caption = NULL, alt = "",
-                     width = c("standard", "wide", "full")) {
+                     width = c("standard", "wide", "full"), zoom = FALSE) {
   width <- match.arg(width)
+  img <- tags$img(src = src, alt = alt, loading = "lazy")
+  if (zoom) img <- tags$button(type = "button", class = "sm-zoom", `data-full` = src,
+                               `aria-label` = paste("Bild vergrössern:", alt), img,
+                               tags$span(class = "sm-zoom-icon", `aria-hidden` = "true",
+                                         HTML("&#x2922;")))
   tags$figure(
     class = paste0("sm-block sm-", width, " sm-image"),
-    tags$img(src = src, alt = alt, loading = "lazy"),
+    img,
     if (!is.null(caption)) tags$figcaption(class = "sm-caption", HTML(caption))
   )
 }
@@ -123,6 +129,26 @@ sm_slide <- function(..., title = NULL, center = NULL, zoom = NULL,
       if (!is.null(title)) tags$h3(title),
       ...
     )
+  )
+}
+
+# Image inside a slide (or anywhere): shown as a thumbnail below the text,
+# opens enlarged on click (Esc or click outside closes it). Several sm_slide_image()
+# in one slide appear side by side; in the enlarged view, arrows page through them.
+#   src     image file, e.g. "assets/rossens.jpg"
+#   caption text under the image and in the enlarged view (HTML allowed)
+#   alt     short description for screen readers (always fill in)
+#   full    optional larger file for the enlarged view (default: src)
+sm_slide_image <- function(src, caption = NULL, alt = "", full = src) {
+  tags$figure(
+    class = "sm-slide-figure",
+    tags$button(
+      type = "button", class = "sm-zoom", `data-full` = full,
+      `aria-label` = paste("Bild vergrössern:", if (nzchar(alt)) alt else "Bild"),
+      tags$img(src = src, alt = alt, loading = "lazy"),
+      tags$span(class = "sm-zoom-icon", `aria-hidden` = "true", HTML("&#x2922;"))
+    ),
+    if (!is.null(caption)) tags$figcaption(class = "sm-caption", HTML(caption))
   )
 }
 
