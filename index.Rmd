@@ -1,5 +1,5 @@
 ---
-pagetitle: "Saisonale Produktion in der Schweizer Wasserkraft"
+pagetitle: "Speicherwasserkraft für den Winter"
 output:
   html_document:
     theme: null
@@ -44,9 +44,10 @@ tagList(
     typen = "Idealtypen",
     statistische_klassifizierung = "Statistische Zugehörigkeit",
     fuellstaende = "Füllstände",
-    beispiele = "Beispiele",
+    stromprod_landesverbrauch = "Stromproduktion und Landesverbrauch",
     handel = "Export und Preise", 
     missverstaendnisse   = "Missverständnisse",
+    beispiele = "Beispiele",
     dashboard    = "Vergleiche nach Kraftwerkskategorie über Zeit",
     quellen      = "Quellen"
   ))
@@ -73,6 +74,8 @@ In der Realität ist es nicht immer eindeutig, ob man die Produktion einer Wasse
 
 ## Füllstände der Speicherseen {#fuellstaende}
 
+Demgegenüber sagt die Statistik zu den Füllständen (nachgebaut nach dem BFE-Dashboard)
+
 Füllstand der Schweizer Speicherseen im Jahresverlauf, im Vergleich zum Mittel und zu den Extremwerten der letzten zehn Jahre, inklusive Wasserkraftreserve.
 
 ```{r speicherseen}
@@ -84,6 +87,27 @@ sm_frame(
   source = bfe_quelle
 )
 ```
+## Stromproduktion und Landesverbrauch {#stromprod_landesverbrauch}
+
+Tägliche Stromproduktion nach Energieträger, Nettoimporte und Landesverbrauch inklusive Speicherpumpen.
+
+```{r produktion}
+sm_frame(
+  src = "charts/produktion.html",
+  title = "Stromproduktion und Landesverbrauch",
+  height = "540px", auto_height = TRUE,
+  caption = "Produktion und Landesverbrauch inkl. Verbrauch der Speicherpumpen. Täglich aktualisiert.",
+  source = bfe_quelle
+)
+```
+## Export und Preise {#handel}
+
+*Text folgt.*
+
+
+## Missverständnisse {#missverstaendnisse}
+Schaut man sich die obenstehende Grafik an, könnte man den Eindruck gewinnen, dass die Speicherwasserkraft in den Export geht. Das ist aber ein graphische Irreführung, man hätte die Speicherwasserkraft auch als unterste Lage der Grafik abtragen können, wo jetzt die Laufwasserkraft steht. Stattdessen zeigen die Spitzen über der Landesverbrauchskurve nur die Menge an Exporte an, nicht aber den Exporttypen. Aus physikalischen Gründen entspricht der Erzeugermix im Export dem Erzeugermix im Inland - jeder der Typen exportiert proportional zur vorhandenen Gesamtmenge an Strom. 
+
 
 ```{r vorbereitung}
 kraftwerke <- read.csv("data/kraftwerke.csv") |>
@@ -98,7 +122,7 @@ typ_farben <- c(Laufwasser = "#1B84CB", Speicher = "#59BBA4", Pumpspeicher = "#1
 
 ## Atypische Beispiele: Speicher oder Laufkraft? {#beispiele}
 
-Scrollen Sie weiter nach unten 
+Scrollen Sie weiter nach unten zeigen wir Ihnen eine Auswahl von vier Speicherkraftwerken, die entweder solche Eigenheiten haben, dass sie 
 
 Beim Weiterscrollen fliegt die Karte in 3D zu den vier Beispielen
 
@@ -159,26 +183,6 @@ sm_sidecar(
 )
 ```
 
-## Export und Preise {#handel}
-
-*Text folgt.*
-
-### Stromproduktion und Landesverbrauch
-
-Tägliche Stromproduktion nach Energieträger, Nettoimporte und Landesverbrauch inklusive Speicherpumpen.
-
-```{r produktion}
-sm_frame(
-  src = "charts/produktion.html",
-  title = "Stromproduktion und Landesverbrauch",
-  height = "540px", auto_height = TRUE,
-  caption = "Produktion und Landesverbrauch inkl. Verbrauch der Speicherpumpen. Täglich aktualisiert.",
-  source = bfe_quelle
-)
-```
-
-## Missverständnisse {#missverstaendnisse}
-Schaut man sich die obenstehende Grafik an, könnte man den Eindruck gewinnen, dass die Speicherwasserkraft in den Export geht. Das ist aber ein graphische Irreführung, man hätte die Speicherwasserkraft auch als unterste Lage der Grafik abtragen können, wo jetzt die Laufwasserkraft steht. Stattdessen zeigen die Spitzen über der Landesverbrauchskurve nur die Menge an Exporte an, nicht aber den Exporttypen. Aus physikalischen Gründen entspricht der Erzeugermix im Export dem Erzeugermix im Inland - jeder der Typen exportiert proportional zur vorhandenen Gesamtmenge an Strom. 
 
 ## Wasserkraft und Spotpreise {#dashboard}
 
@@ -208,7 +212,7 @@ sm_credits(
             'Bundesamt für Energie BFE, <a href="https://energiedashboard.admin.ch">energiedashboard.admin.ch</a>'),
   sm_credit("Hintergrundkarten und Höhenmodell (3D)", "© swisstopo"),
   sm_credit("Staumauern", "Bundesamt für Energie BFE, Stauanlagen unter Bundesaufsicht"),
-  sm_credit("Titelbild", "Lac de Moiry (VS) – Fotograf/in, Jahr ergänzen")
+  sm_credit("Titelbild", "Lac de Moiry (VS) – Stock")
 )
 ```
 
