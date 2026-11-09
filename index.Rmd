@@ -67,6 +67,8 @@ In der Tat besteht der Schweizer Wasserkraftwerkspark aus lauter Einzelfällen. 
 
 ## Statistik trifft Physik {#statistische_klassifizierung}
 
+Tatsächlich misst die Swissgrid die 
+
 Ein einzelnes Unternehmen, wie z.B. die [Kraftwerke Oberhasli AG (KWO)](https://www.grimselstrom.ch/strom-aus-wasserkraft/interaktives-anlageschema) betreibt 13 Zentralen mit 28 Anlagen. Obwohl man gemeinhin denkt, die KWO sei der Speicher am Grimsel hat die KWO daher einen mittleren erwarteten Laufwasseranteil von 2.2% (WASTA 2026 fürs Jahr 2025). 
 
 In der Realität ist es nicht immer eindeutig, ob man die Produktion einer Wasserkraftanlage (WKA) der Speicher-, Pumpspeicher- oder Laufwasserkategorie zuordnen sollte. Diese Diversität kann man in den Statistiken nicht abbilden.
@@ -74,9 +76,7 @@ In der Realität ist es nicht immer eindeutig, ob man die Produktion einer Wasse
 
 ## Füllstände der Speicherseen {#fuellstaende}
 
-Demgegenüber sagt die Statistik zu den Füllständen (nachgebaut nach dem BFE-Dashboard)
-
-Füllstand der Schweizer Speicherseen im Jahresverlauf, im Vergleich zum Mittel und zu den Extremwerten der letzten zehn Jahre, inklusive Wasserkraftreserve.
+Die Füllstände der Schweizer Speicherseen (Grafik nachgebaut [nach dem BFE-Dashboard](https://energiedashboard.admin.ch/strom/fuellstaende-speicherseen)) dienen auch nur in beschränktem Masse der Aussage wieviel für den Winter noch übrig ist, denn es gibt Speicherkraftwerke, die werden 1x im Jahr gefüllt und andere, die werden mehrfach im Jahr gefüllt und geleert, insbesondere jene, die viel Schmelzwasser aufnehmen. Letztere produzieren dementsprechend v.a. im Sommer, sind aber Speicherkraftwerke. Bei Pumpspeicher- und/oder Umwälzkraftwerken greift die Füllstandsanzeige ebenfalls zu kurz, da die Umwälzwassermenge jederzeit wieder hochgepumpt werden kann, wenn der Speichersee leer ist. 
 
 ```{r speicherseen}
 sm_frame(
