@@ -127,6 +127,7 @@ tour <- tour |> add_circle_layer(
   id = "staumauern", source = staumauern,
   circle_color = summit$accent2, circle_radius = 10,
   circle_stroke_color = "#ffffff", circle_stroke_width = 3,
+  circle_pitch_alignment = "map",
   popup = "popup", tooltip = "name"
 )
 
@@ -136,25 +137,25 @@ sm_sidecar(
   sm_slide(title = "Rossens – Lac de la Gruyère",
            tags$p("Bogenmauer an der Saane, 83 m hoch, 1947 fertiggestellt. ",
                   "Sie staut den Lac de la Gruyère mit rund 200 Mio. m³ Inhalt (FR)."),
-           center = c(7.1123, 46.7180), zoom = 12, pitch = 70, bearing = 140),
+           center = c(7.112489, 46.71971), zoom = 12, pitch = 70, bearing = 140),
   sm_slide(title = "Gebidem – Massa",
            tags$p("Bogenmauer in der Massaschlucht (Naters/Bitsch), 122 m hoch, 1967. ",
-                  "Das Speichervolumen der Staumauer Gebidem ist mit knapp 9 Mm^3^ sehr klein. Das Einzugsgebiet mit fast 200 km^2^ ist gross und entsprechend sind auch die Zuflüsse im Sommer sehr hoch. Im Sommer 2026 wurden Zuflüsse um die 130 m^3^/s gemessen, dies übersteigt die Kapazität von 57 m^3^/s, mit welcher wir in Bitsch turbinieren können um mehr als Faktor 2. Dies führt dann zu Überlauf bei der Staumauer Gebidem (siehe Bild im Anhang mit ca.70 m^3^/s Überlauf). Die Zuflüsse im Winter liegen wiederum bei wenigen 100 l/s. Die Produktion von Electra-Massa AG erfolgt somit vorwiegend zwischen Mai-Oktober. In den Wintermonaten kann aufgrund des geringen Zuflusses der See nur einmal geleert werden. Von daher kann Electra-Massa AG nur einen beschränkten Beitrag als Winterspeicher leisten. Über das Jahr gesehen, liegen die gesamten Zuflüsse bei rund 600 Mm^3^, heisst der See wird über 60x gefüllt und entleert. Die Zuflüsse setzen sich zusammen aus der Gletscherschmelze, der Schneeschmelze sowie den Niederschlägen während dem Jahr."),
+                  "Das Speichervolumen der Staumauer Gebidem ist mit knapp 9 Mm³, sehr klein. Das Einzugsgebiet mit fast 200 km,tags$sup("2"), ist gross und entsprechend sind auch die Zuflüsse im Sommer sehr hoch. Im Sommer 2026 wurden Zuflüsse um die 130 m³/s gemessen, dies übersteigt die Kapazität von 57 m³/s, mit welcher wir in Bitsch turbinieren können um mehr als Faktor 2. Dies führt dann zu Überlauf bei der Staumauer Gebidem (siehe Bild im Anhang mit ca.70 m³/s Überlauf). Die Zuflüsse im Winter liegen wiederum bei wenigen 100 l/s. Die Produktion von Electra-Massa AG erfolgt somit vorwiegend zwischen Mai-Oktober. In den Wintermonaten kann aufgrund des geringen Zuflusses der See nur einmal geleert werden. Von daher kann Electra-Massa AG nur einen beschränkten Beitrag als Winterspeicher leisten. Über das Jahr gesehen, liegen die gesamten Zuflüsse bei rund 600 Mm³, heisst der See wird über 60x gefüllt und entleert. Die Zuflüsse setzen sich zusammen aus der Gletscherschmelze, der Schneeschmelze sowie den Niederschlägen während dem Jahr."),
            sm_slide_image("assets/gibidem.jpg",
                           caption = "Gibidem im Sommer 2026. Foto: Alpiq, 2026",
                           alt = "Gibidem ist voll")
-           center = c(8.0025, 46.3712), zoom = 12, pitch = 45, bearing = 10),
+           center = c(8.002414, 46.371158), zoom = 12, pitch = 45, bearing = 10),
   sm_slide(title = "Spitallamm – Grimselsee (KWO)",
            tags$p("Bogengewichtsmauer von 1932, 114 m hoch, beim Grimsel Hospiz. ",
                   "Seit 2019 hat die KWO unmittelbar davor eine neue doppelt gekrümmte Bogenmauer gebaut (BE)."),
            sm_slide_image("assets/spitallamm.jpg",
                           caption = "Alte und neue Staumauer. Foto: Name, Jahr",
                           alt = "Zwei Staumauern am Grimselsee"),
-           center = c(8.3296, 46.5722), zoom = 12, pitch = 20, bearing = 100),
+           center = c(8.330303, 46.572584), zoom = 12, pitch = 20, bearing = 100),
   sm_slide(title = "Robiei – Val Bavona",
            tags$p("Gewichtsmauer auf rund 1900 m ü. M., 68 m hoch, 1967. ",
                   "Der Lago di Robièi (6,9 Mio. m³) gehört zu den Maggia-Kraftwerken (TI)."),
-           center = c(8.5154, 46.4439), zoom = 12, pitch = 40, bearing = -60)
+           center = c(8.515578, 46.443500), zoom = 12, pitch = 40, bearing = -60)
 )
 ```
 
