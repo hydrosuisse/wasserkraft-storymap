@@ -96,11 +96,11 @@ typ_farben <- c(Laufwasser = "#1B84CB", Speicher = "#59BBA4", Pumpspeicher = "#1
 ```
 
 
-## Beispiele: Wasserkraftwerke und Staumauern {#beispiele}
+## Atypische Beispiele: Speicher oder Laufkraft? {#beispiele}
 
-Ausgewählte Speicher-, Pumpspeicher- und Laufwasserkraftwerke (Beispieldaten – Standorte bitte prüfen bzw. durch eigene Daten ersetzen).
+Scrollen Sie weiter nach unten 
 
-Beim Weiterscrollen fliegt die Karte in 3D zu vier Staumauern.
+Beim Weiterscrollen fliegt die Karte in 3D zu den vier Beispielen
 
 ```{r tour}
 # Dams: positions and figures from the federal dam register
