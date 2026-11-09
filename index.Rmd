@@ -141,7 +141,7 @@ sm_sidecar(
   sm_slide(title = "Gebidem – Massa",
            tags$p("Bogenmauer in der Massaschlucht (Naters/Bitsch), 122 m hoch, 1967. ",
                   "Das Speichervolumen der Staumauer Gebidem ist mit knapp 9 Mm³, sehr klein. Das Einzugsgebiet mit fast 200 km², ist gross und entsprechend sind auch die Zuflüsse im Sommer sehr hoch. Im Sommer 2026 wurden Zuflüsse um die 130 m³/s gemessen, dies übersteigt die Kapazität von 57 m³/s, mit welcher wir in Bitsch turbinieren können um mehr als Faktor 2. Dies führt dann zu Überlauf bei der Staumauer Gebidem (siehe Bild im Anhang mit ca.70 m³/s Überlauf). Die Zuflüsse im Winter liegen wiederum bei wenigen 100 l/s. Die Produktion von Electra-Massa AG erfolgt somit vorwiegend zwischen Mai-Oktober. In den Wintermonaten kann aufgrund des geringen Zuflusses der See nur einmal geleert werden. Von daher kann Electra-Massa AG nur einen beschränkten Beitrag als Winterspeicher leisten. Über das Jahr gesehen, liegen die gesamten Zuflüsse bei rund 600 Mm³, heisst der See wird über 60x gefüllt und entleert. Die Zuflüsse setzen sich zusammen aus der Gletscherschmelze, der Schneeschmelze sowie den Niederschlägen während dem Jahr."),
-           sm_slide_image("assets/gibidem.jpg",
+           sm_slide_image("assets/gibidem.png",
                           caption = "Gibidem im Sommer 2026. Foto: Alpiq, 2026",
                           alt = "Gibidem ist voll"),
            center = c(8.002414, 46.371158), zoom = 12, pitch = 45, bearing = 10),
