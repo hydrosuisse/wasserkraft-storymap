@@ -191,6 +191,127 @@ bfe_produktion_chart <- function(data, years = 5, height = 420) {
     )
 }
 
+# ---- Produktion, Landesverbrauch und Aussenhandel (two panels) ---------------
+# Top:    Landesproduktion (solid) against Landesverbrauch incl. storage pumps
+#         (dotted); the gap is grey for net export, orange for net import.
+# Bottom: net trade per day. Net exports (up) are split by source in proportion
+#         to that day's domestic production mix; net imports (down) in one colour.
+#         Export share of source k on day t:  export_t * prod_k,t / sum_k prod_k,t
+bfe_produktion_handel_chart <- function(data, years = 5, height = 620) {
+  d <- data$entries
+  d$date <- as.Date(d$date)
+
+  # sources, bottom -> top, colours as in the Energie-Dashboard
+  src <- list(
+    flusskraft    = c("Laufwasser",             "#1B84CB"),
+    kernkraft     = c("Kernenergie",            "#FCCC32"),
+    photovoltaik  = c("Photovoltaik",           "#ED652E"),
+    wind          = c("Wind",                   "#C740B9"),
+    speicherkraft = c("Speicherwasser",         "#59BBA4"),
+    thermische    = c("Thermische (inkl. KVA)", "#209F4A")
+  )
+  prod_mat <- sapply(names(src), function(k) { v <- d[[k]]; v[is.na(v)] <- 0; v })
+  produktion <- rowSums(prod_mat)
+  has_data <- !is.na(d$nettoimporte) & produktion > 0
+  d <- d[has_data, ]; prod_mat <- prod_mat[has_data, , drop = FALSE]
+  produktion <- produktion[has_data]
+
+  nettoexport <- -d$nettoimporte                       # + = export, - = import
+  export  <- pmax(nettoexport, 0)
+  import  <- pmin(nettoexport, 0)
+  anteil  <- prod_mat / produktion                     # daily production mix
+  export_mat <- anteil * export                        # export by source
+
+  # --- top panel: Landesproduktion vs. Landesverbrauch, gap filled ---
+  # grey  = production above consumption (net export)
+  # orange = consumption above production (net import, same colour as below)
+  verbrauch <- d$stromverbrauch
+  unten <- pmin(produktion, verbrauch)
+  fill_trace <- function(p, upper, colour, name, group, legend) {
+    p |>
+      add_trace(y = unten, type = "scatter", mode = "lines",           # lower edge
+                line = list(width = 0, color = "rgba(0,0,0,0)"),
+                hoverinfo = "skip", showlegend = FALSE, legendgroup = group) |>
+      add_trace(y = upper, type = "scatter", mode = "lines", fill = "tonexty",
+                fillcolor = colour, line = list(width = 0, color = colour),
+                hoverinfo = "skip", name = name, legendgroup = group, showlegend = legend)
+  }
+  top <- plot_ly(x = d$date) |>
+    fill_trace(ifelse(produktion > verbrauch, produktion, unten), "#BDBDBD",
+               "Nettoexport (Produktion > Verbrauch)", "export_area", TRUE) |>
+    fill_trace(ifelse(verbrauch > produktion, verbrauch, unten), "#EB9F46",
+               "Nettoimport (Verbrauch > Produktion)", "import", TRUE) |>
+    add_trace(y = produktion, type = "scatter", mode = "lines",
+              line = list(color = "#000000", width = 1.5), name = "Landesproduktion",
+              legendgroup = "prodline",
+              hovertemplate = "Landesproduktion: %{y:.1f} GWh<extra></extra>") |>
+    add_trace(y = verbrauch, type = "scatter", mode = "lines",
+              line = list(color = "#000000", width = 1.5, dash = "dot"),
+              name = "Landesverbrauch", legendgroup = "verbrauch",
+              hovertemplate = "Landesverbrauch: %{y:.1f} GWh<extra></extra>")
+
+  # --- bottom panel ---
+  bottom <- plot_ly(x = d$date)
+  for (k in names(src)) {
+    bottom <- bottom |> add_trace(
+      y = export_mat[, k], type = "scatter", mode = "none", stackgroup = "export",
+      fillcolor = src[[k]][2], name = src[[k]][1], legendgroup = k,
+      hovertemplate = paste0("Export ", src[[k]][1], ": %{y:.1f} GWh<extra></extra>")
+    )
+  }
+  bottom <- bottom |>
+    add_trace(y = import, type = "scatter", mode = "none", fill = "tozeroy",
+              fillcolor = "#EB9F46", name = "Nettoimport", legendgroup = "import",
+              showlegend = FALSE,
+              hovertemplate = "Nettoimport: %{y:.1f} GWh<extra></extra>") |>
+    # invisible: only adds the balance to the hover box
+    add_trace(y = nettoexport, type = "scatter", mode = "lines",
+              line = list(width = 0, color = "rgba(0,0,0,0)"), showlegend = FALSE,
+              name = "Saldo", hovertemplate = "Saldo (Export – Import): %{y:.1f} GWh<extra></extra>")
+
+  # --- range buttons (as in the dashboard) ---
+  last  <- max(d$date)
+  start <- seq(last, by = paste0("-", years, " years"), length.out = 2)[2]
+  yrs   <- seq(as.integer(format(last, "%Y")) - 2, as.integer(format(last, "%Y")))
+  rng <- function(a, b) list(xaxis.range = as.character(c(a, b)))
+  buttons <- c(
+    list(list(label = "Gesamt", method = "relayout", args = list(rng(min(d$date), last)))),
+    lapply(yrs, function(y) list(label = as.character(y), method = "relayout",
+      args = list(rng(as.Date(paste0(y, "-01-01")), min(as.Date(paste0(y, "-12-31")), last))))),
+    list(list(label = paste(years, "Jahre"), method = "relayout", args = list(rng(start, last))))
+  )
+
+  panel_title <- function(text, y) list(
+    text = text, x = 0, xref = "paper", xanchor = "left", y = y, yref = "paper",
+    yanchor = "bottom", showarrow = FALSE, font = list(size = 12, color = "#000")
+  )
+
+  p <- subplot(top, bottom, nrows = 2, shareX = TRUE, heights = c(0.5, 0.5),
+               margin = 0.07)
+  p$height <- height
+  p |>
+    bfe_layout(
+      xaxis  = bfe_xaxis(range = as.character(c(start, last))),
+      yaxis  = bfe_yaxis(ticksuffix = " GWh", rangemode = "tozero"),
+      yaxis2 = bfe_yaxis(ticksuffix = " GWh", zeroline = TRUE, zerolinecolor = "#333333",
+                         zerolinewidth = 1),
+      annotations = list(
+        panel_title("<b>Landesproduktion und Landesverbrauch</b>", 1.0),
+        panel_title("<b>Nettoexport (+) nach Energieträger, anteilig zum Produktionsmix, und Nettoimport (–)</b>", 0.465)
+      ),
+      updatemenus = list(list(
+        type = "buttons", direction = "right", showactive = TRUE,
+        active = length(buttons) - 1, buttons = buttons,
+        x = 0, xanchor = "left", y = 1.06, yanchor = "bottom",
+        bgcolor = "#E6E9EC", bordercolor = bfe_bg, borderwidth = 0,
+        font = list(size = 12, color = "#000"), pad = list(r = 6, t = 0, l = 0)
+      )),
+      legend = list(orientation = "h", x = 0, xanchor = "left", y = -0.06,
+                    yanchor = "top", font = list(size = 11), traceorder = "normal"),
+      margin = list(l = 64, r = 16, t = 70, b = 10)
+    )
+}
+
 # Write one chart as a standalone page (embedded in the story via sm_frame()).
 # The page reports its height to the story so the frame fits exactly.
 bfe_chart_page <- function(chart, file, title, updated = Sys.Date()) {
