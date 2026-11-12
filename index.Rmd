@@ -71,9 +71,15 @@ Im Folgenden wird daher sowohl auf die Eigenheiten verschiedener Speicherkraftwe
 
 ##Speicherwasser ist nicht nur für den Winter gedacht {#funktionspeicherwasser}
 
-Aufgrund des Schmelzwassers, das wegen sommerlicher Temperaturen zum grössten Teil im Sommer anfällt, müssen auch Speicherwasserkraftwerke Wasser turbinieren, andernfalls würden sie überflutet und lassen das Potenzial ungenutzt. Die meisten dieser Anlagen wurden auch nicht als reine Winterspeicher konzipiert und können daher auch nicht "nur" die Winterversorgerrolle übernehmen, sonst wären sie baulich komplett überdimensioniert. So erwarteten die Betreiber fürs Jahr 2026 je eine hälftige Produktion der Speicherwasserkraft im Sommer und im Winter (WASTA 1.1.2026). Bei der Laufwasserkraft lag die Produktionserwartung fürs Jahr 2026 hingegen etwa bei 60% im Sommerhalbjahr (ebd.).  
+Aufgrund des Schmelzwassers, das wegen sommerlicher Temperaturen zum grössten Teil im Sommer anfällt, müssen auch Speicherwasserkraftwerke Wasser turbinieren, andernfalls würden sie überflutet und liessen das Potenzial ungenutzt. Die meisten dieser Anlagen wurden auch nicht als reine Winterspeicher konzipiert und können daher auch nicht "nur" die Winterversorgerrolle übernehmen, sonst wären sie baulich komplett überdimensioniert. So erwarteten die Betreiber fürs Jahr 2026 je eine knapp hälftige Produktion der Speicherwasserkraft im Sommer und im Winter (WASTA 1.1.2026). Bei der Laufwasserkraft lag die Produktionserwartung fürs Jahr 2026 hingegen etwa bei 60% im Sommerhalbjahr (ebd.).  
 
-Wird im Gegensatz zur erwarteten Produktion die tatsächliche Produktion über die letzten Jahre verglichen, so zeigt sich, dass die Speicherwasserkraft heuer sogar unterdurchschnittlich produziert hat. Dies widerspiegelt die aussergewöhnliche Trockenheit aufgrund fehlender Niederschläge im Sommer 2026, die aber nur teilweise durch höhere Schmelzwasserzuflüsse kompensiert werden konnte. 
+Wird anstelle der erwarteten Produktion die realisierte Produktion über die letzten Jahre zu Rate gezogen, so zeigt sich, dass die Speicherwasserkraft heuer sogar unterdurchschnittlich produziert hat. Dies widerspiegelt die aussergewöhnliche Trockenheit aufgrund fehlender Niederschläge im Sommer 2026, die aber nur teilweise durch höhere Schmelzwasserzuflüsse kompensiert werden konnte. 
+
+```{r foto-jahresvergleich-prod}
+sm_image("assets/staumauer-dixence.jpg",
+caption = "Staumauer Grande Dixence. Foto: Name, 2025",
+alt = "Staumauer im Val des Dix", width = "wide")
+```
 
 ## Füllstände der Speicherseen {#fuellstaende}
 
