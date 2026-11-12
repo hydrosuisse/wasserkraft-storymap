@@ -42,13 +42,15 @@ tagList(
   sm_nav(c(
     einleitung   = "Der Winter",
     funktionspeicherwasser = "Funktionen der Speicherwasserkraft",
+   fuellstaende = "Füllstände",
+    handel = "Export und Preise", 
+    missverstaendnisse   = "Missverständnisse",
     typen = "Idealtypen",
     statistische_klassifizierung = "Statistische Zugehörigkeit",
     modelle = "Modellrechnungen komplettieren Messlücken",
-    fuellstaende = "Füllstände",
+   
     stromprod_landesverbrauch = "Stromproduktion und Landesverbrauch",
-    handel = "Export und Preise", 
-    missverstaendnisse   = "Missverständnisse",
+
     beispiele = "Beispiele",
     dashboard    = "Vergleiche nach Kraftwerkskategorie über Zeit",
     quellen      = "Quellen"
@@ -73,28 +75,43 @@ Im Folgenden wird daher sowohl auf die Eigenheiten verschiedener Speicherkraftwe
 
 Aufgrund des Schmelzwassers, das wegen sommerlicher Temperaturen zum grössten Teil im Sommer anfällt, müssen auch Speicherwasserkraftwerke Wasser turbinieren, andernfalls würden sie überflutet und liessen das Potenzial ungenutzt. Die meisten dieser Anlagen wurden auch nicht als reine Winterspeicher konzipiert und können daher auch nicht "nur" die Winterversorgerrolle übernehmen, sonst wären sie baulich komplett überdimensioniert. So erwarteten die Betreiber fürs Jahr 2026 je eine knapp hälftige Produktion der Speicherwasserkraft im Sommer und im Winter (WASTA 1.1.2026). Bei der Laufwasserkraft lag die Produktionserwartung fürs Jahr 2026 hingegen etwa bei 60% im Sommerhalbjahr (ebd.).  
 
-Wird anstelle der erwarteten Produktion die realisierte Produktion über die letzten Jahre zu Rate gezogen, so zeigt sich, dass die Speicherwasserkraft heuer sogar unterdurchschnittlich produziert hat. Dies widerspiegelt die aussergewöhnliche Trockenheit aufgrund fehlender Niederschläge im Sommer 2026, die aber nur teilweise durch höhere Schmelzwasserzuflüsse kompensiert werden konnte. 
+Wird anstelle der erwarteten Produktion die realisierte Produktion über die letzten Jahre zu Rate gezogen, so zeigen sich sehr geringfügige Abweichungen des saisonalen Splits (Laufwasser 2015-26 32.5-39.5% im Winter; Speicherwasser 2015-26 43.6-52.8% im Winter, Quelle: BFE Elektrizitätsstatistik 2026). Im Jahr 2026 hat die Speicherwasserkraft im Vergleich zur selben Woche der Vorjahre gar bedeutend weniger produziert, wie untenstehende Grafik zeigt. Dies widerspiegelt die aussergewöhnliche Trockenheit aufgrund fehlender Niederschläge im Sommer 2026, die aber nur teilweise durch höhere Schmelzwasserzuflüsse kompensiert werden konnte. 
 
 ```{r foto-jahresvergleich-prod}
 sm_image("assets/wasserkraft_ch_vergleich.jpg",
-caption = "Produktion aus Speicherwasseranlagen 2023-2026. Grafik: hydrosuisse",
+caption = "Produktion aus Speicherwasseranlagen 2023-2026. Grafik: hydrosuisse. Quellen: BFE-Monatsdaten für Linien, ENTSO-E und Energy-Charts Daten für Konfidenzintervalle.",
 alt = "Produktion aus Speicherwasseranlagen 2023-2026", width = "wide")
 ```
 
 ## Füllstände der Speicherseen {#fuellstaende}
-
-Die Füllstände der Schweizer Speicherseen (Grafik nachgebaut [nach dem BFE-Dashboard](https://energiedashboard.admin.ch/strom/fuellstaende-speicherseen)) dienen auch nur in beschränktem Masse der Aussage wieviel für den Winter noch übrig ist, denn es gibt Speicherkraftwerke, die werden 1x im Jahr gefüllt und andere, die werden mehrfach im Jahr gefüllt und geleert, insbesondere jene, die viel Schmelzwasser aufnehmen. Letztere produzieren dementsprechend v.a. im Sommer, sind aber Speicherkraftwerke. Bei Pumpspeicher- und/oder Umwälzkraftwerken greift die Füllstandsanzeige ebenfalls zu kurz, da die Umwälzwassermenge jederzeit wieder hochgepumpt werden kann, wenn der Speichersee leer ist. 
+Auch die Füllstände der Schweizer Speicherseen (Grafik nachgebaut [nach dem BFE-Dashboard](https://energiedashboard.admin.ch/strom/fuellstaende-speicherseen)) reflektieren ebendiese Trockenheit. Auch dieser Indikator darf nicht als scharfe Winterreserve interpretiert werden und zwar aus folgenden Gründen: Erstens gibt es Speicherkraftwerke, die werden mehrfach im Jahr gefüllt und geleert, insbesondere jene, die viel Schmelzwasser aufnehmen. Letztere produzieren dementsprechend v.a. im Sommer, sind aber Speicherkraftwerke. Deren Füllstand ist deshalb hydrologisch bedingt im Herbst- und Winter nicht hoch. Bei Pumpspeicher- und/oder Umwälzkraftwerken greift die Füllstandsanzeige ebenfalls zu kurz, da die Umwälzwassermenge jederzeit wieder hochgepumpt werden kann, wenn der Speichersee leer ist. Die Abweichung vom Mittel hingegen, welche ebendiese . systematischen Unterschiede in Einzugsgebiet und Funktion berücksichtigt kann auch für die Zuläufe nicht korrigieren. Vielleicht sind ja die Zuflüsse noch relativ viel geringer ausgefallen, als diese Reduktion des Energieinhalts suggeriert und es wurde besonders vorsichtig turbiniert? :-) Wobei auch dies eine Hypothese bleibt, kann trotzdem darauf hingewiesen werden, dass die day-ahead Spotpreise im Vergleich zur selben Woche in den letzten Jahren nicht sonderlich interessant gewesen wären, schon gar nicht im Vergleich zu 2022 und 2023. Es ist also nicht davon auszugehen, dass der "Winterstrom in unverhältnismässigem Masse" vorverkauft worden wäre. 
 
 ```{r speicherseen}
 sm_frame(
   src = "charts/speicherseen.html",
-  title = "Füllstände der Speicherseen",
+  title = "Füllstände/Energieinhalt der Speicherseen in der Schweiz",
   height = "560px", auto_height = TRUE,
   caption = "Energieinhalt der Schweizer Speicherseen und Wasserkraftreserve. Täglich aktualisiert.",
   source = bfe_quelle
 )
 ```
+## Exporte und Importe {#handel}
 
+Exportiert wird die Strommenge, die über dem Landesverbrauch produziert wird. Importiert wird das Delta zwischen Landesverbrauch und -Produktion, wenn letztere darunter fällt. Um zu schauen, wieviel Strom gerade exportiert und importiert wurde, wird oft das Dashboard zur Stromproduktion des BFE angeschaut, welches die tägliche Stromproduktion nach Energieträger, Nettoimporte und Landesverbrauch inklusive Speicherpumpen abbildet (s. nachgebaute Grafik unten). 
+
+```{r produktion}
+sm_frame(
+  src = "charts/produktion.html",
+  title = "Stromproduktion und Landesverbrauch",
+  height = "540px", auto_height = TRUE,
+  caption = "Produktion und Landesverbrauch inkl. Verbrauch der Speicherpumpen. Täglich aktualisiert.",
+  source = bfe_quelle
+)
+```
+
+
+## Missverständnisse {#missverstaendnisse}
+Schaut man sich die obenstehende Grafik an, könnte man den Eindruck gewinnen, dass die Speicherwasserkraft in den Export geht. Das ist aber ein graphische Irreführung, man hätte die Speicherwasserkraft auch als unterste Lage der Grafik abtragen können, wo jetzt die Laufwasserkraft steht. Stattdessen zeigen die Spitzen über der Landesverbrauchskurve nur die Menge an Exporte an, nicht aber den Exporttypen. Aus physikalischen Gründen entspricht der Erzeugermix im Export dem Erzeugermix im Inland - jeder der Typen exportiert proportional zur vorhandenen Gesamtmenge an Strom. 
 
 
 ## Eine Wasserkraftanlage begründet oft ihren eigenen Typ {#typen}
@@ -112,27 +129,6 @@ In der Realität ist es nicht immer eindeutig, ob man die Produktion einer Wasse
 ##Modellrechnungen füllen Messlücken {#modelle}
 
 Das BFE-Energiedashboard, das den Produktionssplit täglich rapportiert hat auch gewisse Unschärfen wegen unterschiedlichen Rapportierhorizonten der Betreiber an die Swissgrid, welche diese Daten, die i.d.R. nicht für die Gesamtheit aller Kraftwerkskategorien und kWh vorliegen, über Modellrechnungen auf den Lastgang hochskaliert. In diesen Rechnungen ist die Speicherwasserkraft oft das Residual, d.h. die Menge, die übrigbleibt, wenn alle anderen mit Modellen skalierte Wertungen anderer Technologien von der gesamten Last abgezogen werden. So ist es nicht erstaunlich, dass je nach Datenquelle, die jeweils unterschiedliche Modelle und Annahmen im Hintergrund haben, auch unterschiedliche Zuordnungen der Produktion auf verschiedene Technologien resultieren. 
-
-## Stromproduktion und Landesverbrauch {#stromprod_landesverbrauch}
-
-Tägliche Stromproduktion nach Energieträger, Nettoimporte und Landesverbrauch inklusive Speicherpumpen.
-
-```{r produktion}
-sm_frame(
-  src = "charts/produktion.html",
-  title = "Stromproduktion und Landesverbrauch",
-  height = "540px", auto_height = TRUE,
-  caption = "Produktion und Landesverbrauch inkl. Verbrauch der Speicherpumpen. Täglich aktualisiert.",
-  source = bfe_quelle
-)
-```
-## Export und Preise {#handel}
-
-*Text folgt.*
-
-
-## Missverständnisse {#missverstaendnisse}
-Schaut man sich die obenstehende Grafik an, könnte man den Eindruck gewinnen, dass die Speicherwasserkraft in den Export geht. Das ist aber ein graphische Irreführung, man hätte die Speicherwasserkraft auch als unterste Lage der Grafik abtragen können, wo jetzt die Laufwasserkraft steht. Stattdessen zeigen die Spitzen über der Landesverbrauchskurve nur die Menge an Exporte an, nicht aber den Exporttypen. Aus physikalischen Gründen entspricht der Erzeugermix im Export dem Erzeugermix im Inland - jeder der Typen exportiert proportional zur vorhandenen Gesamtmenge an Strom. 
 
 
 ```{r vorbereitung}
