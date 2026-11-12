@@ -99,6 +99,13 @@ sm_frame(
 
 Exportiert wird die Strommenge, die über dem Landesverbrauch produziert wird. Importiert wird das Delta zwischen Landesverbrauch und -Produktion, wenn letztere darunter fällt. Um zu schauen, wieviel Strom gerade exportiert und importiert wurde, wird oft das Dashboard zur Stromproduktion des BFE angeschaut, welches die tägliche Stromproduktion nach Energieträger, Nettoimporte und Landesverbrauch inklusive Speicherpumpen abbildet (s. nachgebaute Grafik unten). 
 
+```{r energiedashboard nachgebaut}
+sm_image("assets/bfe_dashboard.jpg",
+caption = "Produktion und Landesverbrauch inkl. Verbrauch der Speicherpumpen. Täglich aktualisiert.",
+alt = "Produktion und Landesverbrauch", width = "wide")
+```
+Dabei könnte man meinen, dass die Exporte praktisch im Alleingang durch die Speicherkraft bewerkstelligt würden (s. z.B. Sommer 2024). Dies entspricht aber nicht der physikalischen Realität, denn erstens ist es arbiträr, welche Farben man wie aufeinanderlegt und zweitens entspricht der Exportmix dem Produktionsmix zur selben Zeit, d.h. der Export besteht proportional aus dem Produktionsmix. Um Missverständnisse wie jene vorzubeugen, wäre also eine umgebaute Visualisierung mit denselben Daten hilfreicher. Hier ein Vorschlag - zum Herumspielen, wie dies aussehen könnte: 
+
 ```{r produktion}
 sm_frame(
   src = "charts/produktion.html",
