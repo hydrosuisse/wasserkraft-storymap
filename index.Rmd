@@ -76,9 +76,9 @@ Aufgrund des Schmelzwassers, das wegen sommerlicher Temperaturen zum grössten T
 Wird anstelle der erwarteten Produktion die realisierte Produktion über die letzten Jahre zu Rate gezogen, so zeigt sich, dass die Speicherwasserkraft heuer sogar unterdurchschnittlich produziert hat. Dies widerspiegelt die aussergewöhnliche Trockenheit aufgrund fehlender Niederschläge im Sommer 2026, die aber nur teilweise durch höhere Schmelzwasserzuflüsse kompensiert werden konnte. 
 
 ```{r foto-jahresvergleich-prod}
-sm_image("assets/staumauer-dixence.jpg",
-caption = "Staumauer Grande Dixence. Foto: Name, 2025",
-alt = "Staumauer im Val des Dix", width = "wide")
+sm_image("assets/wasserkraft_ch_vergleich.jpg",
+caption = "Produktion aus Speicherwasseranlagen 2023-2026. Grafik: hydrosuisse",
+alt = "Produktion aus Speicherwasseranlagen 2023-2026", width = "wide")
 ```
 
 ## Füllstände der Speicherseen {#fuellstaende}
