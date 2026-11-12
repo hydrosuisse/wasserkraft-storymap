@@ -1,5 +1,5 @@
 ---
-pagetitle: "Speicherwasserkraft für den Winter"
+pagetitle: "Weshalb produzieren Speicherwasserkraftwerke auch im Sommer Strom?"
 output:
   html_document:
     theme: null
@@ -41,8 +41,10 @@ tagList(
 ),
   sm_nav(c(
     einleitung   = "Der Winter",
+    funktionspeicherwasser = "Funktionen der Speicherwasserkraft",
     typen = "Idealtypen",
     statistische_klassifizierung = "Statistische Zugehörigkeit",
+    modelle = "Modellrechnungen komplettieren Messlücken",
     fuellstaende = "Füllstände",
     stromprod_landesverbrauch = "Stromproduktion und Landesverbrauch",
     handel = "Export und Preise", 
@@ -55,24 +57,23 @@ tagList(
 ```
 
 ## Winter is coming! {#einleitung}
-Erst kürzlich haben es Menschen "geschafft", den Winter zu einer Fussnote im Jahr verkommen zu lassen. Aber ganz ist der Respekt davor nicht verschwunden: Wir feiern Erntedankfeste im Herbst und freuen uns mit der Fasnacht über den Frühling. Allerspätestens seit den Volatilitäten auf den Energiemärkten im Herbst 2022 infolge des russischen Kriegs in der Ukraine und Elcom-Präsident Werner Luginbühls pointierter Aussage, dass man sich [Kerzen und Brennholz für den bevorstehenden Winter besorgen solle](https://www.bernerzeitung.ch/elcom-chef-raet-zum-kauf-von-kerzen-und-holz-825536238032), ist die Versorgungssicherheit der kritischen Infrastruktur Strom zurück in aller Munde. Zeit, sich anzuschauen, wie die Wasserkraft, das Rückgrat der Schweizer Stromproduktion, funktioniert --- und weshalb statistische Konventionen und physikalische Realitäten zur Konfusion beitragen. 
+Erst kürzlich haben es Menschen "geschafft", den Winter zu einer Fussnote im Jahr verkommen zu lassen. Aber ganz ist der Respekt davor nicht verschwunden: Wir feiern Erntedankfeste im Herbst und freuen uns mit der Fasnacht über den Frühling. Allerspätestens seit den Volatilitäten auf den Energiemärkten im Herbst 2022 infolge des russischen Kriegs in der Ukraine und Elcom-Präsident Werner Luginbühls pointierter Aussage, dass man sich [Kerzen und Brennholz für den bevorstehenden Winter besorgen solle](https://www.bernerzeitung.ch/elcom-chef-raet-zum-kauf-von-kerzen-und-holz-825536238032), ist die Versorgungssicherheit der kritischen Infrastruktur Strom zurück in aller Munde. Im Speziellen wird dabei die Speicherwasserkraft als unsere "Winterversicherung" verstanden und die sömmerliche Produktion von Speicherwasser wird mit Argusaugen beobachtet. Zeit, sich anzuschauen, weshalb es gute Gründe gibt, dass auch die Speicherwasserkraft im Sommer Strom produzieren kann und auch sollte. 
 
-## Eine Wasserkraftanlage begründet oft ihren eigenen Typ {#typen}
-In der Tat besteht der Schweizer Wasserkraftwerkspark aus lauter Einzelfällen. Die Statistik der Wasserkraft in der Schweiz (WASTA) kennt vier Idealtypen, wobei eine Anlage in der Statistik zentralenscharf abgebildet ist (Anlagen des gleichen Typs in derselben Zentrale werden zusammengenommen). Grundsätzlich werden bei den Ausleitkraftwerken, d.h. jenen, die den Gewässern Wasser entnehmen, in einer Leitung/Tunnel/Zulauf den Turbinen zuleiten, turbinieren und wieder ins Gewässer zurückgeben, vier Idealtypen: 
+1. wesentlich weniger dieses Jahr im Vergleich zu den letzten Sommern
+2. Füllstandslinie - relativieren
+4. Exporte - Missverständnisse
+5. Systemdienstleistungen
+6. Besonderheiten: Schmelzwasser-Speicherkraft
+7. Besonderheiten: Instandhaltungen
+8. Statistische Unschärfe bei der Zuteilung zu Kraftwerkstypen
 
-1. **Laufwasserkraftwerke**: Nutzen die Strömung eines Fliessgewässers und die Höhendifferenz über kleinere Staudämme oder -Mauern. 
-2. **Speicherkraftwerke**: Stauen i.d.R. verschiedene kleine Gewässer über eine Talsperre (Staudamm/Staumauer) und nutzen die Höhendifferenz zwischen dem gestauten Bergwasser und der Turbine unten im Tal. 
-3. **Pumpspeicherkraftwerke**: Eine Art von Speicherkraftwerken, welche (ein Teil des) turbinierten Wassers wieder zurück in den Stausee pumpt. Ein solches hat i.d.R. natürliche Zuflüsse.  
-4. **reine Umwälzkraftwerke**: ein Speicherkraftwerk ohne natürlichen Zufluss. Die Netto-Stromproduktion ist daher i.d.R. nahe bei null oder ein bisschen negativ, weil die gesamte Menge turbinierten Wassers auch wieder hochgepumpt werden muss und die Pumpen einen hohen aber nicht 100%-igen Wirkungsgrad haben.  
+Im Folgenden wird daher sowohl auf die Eigenheiten verschiedener Speicherkraftwerke, wie
 
-## Statistik trifft Physik {#statistische_klassifizierung}
+##Speicherwasser ist nicht nur für den Winter gedacht {#funktionspeicherwasser}
 
-Tatsächlich misst die Swissgrid die 
+Aufgrund des Schmelzwassers, das wegen sommerlicher Temperaturen zum grössten Teil im Sommer anfällt, müssen auch Speicherwasserkraftwerke Wasser turbinieren, andernfalls würden sie überflutet und lassen das Potenzial ungenutzt. Die meisten dieser Anlagen wurden auch nicht als reine Winterspeicher konzipiert und können daher auch nicht "nur" die Winterversorgerrolle übernehmen, sonst wären sie baulich komplett überdimensioniert. So erwarteten die Betreiber fürs Jahr 2026 je eine hälftige Produktion der Speicherwasserkraft im Sommer und im Winter (WASTA 1.1.2026). Bei der Laufwasserkraft lag die Produktionserwartung fürs Jahr 2026 hingegen etwa bei 60% im Sommerhalbjahr (ebd.).  
 
-Ein einzelnes Unternehmen, wie z.B. die [Kraftwerke Oberhasli AG (KWO)](https://www.grimselstrom.ch/strom-aus-wasserkraft/interaktives-anlageschema) betreibt 13 Zentralen mit 28 Anlagen. Obwohl man gemeinhin denkt, die KWO sei der Speicher am Grimsel hat die KWO daher einen mittleren erwarteten Laufwasseranteil von 2.2% (WASTA 2026 fürs Jahr 2025). 
-
-In der Realität ist es nicht immer eindeutig, ob man die Produktion einer Wasserkraftanlage (WKA) der Speicher-, Pumpspeicher- oder Laufwasserkategorie zuordnen sollte. Diese Diversität kann man in den Statistiken nicht abbilden.
-
+Wird im Gegensatz zur erwarteten Produktion die tatsächliche Produktion über die letzten Jahre verglichen, so zeigt sich, dass die Speicherwasserkraft heuer sogar unterdurchschnittlich produziert hat. Dies widerspiegelt die aussergewöhnliche Trockenheit aufgrund fehlender Niederschläge im Sommer 2026, die aber nur teilweise durch höhere Schmelzwasserzuflüsse kompensiert werden konnte. 
 
 ## Füllstände der Speicherseen {#fuellstaende}
 
@@ -87,6 +88,25 @@ sm_frame(
   source = bfe_quelle
 )
 ```
+
+
+
+## Eine Wasserkraftanlage begründet oft ihren eigenen Typ {#typen}
+In der Tat besteht der Schweizer Wasserkraftwerkspark aus lauter Einzelfällen. Die Statistik der Wasserkraft in der Schweiz (WASTA) kennt vier Idealtypen, wobei eine Anlage in der Statistik zentralenscharf abgebildet ist (Anlagen des gleichen Typs in derselben Zentrale werden zusammengenommen). Grundsätzlich werden bei den Ausleitkraftwerken, d.h. jenen, die den Gewässern Wasser entnehmen, in einer Leitung/Tunnel/Zulauf den Turbinen zuleiten, turbinieren und wieder ins Gewässer zurückgeben, vier Idealtypen: 
+
+1. **Laufwasserkraftwerke**: Nutzen die Strömung eines Fliessgewässers und die Höhendifferenz über kleinere Staudämme oder -Mauern. 
+2. **Speicherkraftwerke**: Stauen i.d.R. verschiedene kleine Gewässer über eine Talsperre (Staudamm/Staumauer) und nutzen die Höhendifferenz zwischen dem gestauten Bergwasser und der Turbine unten im Tal. 
+3. **Pumpspeicherkraftwerke**: Eine Art von Speicherkraftwerken, welche (ein Teil des) turbinierten Wassers wieder zurück in den Stausee pumpt. Ein solches hat i.d.R. natürliche Zuflüsse.  
+4. **reine Umwälzkraftwerke**: ein Speicherkraftwerk ohne natürlichen Zufluss. Die Netto-Stromproduktion ist daher i.d.R. nahe bei null oder ein bisschen negativ, weil die gesamte Menge turbinierten Wassers auch wieder hochgepumpt werden muss und die Pumpen einen hohen aber nicht 100%-igen Wirkungsgrad haben. In Reinform gibt es diese allerdings kaum in der Schweiz, nur der [Engeweiher in Schaffhausen](https://naturpark-schaffhausen.ch/de/home/detail/engeweiher-91fb6a10-e065-4950-9306-0dd37fcd68bd.html) entspricht der strikten Definition. In der WASTA werden aber noch 8 andere Pumpspeicherkraftwerke als solche geführt.  
+
+## Statistik trifft Produktionsrealität {#statistische_klassifizierung} 
+
+In der Realität ist es nicht immer eindeutig, ob man die Produktion einer Wasserkraftanlage (WKA) der Speicher-, Pumpspeicher- oder Laufwasserkategorie zuordnen sollte. Es ist sehr schwer, diese Diversität in den Statistiken scharf abzubilden. Ein Beispiel: Ein einzelnes Unternehmen, wie z.B. die [Kraftwerke Oberhasli AG (KWO)](https://www.grimselstrom.ch/strom-aus-wasserkraft/interaktives-anlageschema) betreibt 13 Zentralen mit 28 Anlagen. Obwohl man gemeinhin denkt, die KWO sei der Speicher am Grimsel hat die KWO daher einen mittleren erwarteten Laufwasseranteil von 2.2% (WASTA 2026 fürs Jahr 2025), turbinierte sie einen Laufwasseranteil im Jahr 2025 von 26% (basierend auf Produktionssplit-Daten der KWO). Die Anlagen in deren System können aufgrund existierender Querverbindungen zwischen Lauf- und Speicherwasserfassungen daher nicht trennscharf einer Kategorie zugeordnet werden. Es stellt sich die Grundsatzfrage: Wie fasst man eine Anlage zusammen, die beides kann und tut? Bleibt man bei fixierten Kategorie-Zuschreibungen, die über die Betriebsjahre nicht ändern oder müsste man sich die Mühe machen, turbinierte Anteile des Splits Speicherwasser/Laufwasser innerhalb einer Anlage zu erfassen? Dieses Beispiel zeigt, dass in der Tat dieser Split in den aggregierten Statistiken - wie er jährlich geschätzt wird, nicht als trennscharf interpretiert werden sollte. 
+
+##Modellrechnungen füllen Messlücken {#modelle}
+
+Das BFE-Energiedashboard, das den Produktionssplit täglich rapportiert hat auch gewisse Unschärfen wegen unterschiedlichen Rapportierhorizonten der Betreiber an die Swissgrid, welche diese Daten, die i.d.R. nicht für die Gesamtheit aller Kraftwerkskategorien und kWh vorliegen, über Modellrechnungen auf den Lastgang hochskaliert. In diesen Rechnungen ist die Speicherwasserkraft oft das Residual, d.h. die Menge, die übrigbleibt, wenn alle anderen mit Modellen skalierte Wertungen anderer Technologien von der gesamten Last abgezogen werden. So ist es nicht erstaunlich, dass je nach Datenquelle, die jeweils unterschiedliche Modelle und Annahmen im Hintergrund haben, auch unterschiedliche Zuordnungen der Produktion auf verschiedene Technologien resultieren. 
+
 ## Stromproduktion und Landesverbrauch {#stromprod_landesverbrauch}
 
 Tägliche Stromproduktion nach Energieträger, Nettoimporte und Landesverbrauch inklusive Speicherpumpen.
