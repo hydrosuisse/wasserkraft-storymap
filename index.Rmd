@@ -249,7 +249,7 @@ sm_frame(
   src = "charts/speicherseen.html",
   title = "Füllstände/Energieinhalt der Speicherseen in der Schweiz",
   height = "560px", auto_height = TRUE,
-  caption = "Energieinhalt der Schweizer Speicherseen und Wasserkraftreserve. Täglich aktualisiert.",
+  caption = "Energieinhalt der Schweizer Speicherseen und Wasserkraftreserve. Wöchentlich aktualisiert.",
   source = quelle("bfe_speicher")
 )
 ```
@@ -289,7 +289,9 @@ In der Tat besteht der Schweizer Wasserkraftwerkspark aus lauter Einzelfällen. 
 
 In der Realität ist es nicht immer eindeutig, ob man die Produktion einer Wasserkraftanlage (WKA) der Speicher-, Pumpspeicher- oder Laufwasserkategorie zuordnen sollte. Es ist sehr schwer, diese Diversität in den Statistiken scharf abzubilden. 
 
-Ein Beispiel: Ein einzelnes Unternehmen, wie z.B. die [Kraftwerke Oberhasli AG (KWO)](https://www.grimselstrom.ch/strom-aus-wasserkraft/interaktives-anlageschema) betreibt 13 Zentralen mit 28 Anlagen. Obwohl man gemeinhin denkt, die KWO sei der Speicher am Grimsel hat die KWO daher einen mittleren erwarteten Laufwasseranteil von 2.2% (WASTA 2026 fürs Jahr 2025), turbinierte sie einen Laufwasseranteil im Jahr 2025 von 26% (basierend auf Produktionssplit-Daten der KWO). Die Anlagen in deren System können aufgrund existierender Querverbindungen zwischen Lauf- und Speicherwasserfassungen daher nicht trennscharf einer Kategorie zugeordnet werden. Es stellt sich die Grundsatzfrage: Wie fasst man eine Anlage zusammen, die beides kann und tut? Bleibt man bei fixierten Kategorie-Zuschreibungen, die über die Betriebsjahre nicht ändern oder müsste man sich die Mühe machen, turbinierte Anteile des Splits Speicherwasser/Laufwasser innerhalb einer Anlage zu erfassen? Dieses Beispiel zeigt, dass in der Tat dieser Split in den aggregierten Statistiken - wie er jährlich geschätzt wird, nicht als trennscharf interpretiert werden kann und sollte. 
+Ein Beispiel: <i>Ein einzelnes Unternehmen, wie z.B. die [Kraftwerke Oberhasli AG (KWO)](https://www.grimselstrom.ch/strom-aus-wasserkraft/interaktives-anlageschema) betreibt 13 Zentralen mit 28 Anlagen. Obwohl man gemeinhin denkt, die KWO sei der Speicher am Grimsel hat die KWO daher einen mittleren erwarteten Laufwasseranteil von 2.2% (WASTA 2026 fürs Jahr 2025), turbinierte sie einen Laufwasseranteil im Jahr 2025 von 26% (basierend auf Produktionssplit-Daten der KWO). Die Anlagen in deren System können aufgrund existierender Querverbindungen zwischen Lauf- und Speicherwasserfassungen daher nicht trennscharf einer Kategorie zugeordnet werden.</i> 
+
+Es stellt sich die Grundsatzfrage: Wie fasst man eine Anlage zusammen, die beides kann und tut? Bleibt man bei fixierten Kategorie-Zuschreibungen, die über die Betriebsjahre nicht ändern oder müsste man sich die Mühe machen, turbinierte Anteile des Splits Speicherwasser/Laufwasser innerhalb einer Anlage zu erfassen? Dieses Beispiel zeigt, dass in der Tat dieser Split in den aggregierten Statistiken - wie er jährlich geschätzt wird, nicht als trennscharf interpretiert werden kann und sollte.
 
 #Modellbasierte Schätzungen füllen Messlücken
 
@@ -349,8 +351,8 @@ sm_sidecar(
   terrain = "swisstopo", exaggeration = 1.3,
   sm_slide(title = "Gebidem – Massa",
            tags$p("Bogenmauer in der Massaschlucht (Naters/Bitsch), 122 m hoch, 1967. ",
-                  "Das Speichervolumen der Staumauer Gebidem ist mit knapp 9 Mm³ sehr klein. Das Einzugsgebiet hingegen, mit fast 200 km², ist gross und entsprechend sind auch die Zuflüsse im Sommer sehr hoch. Im Sommer 2026 wurden Zuflüsse um die 130 m³/s gemessen, welche die Kapazität von 57 m³/s, mit welcher in Bitsch turbinieren werden kann, um mehr als Faktor 2 übertroffen. Dies führt dann zum Überlauf bei der Staumauer Gebidem (siehe Bild im Anhang mit ca.70 m³/s Überlauf). Im Winter liegen die Zuflüsse aber wiederum bei wenigen 100 l/s. Die Produktion von Electra-Massa AG erfolgt somit vorwiegend zwischen Mai-Oktober. In den Wintermonaten kann aufgrund des geringen Zuflusses der See nur einmal geleert werden. Wird aber das ganze Jahr angeschaut, liegen die gesamten Zuflüsse bei rund 600 Mm³, heisst der See wird über 60x gefüllt und entleert! Die Zuflüsse setzen sich zusammen aus der Gletscherschmelze, der Schneeschmelze sowie den Niederschlägen während dem Jahr."),
-           sm_slide_image("assets/gibidem.png",
+                  "Das Speichervolumen der Staumauer Gebidem ist mit knapp 9 Mio. m³ eher klein. Das Einzugsgebiet hingegen, mit fast 200 km², ist gross und entsprechend sind auch die Zuflüsse im Sommer sehr hoch. Im Sommer 2026 wurden Zuflüsse um die 130 m³/s gemessen, welche die Kapazität von 57 m³/s, mit welcher in Bitsch turbinieren werden kann, um mehr als Faktor 2 übertroffen. Dies führt dann zum Überlauf bei der Staumauer Gebidem (siehe Bild im Anhang mit ca.70 m³/s Überlauf). Im Winter liegen die Zuflüsse aber wiederum bei wenigen 100 l/s. Die Produktion von Electra-Massa AG erfolgt somit vorwiegend zwischen Mai-Oktober. In den Wintermonaten kann aufgrund des geringen Zuflusses der See nur einmal geleert werden. Wird aber das ganze Jahr angeschaut, liegen die gesamten Zuflüsse bei rund 600 Mio. m³, heisst der See wird über 60x gefüllt und entleert! Die Zuflüsse setzen sich zusammen aus der Gletscherschmelze, der Schneeschmelze sowie den Niederschlägen während dem Jahr."),
+           sm_slide_image("assets/gibidem_ueberlauf_Juli_26_red.png",
                           caption = "Gibidem im Sommer 2026. Foto: Alpiq, 2026",
                           alt = "Gibidem ist voll"),
            center = c(8.002414, 46.371158), zoom = 13, pitch = 45, bearing = 10)
@@ -358,7 +360,7 @@ sm_sidecar(
 ```
 
 #Wartung und Instandhaltung 
-Dazu kommt, dass die Tiefstände im Frühling z.T. für Instandhaltungen und Wartungsarbeiten genutzt werden müssen. Für gewisse Arbeiten muss ein Speichersee sogar ganz abgelassen werden. So zeigen wir im Folgenden zwei Beispiele zu Wartungsarbeiten bei entleerten Seen, denn solche Entleerungen tragen auch zur Speicherwassersommerproduktion bei. 
+Dazu kommt, dass die Tiefstände im Frühling z.T. für Instandhaltungen und Wartungsarbeiten genutzt werden müssen. Für gewisse Arbeiten muss ein Speichersee sogar ganz abgelassen werden. So zeigen wir im Folgenden zwei Beispiele zu Wartungsarbeiten bei entleerten Seen, denn solche Entleerungen tragen auch zur Speicherwasser-Sommerproduktion bei. 
 
 ```{r tour 2}
 # 3D tour: swisstopo base map in colour (names, relief shading) draped over
@@ -395,10 +397,15 @@ sm_sidecar(
            sm_slide_image("assets/rossens_panneau_red.png",
                           caption = "Panneau d'information pour le public sur la rive du lac de Gruyère. Foto: Lionel Chapuis, 2026", alt = "Panneau d'information sur les travaux pour le public sur la rive du lac de Gruyère"),
            center = c(7.112489, 46.71971), zoom = 12, pitch = 70, bearing = 140),
-  sm_slide(title = "Robiei – Val Bavona",
-           tags$p("Gewichtsmauer auf rund 1900 m ü. M., 68 m hoch, 1967. ",
-                  "Der Lago di Robièi (6,9 Mio. m³) gehört zu den Maggia-Kraftwerken (TI)."),
-           center = c(8.515578, 46.443500), zoom = 12, pitch = 40, bearing = -60)
+  sm_slide(title = "Staumauer Sanetsch bei Gstaad",
+           tags$p("Gewichtsstaumauer mit 42m Höhe, 1959-1966 gebaut",
+                  "Die Sanetsch-Staumauer, die ein Reservoir von 2.6 Mio. m³ umfasst, wurde im Frühling 2026 einer Kontrolle unterzogen. Der See musste dafür vollständig entleert werden. Der See staut die Saane und hat ein vergleichsweise kleines Einzugsgebiet von 10.7 km²."),
+sm_slide_image("assets/sanetsch_1_red.jpg",
+                          caption = "Der schneebedeckte Staudamm Sanetsch im Kt. Wallis. Foto: BKW, winter 2020/21",
+                          alt = "Der schneebedeckte Staudamm Sanetsch im Kt. Wallis"),
+           sm_slide_image("assets/sanetsch_bas_red.jpg",
+                          caption = "Entleerung des Sanetsch-Stausees aufgrund von Kontrollen im Juli 2026"),
+           center = c(8.515578, 46.443500), zoom = 13, pitch = 40, bearing = -60)
 )
 ```
 
