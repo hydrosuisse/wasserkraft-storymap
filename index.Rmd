@@ -271,7 +271,7 @@ Exportiert wird die Strommenge, die über dem Landesverbrauch produziert wird. I
 
 ```{r energiedashboard nachgebaut}
 sm_image("assets/bfe_dashboard.png",
-caption = "Produktion und Landesverbrauch inkl. Verbrauch der Speicherpumpen. Täglich aktualisiert.",
+caption = "Produktion und Landesverbrauch inkl. Verbrauch der Speicherpumpen. Snapshot vom 12.11.2026",
 source=quelle("bfe_produktion"),
 alt = "Produktion und Landesverbrauch", width = "wide")
 ```
@@ -302,6 +302,15 @@ source=quelle("bfe_produktion", "entsoe", "energycharts"),
 alt = "Quellenvergleich über verschiedene Energieträger in der 1. Augustwoche 2026", width = "wide")
 ```
 
+## Eine Wasserkraftanlage begründet oft ihren eigenen Typ {#typen}
+In der Tat besteht der Schweizer Wasserkraftwerkspark aus lauter Einzelfällen. Die Statistik der Wasserkraft in der Schweiz (WASTA) kennt vier Idealtypen, wobei eine Anlage in der Statistik zentralenscharf abgebildet ist (Anlagen des gleichen Typs in derselben Zentrale werden zusammengenommen). Grundsätzlich werden bei den Ausleitkraftwerken, d.h. jenen, die den Gewässern Wasser entnehmen, in einer Leitung/Tunnel/Zulauf den Turbinen zuleiten, turbinieren und wieder ins Gewässer zurückgeben, vier Idealtypen: 
+
+1. **Laufwasserkraftwerke**: Nutzen die Strömung eines Fliessgewässers und die Höhendifferenz über kleinere Staudämme oder -Mauern. 
+2. **Speicherkraftwerke**: Stauen i.d.R. verschiedene kleine Gewässer über eine Talsperre (Staudamm/Staumauer) und nutzen die Höhendifferenz zwischen dem gestauten Bergwasser und der Turbine unten im Tal. 
+3. **Pumpspeicherkraftwerke**: Eine Art von Speicherkraftwerken, welche (ein Teil des) turbinierten Wassers wieder zurück in den Stausee pumpt. Ein solches hat i.d.R. natürliche Zuflüsse.  
+4. **reine Umwälzkraftwerke**: ein Speicherkraftwerk ohne natürlichen Zufluss. Die Netto-Stromproduktion ist daher i.d.R. nahe bei null oder ein bisschen negativ, weil die gesamte Menge turbinierten Wassers auch wieder hochgepumpt werden muss und die Pumpen einen hohen aber nicht 100%-igen Wirkungsgrad haben. In Reinform gibt es diese allerdings kaum in der Schweiz, nur der [Engeweiher in Schaffhausen](https://naturpark-schaffhausen.ch/de/home/detail/engeweiher-91fb6a10-e065-4950-9306-0dd37fcd68bd.html) entspricht der strikten Definition. In der WASTA werden aber noch 8 andere Pumpspeicherkraftwerke als solche geführt. 
+
+
 ```{r vorbereitung}
 kraftwerke <- read.csv("data/kraftwerke.csv") |>
   st_as_sf(coords = c("lon", "lat"), crs = 4326)
@@ -312,14 +321,6 @@ kraftwerke$popup <- sprintf("<h4>%s</h4>%s · Kanton %s",
 typ_farben <- c(Laufwasser = "#1B84CB", Speicher = "#59BBA4", Pumpspeicher = "#126057")
 ```
 
-
-## Eine Wasserkraftanlage begründet oft ihren eigenen Typ {#typen}
-In der Tat besteht der Schweizer Wasserkraftwerkspark aus lauter Einzelfällen. Die Statistik der Wasserkraft in der Schweiz (WASTA) kennt vier Idealtypen, wobei eine Anlage in der Statistik zentralenscharf abgebildet ist (Anlagen des gleichen Typs in derselben Zentrale werden zusammengenommen). Grundsätzlich werden bei den Ausleitkraftwerken, d.h. jenen, die den Gewässern Wasser entnehmen, in einer Leitung/Tunnel/Zulauf den Turbinen zuleiten, turbinieren und wieder ins Gewässer zurückgeben, vier Idealtypen: 
-
-1. **Laufwasserkraftwerke**: Nutzen die Strömung eines Fliessgewässers und die Höhendifferenz über kleinere Staudämme oder -Mauern. 
-2. **Speicherkraftwerke**: Stauen i.d.R. verschiedene kleine Gewässer über eine Talsperre (Staudamm/Staumauer) und nutzen die Höhendifferenz zwischen dem gestauten Bergwasser und der Turbine unten im Tal. 
-3. **Pumpspeicherkraftwerke**: Eine Art von Speicherkraftwerken, welche (ein Teil des) turbinierten Wassers wieder zurück in den Stausee pumpt. Ein solches hat i.d.R. natürliche Zuflüsse.  
-4. **reine Umwälzkraftwerke**: ein Speicherkraftwerk ohne natürlichen Zufluss. Die Netto-Stromproduktion ist daher i.d.R. nahe bei null oder ein bisschen negativ, weil die gesamte Menge turbinierten Wassers auch wieder hochgepumpt werden muss und die Pumpen einen hohen aber nicht 100%-igen Wirkungsgrad haben. In Reinform gibt es diese allerdings kaum in der Schweiz, nur der [Engeweiher in Schaffhausen](https://naturpark-schaffhausen.ch/de/home/detail/engeweiher-91fb6a10-e065-4950-9306-0dd37fcd68bd.html) entspricht der strikten Definition. In der WASTA werden aber noch 8 andere Pumpspeicherkraftwerke als solche geführt. 
 
 
 ## Atypische Beispiele: Speicher oder Laufkraft? {#beispiele}
