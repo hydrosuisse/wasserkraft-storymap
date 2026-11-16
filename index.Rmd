@@ -212,7 +212,7 @@ tagList(
     sdl = "Systemdienstleistungen",
     statistische_klassifizierung = "Statistik trifft Physik",
     beispiele = "Beispiele",
-    fazit    = "Fazit und Dashboard,
+    fazit    = "Fazit und Dashboard",
     quellen      = "Quellen"
   ))
 )
