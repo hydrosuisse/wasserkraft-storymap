@@ -319,8 +319,11 @@ kraftwerke$popup <- sprintf("<h4>%s</h4>%s · Kanton %s",
 # colours as in the Energie-Dashboard
 typ_farben <- c(Laufwasser = "#1B84CB", Speicher = "#59BBA4", Pumpspeicher = "#126057")
 ```
+##Sommerspeicherproduktion - konkrete Beispiele {#beispiele}
 
-## Wartung und Instandhaltung {#beispiele}
+
+
+## Wartung und Instandhaltung 
 
 Scrollen Sie weiter nach unten zeigen wir Ihnen eine Auswahl von vier Speicherkraftwerken, die entweder solche Eigenheiten haben, dass sie 
 
