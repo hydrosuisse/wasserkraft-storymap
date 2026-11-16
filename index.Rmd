@@ -265,7 +265,7 @@ sm_frame(
 
 Darüber hinaus darf auch der bedeutende Markt der Regelenergie nicht ausser Acht gelassen werden. Damit das Stromnetz auf einer Frequenz von 50 Hz stabil bleibt und die Blindleistung nicht zu gross wird, bietet die Wasserkraft in der Schweiz - speziell die Pumpspeicherkraftwerke - Systemdienstleistungen an. Swissgrid kann innerhalb von Sekunden die Primärregelleistung, innerhalb von Minuten die gröbere Sekundärregelleistung und innerhalb von einer Viertelstunde das schwere Geschütz der Tertiärregelleistung abrufen. Hier gilt es sowohl Lasten (wenn die Frequenz zu hoch ist) oder zusätzliche Leistung (wenn die Frequenz zu tief ist) bereitstellen zu können. Diese Stabilisierungsdienstleistung wird Stand Mai 2026 [zu rund 95% über die Schweizer Wasserkraft](https://www.swissgrid.ch/de/home/newsroom/blog/2026/20260507-01.html) abgedeckt. Solche Regelenergie wird das ganze Jahr hinüber gebraucht, nicht nur im Winter. Die Pumpspeicherwerke können hier als einzige Grossanlagen auch (-) Last liefern, indem sie die Pumpen anwerfen und Wasser ins Reservoir hochpumpen, sie bieten also nicht nur (+) zusätzlichen Strom. Kernkraftwerke, beispielsweise, können nicht derart schnell Lasten ankoppeln, bzw. ihre Produktion drosseln - und netzgekoppelte Batterien von vergleichbarer Grösse befinden sich derzeit im Aufbau. Laut dem [Batteriemonitor von Swisssolar](https://www.swissolar.ch/02_markt-politik/batteriesmonitor/sws_batteriemonitor_2026.pdf) sind Stand 2026 129 MW Leistung an Batterien ans Netz (front-of-meter) gekoppelt, mit dem Plan, bis 2030 2'270 MW zu installieren. Die Pumpspeicherkraftwerk- und Umwälzkapazität lag am 1.1.2026 bei 4'160 MW (WASTA 1.1.2026). Zu nennen ist insbesondere das [Batterieprojekt von Laufenburg](https://www.srf.ch/news/schweiz/riesenbatterie-weltweit-groesste-speicherbatterie-in-laufenburg-ag-geplant) auf Netzebene 1, das dereinst eine Leistung von 1'200 MW bieten soll. 
 
-## Statistik trifft Physik und gewachsene Komplexität {#statistische_klassifizierung} 
+## Statistik trifft Physik {#statistische_klassifizierung} 
 
 Exportiert wird die Strommenge, die über dem Landesverbrauch produziert wird. Importiert wird das Delta zwischen Landesverbrauch und -Produktion, wenn letztere darunter fällt. Um zu schauen, wieviel Strom gerade exportiert und importiert wurde, wird oft das Dashboard zur Stromproduktion des BFE angeschaut, welches die tägliche Stromproduktion nach Energieträger, Nettoimporte und Landesverbrauch inklusive Speicherpumpen abbildet (s. nachgebaute Grafik unten). 
 
@@ -321,13 +321,9 @@ typ_farben <- c(Laufwasser = "#1B84CB", Speicher = "#59BBA4", Pumpspeicher = "#1
 ```
 ##Sommerspeicherproduktion - konkrete Beispiele {#beispiele}
 
+# Viel Schmelzwasser = viel Energiepotenzial
 
-
-## Wartung und Instandhaltung 
-
-Scrollen Sie weiter nach unten zeigen wir Ihnen eine Auswahl von vier Speicherkraftwerken, die entweder solche Eigenheiten haben, dass sie 
-
-Beim Weiterscrollen fliegt die Karte in 3D zu den vier Beispielen
+Wie in der Einleitung angetönt, sind die Zuflüsse in die Speicherseen Schmelzwasser, was besonders in heissen Sommern besonders zu Buche schlägt. Einige Staudämme sind klein dimensioniert, so dass diese im Sommer turbinieren müssen, ansonsten bleibt das Potenzial ungenutzt. Im Folgenden zeigen wir Ihnen ein Extrembeispiel: 
 
 ```{r tour 1}
 staumauern <- read.csv("data/staumauern.csv", encoding = "UTF-8") |>
@@ -361,16 +357,18 @@ sm_sidecar(
   terrain = "swisstopo", exaggeration = 1.3,
   sm_slide(title = "Gebidem – Massa",
            tags$p("Bogenmauer in der Massaschlucht (Naters/Bitsch), 122 m hoch, 1967. ",
-                  "Das Speichervolumen der Staumauer Gebidem ist mit knapp 9 Mm³, sehr klein. Das Einzugsgebiet mit fast 200 km², ist gross und entsprechend sind auch die Zuflüsse im Sommer sehr hoch. Im Sommer 2026 wurden Zuflüsse um die 130 m³/s gemessen, dies übersteigt die Kapazität von 57 m³/s, mit welcher wir in Bitsch turbinieren können um mehr als Faktor 2. Dies führt dann zu Überlauf bei der Staumauer Gebidem (siehe Bild im Anhang mit ca.70 m³/s Überlauf). Die Zuflüsse im Winter liegen wiederum bei wenigen 100 l/s. Die Produktion von Electra-Massa AG erfolgt somit vorwiegend zwischen Mai-Oktober. In den Wintermonaten kann aufgrund des geringen Zuflusses der See nur einmal geleert werden. Von daher kann Electra-Massa AG nur einen beschränkten Beitrag als Winterspeicher leisten. Über das Jahr gesehen, liegen die gesamten Zuflüsse bei rund 600 Mm³, heisst der See wird über 60x gefüllt und entleert. Die Zuflüsse setzen sich zusammen aus der Gletscherschmelze, der Schneeschmelze sowie den Niederschlägen während dem Jahr."),
+                  "Das Speichervolumen der Staumauer Gebidem ist mit knapp 9 Mm³ sehr klein. Das Einzugsgebiet hingegen, mit fast 200 km², ist gross und entsprechend sind auch die Zuflüsse im Sommer sehr hoch. Im Sommer 2026 wurden Zuflüsse um die 130 m³/s gemessen, welche die Kapazität von 57 m³/s, mit welcher in Bitsch turbinieren werden kann, um mehr als Faktor 2 übertroffen. Dies führt dann zum Überlauf bei der Staumauer Gebidem (siehe Bild im Anhang mit ca.70 m³/s Überlauf). Im Winter liegen die Zuflüsse aber wiederum bei wenigen 100 l/s. Die Produktion von Electra-Massa AG erfolgt somit vorwiegend zwischen Mai-Oktober. In den Wintermonaten kann aufgrund des geringen Zuflusses der See nur einmal geleert werden. Wird aber das ganze Jahr angeschaut, liegen die gesamten Zuflüsse bei rund 600 Mm³, heisst der See wird über 60x gefüllt und entleert! Die Zuflüsse setzen sich zusammen aus der Gletscherschmelze, der Schneeschmelze sowie den Niederschlägen während dem Jahr."),
            sm_slide_image("assets/gibidem.png",
                           caption = "Gibidem im Sommer 2026. Foto: Alpiq, 2026",
                           alt = "Gibidem ist voll"),
-           center = c(8.002414, 46.371158), zoom = 12, pitch = 45, bearing = 10)
+           center = c(8.002414, 46.371158), zoom = 13, pitch = 45, bearing = 10)
 )
 ```
-#Wartung und Instandhaltung
 
-Dazu kommen 
+#Wartung und Instandhaltung 
+Dazu kommt, dass die Tiefstände im Frühling z.T. für Instandhaltungen und Wartungsarbeiten genutzt werden müssen. Für gewisse Arbeiten muss ein Speichersee sogar ganz abgelassen werden. So zeigen wir im Folgenden zwei Beispiele zu Wartungsarbeiten bei entleerten Seen, denn solche Entleerungen tragen auch zur Speicherwassersommerproduktion bei. 
+
+Beim Weiterscrollen fliegt die Karte in 3D zu den vier Beispielen
 
 ```{r tour 2}
 # 3D tour: swisstopo base map in colour (names, relief shading) draped over
@@ -427,6 +425,112 @@ sm_frame(
 ```
 
 *Hinweis:* Pumpspeicher als Brutto-Turbinenleistung – der Strom für das Hochpumpen ist nicht abgezogen. Exportüberschuss: positive Werte = Nettoexport, negative Werte = Nettoimport der Schweiz.
+
+DATENQUELLEN
+
+- Wasserkraft: stündliche Schätzung, monatlich auf die BFE-Elektrizitätsbilanz skaliert
+  (endgültige, sonst provisorische Werte; für die jüngsten Wochen Tageswerte des
+  BFE-Energiedashboards). Stundenprofile: Energy-Charts (Laufwasser, energetisch korrigiert) und
+  ENTSO-E (Speicher und Pumpspeicher). Unsicherheitsband = 90. Perzentil der monatlichen Abweichung
+  der Profilquelle von der BFE-Statistik im jeweiligen Jahr.
+- Übrige Quellen: öffentliche Nettostromerzeugung (stündlich) gemäss Energy-Charts, ohne
+  Wasserkraft. Werte je Periode als Summe in GWh. Anteile beziehen sich auf Wasserkraft-Schätzung
+  plus übrige Quellen.
+- Spotpreis: Day-Ahead-Auktion Schweiz (stündlich), mit dem täglichen EZB-Referenzkurs von EUR in
+  CHF umgerechnet; Mittelwert je Periode.
+- Handel: geplanter grenzüberschreitender Handel (15 Minuten) mit AT, DE, FR und IT, als
+  Exportüberschuss: positiv = Export, negativ = Import.
+- Wochen nach ISO 8601 (Montag bis Sonntag). Angeschnittene Wochen am Rand des Zeitraums sind als
+  unvollständig markiert.
+- Vergleich: Jahre als ISO-Jahre (KW 1 bis 52/53, jeweils Montag bis Sonntag, daher einige Tage
+  Versatz zum Kalenderjahr), Monate tageweise, Tage stündlich. Am Tag der Zeitumstellung im Herbst
+  ist die doppelte Stunde 02:00 um eine halbe Stunde versetzt.
+- Wasserkraft-Schätzung verfügbar bis 03.11.2026 (Stand der Aufbereitung: 06.11.2026).
+
+SO ENTSTEHEN DIE UNSICHERHEITSBÄNDER
+
+Die Bänder zeigen, wie unsicher der Stundenverlauf der Wasserkraft-Schätzung ist. Die Monatssummen
+von Laufwasser- und Speicherkraftwerken (inkl. Pumpspeicherung) sind durch die
+BFE-Elektrizitätsstatistik vorgegeben; unsicher ist, wie sich diese Summen auf Stunden, Tage und
+Wochen verteilen.
+
+Laufwasser- und Speicherkraftwerke: Für jedes Jahr wird die Quelle des Stundenverlaufs
+(Energy-Charts für Laufwasser, ENTSO-E für Speicher) so skaliert, dass ihre Jahressumme der
+BFE-Statistik entspricht. Danach wird jeder Monat mit dem BFE-Monatswert verglichen. Das 90.
+Perzentil der absoluten Monatsabweichungen ergibt die Bandbreite q dieses Jahres: Untergrenze =
+Schätzwert × (1 − q), Obergrenze = Schätzwert × (1 + q). Beispiel 2024: q = 15,6 % für Laufwasser
+und 4,3 % für Speicher.
+
+Trifft die Quelle die BFE-Monate bereits genau (Laufwasser ab 2025) oder liegen weniger als sechs
+vollständige Monate vor (laufendes Jahr), wird der Median der übrigen Jahre verwendet (Laufwasser:
+18,4 %). Diese Werte sind als «geringere Verlässlichkeit» gekennzeichnet.
+
+Produktion aus Umwälzbetrieb: Bootstrap mit 10 000 Ziehungen. In jeder Ziehung werden die Anlagen
+mit Pumpfunktion aus der WASTA mit Zurücklegen neu gezogen (für die saisonale Pumpenergie) und ein
+Wirkungsgrad zwischen 72 und 82 % zufällig gewählt. Das Band reicht vom 2,5. bis zum 97,5.
+Perzentil (95-%-Intervall); 2024 entspricht das 9,0 bis 12,0 % der Speicherproduktion (Median 10,6
+%).
+
+Speicherkraftwerke (ohne Umwälzbetrieb) = Speicher insgesamt minus Umwälzbetrieb. Ihr Band
+kombiniert beide Unsicherheiten: Untergrenze = Speicher-Untergrenze minus Umwälzbetrieb-Obergrenze,
+Obergrenze umgekehrt.
+
+Für Tage, Wochen und angebrochene Monate werden die stündlichen Grenzen aufsummiert. In
+vollständigen Monaten entfällt das Band für Laufwasser und Speicher insgesamt; nur die Aufteilung
+zwischen Speicherkraftwerken und Umwälzbetrieb bleibt unsicher.
+
+Nur das Band des Umwälzbetriebs ist ein statistisches Intervall. Die übrigen Bänder sind empirische
+Fehlerbereiche aus dem Vergleich mit der BFE-Statistik. Spätere Revisionen der BFE-Daten und mögliche Fehler
+in den BFE-Werten selbst sind natürlich vorbehalten.
+
+DATENHINWEIS
+
+Die Wasserkraftwerte sind Schätzungen, keine Messwerte. Amtlich sind nur die Monatssummen der
+BFE-Elektrizitätsstatistik; die jüngsten Monate sind provisorisch (BFE-Monatswerte «nicht
+definitiv» bzw. Tageswerte des BFE-Energiedashboards) und können sich noch ändern.
+
+Die Stundenverläufe stammen von Energy-Charts (Fraunhofer ISE) und der ENTSO-E Transparency
+Platform, die nur einen Teil der Schweizer Anlagen erfassen. Die Produktion aus Umwälzbetrieb ist
+modelliert (angenommener Wirkungsgrad, erwartete Pumpenergie gemäss WASTA).
+
+Übrige Quellen, Spotpreise und grenzüberschreitender Handel stammen von Energy-Charts.info und
+SMARD.de, Umrechnung in CHF mit EZB-Referenzkursen. Tage nach der letzten Datenaktualisierung
+zeigen Werte von Energy-Charts ohne BFE-Verankerung.
+
+Alle Angaben ohne Gewähr für Richtigkeit, Vollständigkeit. Für amtliche Zahlen gilt die Elektrizitätsstatistik des BFE.
+
+LESEANLEITUNG MIT BEISPIEL
+
+1. Übersicht, Zeitraum 01.07.2024–31.07.2024, Auflösung «Tag», Darstellung «GWh», «Unsicherheit
+   anzeigen» eingeschaltet.
+2. Mauszeiger auf den 15. Juli 2024: Laufwasserkraftwerke 77,6 GWh [65,5–89,7], Speicherkraftwerke
+   103,0 GWh [96,6–109,7], Produktion aus Umwälzbetrieb (geschätzt) 11,2 GWh [9,4–12,6]. Die Werte
+   in [ ] sind das Unsicherheitsband; die Whisker zeigen dasselbe Band an der Oberkante jedes
+   Segments.
+3. Im selben Tooltip: Anteil jeder Technologie an der gesamten Produktion (in Klammern), übrige
+   Quellen, Spotpreis Day-Ahead als Tagesmittel in CHF/MWh. Im unteren Feld: Exportüberschuss
+   (positiv) oder Importüberschuss (negativ) der Schweiz.
+4. Kopfzeile des Tooltips: Juli 2024 ist BFE-definitiv, daher ohne Vermerk. Jüngste Tage tragen
+   «provisorisch» oder «Wasserkraft noch ohne BFE-Verankerung».
+5. Auflösung auf «Monat» stellen (Zeitraum 01.01.–31.12.2024): Laufwasser im Juli 2024 = 2428 GWh,
+   genau der BFE-Wert, daher ohne Band und ohne Whisker. Speicher- plus Umwälzbetrieb = 3522 GWh
+   (BFE-Speicherkraftwerke); unsicher bleibt nur ihre Aufteilung.
+6. «Anteil in %» zeigt die Zusammensetzung statt der Mengen.
+7. Ansicht «Vergleich»: dieselbe Grösse für bis zu fünf Jahre, Monate oder Tage übereinander, mit
+   grauem Unsicherheitsband.
+8. Ansicht «Quellenvergleich», Technologie Laufwasser, 2024, Auflösung Monat: Energy-Charts trifft
+   die BFE-Jahressumme, weicht aber pro Monat im Mittel um 8,7 % ab (MAPE); die
+   ENTSO-E-Originaldaten liegen rund 88 % unter der BFE-Statistik. Das untere Feld zeigt die
+   Abweichungen von der Referenz, die Tabelle darunter die Kennzahlen.
+9. Datentabelle öffnen bzw. CSV herunterladen: alle Werte inklusive unterer und oberer Grenzen und
+   dem Anteil geschätzter bzw. provisorischer Werte. Sprache oben rechts (DE/FR/IT/EN). Die
+   Adresszeile hält die Auswahl fest und lässt sich teilen, z. B.
+   ?view=sources&svar=ror&start=2024-01-01&end=2024-12-31&bin=month.
+
+Wasserkraft: Bundesamt für Energie BFE (Elektrizitätsstatistik, Energiedashboard, WASTA), ENTSO-E
+Transparency Platform, Energy-Charts.info · Übrige Daten: Energy-Charts.info (Fraunhofer ISE), CC
+BY 4.0 · Preise: Bundesnetzagentur | SMARD.de, CC BY 4.0 · Wechselkurs: Europäische Zentralbank
+(via Frankfurter)
 
 ## Quellen {#quellen}
 
