@@ -408,7 +408,7 @@ sm_sidecar(
   sm_slide(title = "Rossens – Lac de la Gruyère",
            tags$p("barrage-voûte à 83 m, construit 1947. ",
                   "Le lac de la Gruyère alimente la centrale d'Hauterive pour une production moyenne annuelle de 220 GWh. Son grand volume de stockage de 163 Mio. m³, renouvelé près de 7 fois durant l'année par les apports de la Sarine, permet d'engager l'aménagement de manière saisonnière avec plus de la moitié de sa production en hiver. Ainsi le lac de la Gruyère est monté à son niveau maximum en début d'hiver et est abaissé progressivement pour la production hivernale avec le niveau le plus bas atteint généralement à fin avril. En 2026, cela a été atteint en Septembre, parce que des travaux de remplacement des vannes  ont nécessité l'abaissement du lac. Le but c'est de pouvoir recommencer à produire à pleine charge en décembre pour être prêt pour la production hivernale."),
-           sm_slide_image("assets/rossens_1_red.jpg",
+           sm_slide_image("assets/rossens_1_red.JPG",
                           caption = "Le barrage de Rossens avec un lac de stockage rempli. Foto: groupe e, 2025",
                           alt = "Le barrage de Rossens et le lac de Gruyère avec un lac de stockage rempli"),
            sm_slide_image("assets/rossens_bas_red.jpg",
@@ -469,7 +469,7 @@ sm_credits(
   sm_credit("Barrage de Rossens, lac rempli", "groupe e, 2025"),
   sm_credit("Lac de la Gruyère abaissé; panneau d'information", "Lionel Chapuis, 2026"),
   sm_credit("Staumauer Sanetsch im Winter", "BKW, 2020/21"),
-  sm_credit("Entleerung Sanetsch-Stausee, Juli 2026", "Fotograf/in – ergänzen")
+  sm_credit("Entleerung Sanetsch-Stausee, Juli 2026", "Marcel Ottenkamp, 2026")
 )
 ```
 
