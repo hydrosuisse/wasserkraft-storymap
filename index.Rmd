@@ -31,8 +31,8 @@ tagList(
   sm_header(logo = "assets/Logo_hydrosuisse.svg", logo_alt = "hydrosuisse",
             logo_href = "https://www.hydrosuisse.ch"),
   sm_cover(
-    title   = "Füllstände und saisonale Produktion in der Wasserkraft.",
-    summary = "Winter is coming - eine interaktive Übersicht zu Produktionslogik und statistischen Konventionen",
+    title   = "Weshalb produzieren Speicherwasserkraftwerke auch im Sommer Strom?",
+    summary = "eine interaktive Übersicht zu Produktionslogik und statistischen Konventionen",
     byline  = "hydrosuisse",
     image   = "assets/Llac-de-moiry_1596657829.jpg",
     credit = htmltools::HTML(
