@@ -63,6 +63,31 @@ quellen <- list(
   #   autor = "Nachname, A., & Nachname, B.",   # oder Organisation, dann kurz = "Abk."
   #   jahr = 2026,  titel = "Titel in einem Stück",  typ = "Datensatz",
   #   url = "https://…",  abruf = TRUE),
+  swissgrid_sdl = q(
+    autor = "Aebi, S.", jahr = "2026, 7. Mai",
+    titel = "PV-Energie für ein stabiles Netz", erschienen_in = "Swissgrid Blog",
+    url = "https://www.swissgrid.ch/de/home/newsroom/blog/2026/20260507-01.html"),
+  swissolar_batterie = q(
+    autor = "Swissolar", jahr = 2026,
+    titel = "Batteriemonitor Schweiz 2026: Marktentwicklung, Systemintegration und die Rolle von Batteriespeichern im Energiesystem",
+    typ = "Bericht", url = "https://www.swissolar.ch/02_markt-politik/batteriesmonitor/sws_batteriemonitor_2026.pdf"),
+  srf_laufenburg = q(
+    autor = "SRF", jahr = "2024, 25. September",
+    titel = "Riesenbatterie – Weltweit grösste Speicherbatterie in Laufenburg AG geplant",
+    erschienen_in = "SRF News",
+    url = "https://www.srf.ch/news/schweiz/riesenbatterie-weltweit-groesste-speicherbatterie-in-laufenburg-ag-geplant"),
+  naturpark_engeweiher = q(
+    autor = "Regionaler Naturpark Schaffhausen", jahr = NA, titel = "Engeweiher",
+    url = "https://naturpark-schaffhausen.ch/de/home/detail/engeweiher-91fb6a10-e065-4950-9306-0dd37fcd68bd.html",
+    abruf = TRUE),
+  bfe_elstat = q(
+    autor = "Bundesamt für Energie BFE", kurz = "BFE", jahr = 2026,
+    titel = "Schweizerische Elektrizitätsstatistik 2025", typ = "Bericht",
+    url = "https://pubdb.bfe.admin.ch/de/publication/download/12681"),
+  bfe_elbilanz = q(
+    autor = "Bundesamt für Energie BFE", kurz = "BFE", jahr = 2026,
+    titel = "Monatliche Elektrizitätsbilanz der Schweiz 2026 (provisorisch)", typ = "Datensatz",
+    url = "https://pubdb.bfe.admin.ch/fr/publication/download/12537", abruf = TRUE),
   entsoe = q(
   autor = "ENTSO-E", kurz = "ENTSO-E",
     jahr = 2026,  titel = "ENTSO-E Transparency Platform",  typ = "Datensatz",
@@ -219,14 +244,14 @@ tagList(
 ```
 
 ## Winter is coming! {#einleitung}
-Erst kürzlich haben es Menschen "geschafft", den Winter zu einer Fussnote im Jahr verkommen zu lassen. Aber ganz ist der Respekt davor nicht verschwunden: Wir feiern Erntedankfeste im Herbst und freuen uns mit der Fasnacht über den Frühling. Allerspätestens seit den Volatilitäten auf den Energiemärkten im Herbst 2022 infolge des russischen Kriegs in der Ukraine und Elcom-Präsident Werner Luginbühls pointierter Aussage, dass man sich [Kerzen und Brennholz für den bevorstehenden Winter besorgen solle](https://www.bernerzeitung.ch/elcom-chef-raet-zum-kauf-von-kerzen-und-holz-825536238032), ist die Versorgungssicherheit der kritischen Infrastruktur Strom zurück in aller Munde. Im Speziellen wird dabei die Speicherwasserkraft als unsere "Winterversicherung" verstanden und die sömmerliche Produktion von Speicherwasser wird mit Argusaugen beobachtet. Zeit, sich anzuschauen, weshalb es gute Gründe gibt, dass auch die Speicherwasserkraft im Sommer Strom produzieren kann und auch sollte. 
+Erst kürzlich haben es Menschen "geschafft", den Winter zu einer Fussnote im Jahr verkommen zu lassen. Aber ganz ist der Respekt davor nicht verschwunden: Wir feiern Erntedankfeste im Herbst und freuen uns mit der Fasnacht über den Frühling. Allerspätestens seit den Volatilitäten auf den Energiemärkten im Herbst 2022 infolge des russischen Kriegs in der Ukraine und Elcom-Präsident Werner Luginbühls pointierter Aussage, dass man sich Kerzen und Brennholz für den bevorstehenden Winter besorgen solle `r zitat("sda_kerzen")`, ist die Versorgungssicherheit der kritischen Infrastruktur Strom zurück in aller Munde. Im Speziellen wird dabei die Speicherwasserkraft als unsere "Winterversicherung" verstanden und die sömmerliche Produktion von Speicherwasser wird mit Argusaugen beobachtet. Zeit, sich anzuschauen, weshalb es gute Gründe gibt, dass auch die Speicherwasserkraft im Sommer Strom produzieren kann und auch sollte. 
 
 Die folgende interaktive Übersicht listet einige Gründe und Begebenheiten zur Schweizer Speicherwasserkraft mit dem Ziel eine Antwort auf die eingehend gestellte Frage zur Sommerproduktion aus Speicherwasserkraft zumindest teilweise zu beantworten. 
 
 ## Speicherwasser ist nicht nur für den Winter gedacht {#funktionspeicherwasser}
 
-Aufgrund des Schmelzwassers, das wegen sommerlicher Temperaturen zum grössten Teil im Sommer anfällt, müssen auch Speicherwasserkraftwerke Wasser turbinieren, andernfalls würden sie überflutet und liessen das Potenzial ungenutzt. Die meisten dieser Anlagen wurden auch nicht als reine Winterspeicher konzipiert und können daher auch nicht "nur" die Winterversorgerrolle übernehmen, sonst wären sie baulich komplett überdimensioniert. So erwarteten die Betreiber fürs Jahr 2026 je eine knapp hälftige Produktion der Speicherwasserkraft im Sommer und im Winter (WASTA 1.1.2026). Bei der Laufwasserkraft lag die Produktionserwartung fürs Jahr 2026 hingegen etwa bei 60% im Sommerhalbjahr (ebd.).  
-Wird anstelle der erwarteten Produktion die realisierte Produktion über die letzten Jahre zu Rate gezogen, so zeigen sich sehr geringfügige Abweichungen des saisonalen Splits (Laufwasser 2015-26 32.5-39.5% im Winter; Speicherwasser 2015-26 43.6-52.8% im Winter, Quelle: BFE Elektrizitätsstatistik 2026). Im Jahr 2026 hat die Speicherwasserkraft im Vergleich zur selben Woche der Vorjahre gar bedeutend weniger produziert, wie untenstehende Grafik zeigt. Dies widerspiegelt die aussergewöhnliche Trockenheit aufgrund fehlender Niederschläge im Sommer 2026, die aber nur teilweise durch höhere Schmelzwasserzuflüsse kompensiert werden konnte. 
+Aufgrund des Schmelzwassers, das wegen sommerlicher Temperaturen zum grössten Teil im Sommer anfällt, müssen auch Speicherwasserkraftwerke Wasser turbinieren, andernfalls würden sie überflutet und liessen das Potenzial ungenutzt. Die meisten dieser Anlagen wurden auch nicht als reine Winterspeicher konzipiert und können daher auch nicht "nur" die Winterversorgerrolle übernehmen, sonst wären sie baulich komplett überdimensioniert. So erwarteten die Betreiber fürs Jahr 2026 je eine knapp hälftige Produktion der Speicherwasserkraft im Sommer und im Winter `r zitat("bfe_wasta")`. Bei der Laufwasserkraft lag die Produktionserwartung fürs Jahr 2026 hingegen etwa bei 60% im Sommerhalbjahr `r zitat("bfe_wasta")`.  
+Wird anstelle der erwarteten Produktion die realisierte Produktion über die letzten Jahre zu Rate gezogen, so zeigen sich sehr geringfügige Abweichungen des saisonalen Splits (Laufwasser 2015-26 32.5-39.5% im Winter; Speicherwasser 2015-26 43.6-52.8% im Winter `r zitat("bfe_elstat", "bfe_elbilanz")`). Im Jahr 2026 hat die Speicherwasserkraft im Vergleich zur selben Woche der Vorjahre gar bedeutend weniger produziert, wie untenstehende Grafik zeigt. Dies widerspiegelt die aussergewöhnliche Trockenheit aufgrund fehlender Niederschläge im Sommer 2026, die aber nur teilweise durch höhere Schmelzwasserzuflüsse kompensiert werden konnte. 
 
 ```{r foto-jahresvergleich-prod}
 sm_image("assets/wasserkraft_ch_vergleich.png",
@@ -249,7 +274,7 @@ sm_frame(
 ```
 ## Systemdienstleistungen sind auch im Sommer gefragt {#sdl}
 
-Darüber hinaus darf auch der bedeutende Markt der Regelenergie nicht ausser Acht gelassen werden. Damit das Stromnetz auf einer Frequenz von 50 Hz stabil bleibt und die Blindleistung nicht zu gross wird, bietet die Wasserkraft in der Schweiz - speziell die Pumpspeicherkraftwerke - Systemdienstleistungen an. Swissgrid kann innerhalb von Sekunden die Primärregelleistung, innerhalb von Minuten die gröbere Sekundärregelleistung und innerhalb von einer Viertelstunde das schwere Geschütz der Tertiärregelleistung abrufen. Hier gilt es sowohl Lasten (wenn die Frequenz zu hoch ist) oder zusätzliche Leistung (wenn die Frequenz zu tief ist) bereitstellen zu können. Diese Stabilisierungsdienstleistung wird Stand Mai 2026 [zu rund 95% über die Schweizer Wasserkraft](https://www.swissgrid.ch/de/home/newsroom/blog/2026/20260507-01.html) abgedeckt. Solche Regelenergie wird das ganze Jahr hinüber gebraucht, nicht nur im Winter. Die Pumpspeicherwerke können hier als einzige Grossanlagen auch (-) Last liefern, indem sie die Pumpen anwerfen und Wasser ins Reservoir hochpumpen, sie bieten also nicht nur (+) zusätzlichen Strom. Kernkraftwerke, beispielsweise, können nicht derart schnell Lasten ankoppeln, bzw. ihre Produktion drosseln - und netzgekoppelte Batterien von vergleichbarer Grösse befinden sich derzeit im Aufbau. Laut dem [Batteriemonitor von Swisssolar](https://www.swissolar.ch/02_markt-politik/batteriesmonitor/sws_batteriemonitor_2026.pdf) sind Stand 2026 129 MW Leistung an Batterien ans Netz (front-of-meter) gekoppelt, mit dem Plan, bis 2030 2'270 MW zu installieren. Die Pumpspeicherkraftwerk- und Umwälzkapazität lag am 1.1.2026 bei 4'160 MW (WASTA 1.1.2026). Zu nennen ist insbesondere das [Batterieprojekt von Laufenburg](https://www.srf.ch/news/schweiz/riesenbatterie-weltweit-groesste-speicherbatterie-in-laufenburg-ag-geplant) auf Netzebene 1, das dereinst eine Leistung von 1'200 MW bieten soll. 
+Darüber hinaus darf auch der bedeutende Markt der Regelenergie nicht ausser Acht gelassen werden. Damit das Stromnetz auf einer Frequenz von 50 Hz stabil bleibt und die Blindleistung nicht zu gross wird, bietet die Wasserkraft in der Schweiz - speziell die Pumpspeicherkraftwerke - Systemdienstleistungen an. Swissgrid kann innerhalb von Sekunden die Primärregelleistung, innerhalb von Minuten die gröbere Sekundärregelleistung und innerhalb von einer Viertelstunde das schwere Geschütz der Tertiärregelleistung abrufen. Hier gilt es sowohl Lasten (wenn die Frequenz zu hoch ist) oder zusätzliche Leistung (wenn die Frequenz zu tief ist) bereitstellen zu können. Diese Stabilisierungsdienstleistung wird Stand Mai 2026 zu rund 95% über die Schweizer Wasserkraft `r zitat("swissgrid_sdl")` abgedeckt. Solche Regelenergie wird das ganze Jahr hinüber gebraucht, nicht nur im Winter. Die Pumpspeicherwerke können hier als einzige Grossanlagen auch (-) Last liefern, indem sie die Pumpen anwerfen und Wasser ins Reservoir hochpumpen, sie bieten also nicht nur (+) zusätzlichen Strom. Kernkraftwerke, beispielsweise, können nicht derart schnell Lasten ankoppeln, bzw. ihre Produktion drosseln - und netzgekoppelte Batterien von vergleichbarer Grösse befinden sich derzeit im Aufbau. Laut dem Batteriemonitor von Swisssolar `r zitat("swisssolar_batterie")` sind Stand 2026 129 MW Leistung an Batterien ans Netz (front-of-meter) gekoppelt, mit dem Plan, bis 2030 2'270 MW zu installieren. Die Pumpspeicherkraftwerk- und Umwälzkapazität lag am 1.1.2026 bei 4'160 MW (WASTA 1.1.2026). Zu nennen ist insbesondere das Batterieprojekt von Laufenburg `r zitat("srf_laufenburg")` auf Netzebene 1, das dereinst eine Leistung von 1'200 MW bieten soll. 
 
 ## Statistik trifft Physik {#statistische_klassifizierung} 
 
@@ -279,11 +304,11 @@ In der Tat besteht der Schweizer Wasserkraftwerkspark aus lauter Einzelfällen. 
 1. **Laufwasserkraftwerke**: Nutzen die Strömung eines Fliessgewässers und die Höhendifferenz über kleinere Staudämme oder -Mauern. 
 2. **Speicherkraftwerke**: Stauen i.d.R. verschiedene kleine Gewässer über eine Talsperre (Staudamm/Staumauer) und nutzen die Höhendifferenz zwischen dem gestauten Bergwasser und der Turbine unten im Tal. 
 3. **Pumpspeicherkraftwerke**: Eine Art von Speicherkraftwerken, welche (ein Teil des) turbinierten Wassers wieder zurück in den Stausee pumpt. Ein solches hat i.d.R. natürliche Zuflüsse.  
-4. **reine Umwälzkraftwerke**: ein Speicherkraftwerk ohne natürlichen Zufluss. Die Netto-Stromproduktion ist daher i.d.R. nahe bei null, d.h. etwas negativ, weil die gesamte Menge turbinierten Wassers auch wieder hochgepumpt werden muss und die Pumpen einen hohen, aber nicht 100%-igen Wirkungsgrad haben. In R(h)einform gibt es diese allerdings kaum in der Schweiz, nur der [Engeweiher in Schaffhausen](https://naturpark-schaffhausen.ch/de/home/detail/engeweiher-91fb6a10-e065-4950-9306-0dd37fcd68bd.html) entspricht der strikten Definition. In der WASTA werden aber noch 8 andere Pumpspeicherkraftwerke als solche geführt. 
+4. **reine Umwälzkraftwerke**: ein Speicherkraftwerk ohne natürlichen Zufluss. Die Netto-Stromproduktion ist daher i.d.R. nahe bei null, d.h. etwas negativ, weil die gesamte Menge turbinierten Wassers auch wieder hochgepumpt werden muss und die Pumpen einen hohen, aber nicht 100%-igen Wirkungsgrad haben. In R(h)einform gibt es diese allerdings kaum in der Schweiz, nur der Engeweiher in Schaffhausen `r zitat("naturpark_engeweiher") entspricht der strikten Definition. In der WASTA werden aber noch 8 andere Pumpspeicherkraftwerke als solche geführt. 
 
 In der Realität ist es nicht immer eindeutig, ob man die Produktion einer Wasserkraftanlage (WKA) der Speicher-, Pumpspeicher- oder Laufwasserkategorie zuordnen sollte. Es ist sehr schwer, diese Diversität in den Statistiken scharf abzubilden. 
 
-Ein Beispiel: <i>Ein einzelnes Unternehmen, wie z.B. die [Kraftwerke Oberhasli AG (KWO)](https://www.grimselstrom.ch/strom-aus-wasserkraft/interaktives-anlageschema) betreibt 13 Zentralen mit 28 Anlagen. Obwohl man gemeinhin denkt, die KWO sei der Speicher am Grimsel hat die KWO daher einen mittleren erwarteten Laufwasseranteil von 2.2% (WASTA 2026 fürs Jahr 2025), turbinierte sie einen Laufwasseranteil im Jahr 2025 von 26% (basierend auf Produktionssplit-Daten der KWO). Die Anlagen in deren System können aufgrund existierender Querverbindungen zwischen Lauf- und Speicherwasserfassungen daher nicht trennscharf einer Kategorie zugeordnet werden.</i> 
+Ein Beispiel: <i>Ein einzelnes Unternehmen, wie z.B. die Kraftwerke Oberhasli AG `r zitat("kwo")` betreibt 13 Zentralen mit 28 Anlagen. Obwohl man gemeinhin denkt, die KWO sei der Speicher am Grimsel hat die KWO daher einen mittleren erwarteten Laufwasseranteil von 2.2% `r zitat("bfe_wasta")`, turbinierte sie einen Laufwasseranteil im Jahr 2025 von 26% (basierend auf Produktionssplit-Daten der KWO). Die Anlagen in deren System können aufgrund existierender Querverbindungen zwischen Lauf- und Speicherwasserfassungen daher nicht trennscharf einer Kategorie zugeordnet werden.</i> 
 
 Es stellt sich die Grundsatzfrage: Wie fasst man eine Anlage zusammen, die beides kann und tut? Bleibt man bei fixierten Kategorie-Zuschreibungen, die über die Betriebsjahre nicht ändern oder müsste man sich die Mühe machen, turbinierte Anteile des Splits Speicherwasser/Laufwasser innerhalb einer Anlage zu erfassen? Dieses Beispiel zeigt, dass in der Tat dieser Split in den aggregierten Statistiken - wie er jährlich geschätzt wird, nicht als trennscharf interpretiert werden kann und sollte.
 
@@ -399,7 +424,7 @@ sm_slide_image("assets/sanetsch_1_red.jpg",
                           caption = "Der schneebedeckte Staudamm Sanetsch im Kt. Wallis. Foto: BKW, winter 2020/21",
                           alt = "Der schneebedeckte Staudamm Sanetsch im Kt. Wallis"),
            sm_slide_image("assets/sanetsch_bas_red.jpg",
-                          caption = "Entleerung des Sanetsch-Stausees aufgrund von Kontrollen im Juli 2026"),
+                          caption = "Entleerung des Sanetsch-Stausees aufgrund von Kontrollen im Juli 2026", alt= "Entleerung des Sanetsch-Stausees aufgrund von Kontrollen im Juli 2026"),
            center = c(7.296233, 46.360081), zoom = 12.5, pitch = 25, bearing = -60)
 )
 ```
@@ -426,119 +451,9 @@ sm_frame(
   load = "after_page", delay_ms = 2000,   # start 2 s after the story has loaded
   loading_text = "Dashboard wird gestartet … (kann einige Sekunden dauern)",
   caption = "Interaktives Dashboard «Wasserkraft und Spotpreise».",
-  source = "Daten: Energy-Charts.info (Fraunhofer ISE), Bundesnetzagentur | SMARD.de, EZB"
+source = quelle("energycharts", "smard", "ezb", prefix = "Daten: ")
 )
 ```
-
-*Hinweis:* Pumpspeicher als Brutto-Turbinenleistung – der Strom für das Hochpumpen ist nicht abgezogen. Exportüberschuss: positive Werte = Nettoexport, negative Werte = Nettoimport der Schweiz.
-
-**Datenquellen**
-Wasserkraft: Bundesamt für Energie BFE (Elektrizitätsstatistik, Energiedashboard, WASTA), ENTSO-E
-Transparency Platform, Energy-Charts.info · Übrige Daten: Energy-Charts.info (Fraunhofer ISE), CC
-BY 4.0 · Preise: Bundesnetzagentur | SMARD.de, CC BY 4.0 · Wechselkurs: Europäische Zentralbank
-(via Frankfurter)
-
-**Erklärungen**
-
-- Wasserkraft: stündliche Schätzung, monatlich auf die BFE-Elektrizitätsbilanz skaliert
-  (endgültige, sonst provisorische Werte; für die jüngsten Wochen Tageswerte des
-  BFE-Energiedashboards). Stundenprofile: Energy-Charts (Laufwasser, energetisch korrigiert) und
-  ENTSO-E (Speicher und Pumpspeicher). Unsicherheitsband = 90. Perzentil der monatlichen Abweichung
-  der Profilquelle von der BFE-Statistik im jeweiligen Jahr.
-- Übrige Quellen: öffentliche Nettostromerzeugung (stündlich) gemäss Energy-Charts, ohne
-  Wasserkraft. Werte je Periode als Summe in GWh. Anteile beziehen sich auf Wasserkraft-Schätzung
-  plus übrige Quellen.
-- Spotpreis: Day-Ahead-Auktion Schweiz (stündlich), mit dem täglichen EZB-Referenzkurs von EUR in
-  CHF umgerechnet; Mittelwert je Periode.
-- Handel: geplanter grenzüberschreitender Handel (15 Minuten) mit AT, DE, FR und IT, als
-  Exportüberschuss: positiv = Export, negativ = Import.
-- Wochen nach ISO 8601 (Montag bis Sonntag). Angeschnittene Wochen am Rand des Zeitraums sind als
-  unvollständig markiert.
-- Vergleich: Jahre als ISO-Jahre (KW 1 bis 52/53, jeweils Montag bis Sonntag, daher einige Tage
-  Versatz zum Kalenderjahr), Monate tageweise, Tage stündlich. Am Tag der Zeitumstellung im Herbst
-  ist die doppelte Stunde 02:00 um eine halbe Stunde versetzt.
-- Wasserkraft-Schätzung verfügbar bis 03.11.2026 (Stand der Aufbereitung: 06.11.2026).
-
-**Konfidenzintervalle**
-
-Die Bänder zeigen, wie unsicher der Stundenverlauf der Wasserkraft-Schätzung ist. Die Monatssummen
-von Laufwasser- und Speicherkraftwerken (inkl. Pumpspeicherung) sind durch die
-BFE-Elektrizitätsstatistik vorgegeben; unsicher ist, wie sich diese Summen auf Stunden, Tage und
-Wochen verteilen.
-
-Laufwasser- und Speicherkraftwerke: Für jedes Jahr wird die Quelle des Stundenverlaufs
-(Energy-Charts für Laufwasser, ENTSO-E für Speicher) so skaliert, dass ihre Jahressumme der
-BFE-Statistik entspricht. Danach wird jeder Monat mit dem BFE-Monatswert verglichen. Das 90.
-Perzentil der absoluten Monatsabweichungen ergibt die Bandbreite q dieses Jahres: Untergrenze =
-Schätzwert × (1 − q), Obergrenze = Schätzwert × (1 + q). Beispiel 2024: q = 15,6 % für Laufwasser
-und 4,3 % für Speicher. Dieser Unsicherheitswert bleibt in jeder Auflösung (auch stündlich) prozentual derselbe für dasselbe Jahr. 
-
-Trifft die Quelle die BFE-Monate bereits genau (Laufwasser ab 2025) oder liegen weniger als sechs
-vollständige Monate vor (laufendes Jahr), wird der Median der übrigen Jahre verwendet (Laufwasser:
-18,4 %). Diese Werte sind als «geringere Verlässlichkeit» gekennzeichnet.
-
-Produktion aus Umwälzbetrieb: Bootstrap mit 10 000 Ziehungen. In jeder Ziehung werden die Anlagen
-mit Pumpfunktion aus der WASTA mit Zurücklegen neu gezogen (für die saisonale Pumpenergie) und ein
-Wirkungsgrad zwischen 72 und 82 % zufällig gewählt. Das Band reicht vom 2,5. bis zum 97,5.
-Perzentil (95-%-Intervall); 2024 entspricht das 9,0 bis 12,0 % der Speicherproduktion (Median 10,6
-%).
-
-Speicherkraftwerke (ohne Umwälzbetrieb) = Speicher insgesamt minus Umwälzbetrieb. Ihr Band
-kombiniert beide Unsicherheiten: Untergrenze = Speicher-Untergrenze minus Umwälzbetrieb-Obergrenze,
-Obergrenze umgekehrt.
-
-Für Tage, Wochen und angebrochene Monate werden die stündlichen Grenzen aufsummiert. In
-vollständigen Monaten entfällt das Band für Laufwasser und Speicher insgesamt; nur die Aufteilung
-zwischen Speicherkraftwerken und Umwälzbetrieb bleibt unsicher.
-
-Nur das Band des Umwälzbetriebs ist ein statistisches Intervall. Die übrigen Bänder sind empirische
-Fehlerbereiche aus dem Vergleich mit der BFE-Statistik. Spätere Revisionen der BFE-Daten und mögliche Fehler
-in den BFE-Werten selbst sind natürlich vorbehalten.
-
-**Disclaimer**
-
-Die Wasserkraftwerte sind Schätzungen, keine Messwerte. Amtlich sind nur die Monatssummen der
-BFE-Elektrizitätsstatistik; die jüngsten Monate sind provisorisch (BFE-Monatswerte «nicht
-definitiv» bzw. Tageswerte des BFE-Energiedashboards) und können sich noch ändern.
-
-Die Stundenverläufe stammen von Energy-Charts (Fraunhofer ISE) und der ENTSO-E Transparency
-Platform, die nur einen Teil der Schweizer Anlagen erfassen. Die Produktion aus Umwälzbetrieb ist
-modelliert (angenommener Wirkungsgrad, erwartete Pumpenergie gemäss WASTA).
-
-Übrige Quellen, Spotpreise und grenzüberschreitender Handel stammen von Energy-Charts.info und
-SMARD.de, Umrechnung in CHF mit EZB-Referenzkursen. Tage nach der letzten Datenaktualisierung
-zeigen Werte von Energy-Charts ohne BFE-Verankerung.
-
-Alle Angaben ohne Gewähr für Richtigkeit, Vollständigkeit. Für amtliche Zahlen gilt die Elektrizitätsstatistik des BFE.
-
-**Lesebeispiele**
-
-1. Übersicht, Zeitraum 01.07.2024–31.07.2024, Auflösung «Tag», Darstellung «GWh», «Unsicherheit
-   anzeigen» eingeschaltet.
-2. Mauszeiger auf den 15. Juli 2024: Laufwasserkraftwerke 77,6 GWh [65,5–89,7], Speicherkraftwerke
-   103,0 GWh [96,6–109,7], Produktion aus Umwälzbetrieb (geschätzt) 11,2 GWh [9,4–12,6]. Die Werte
-   in [ ] sind das Unsicherheitsband; die Whisker zeigen dasselbe Band an der Oberkante jedes
-   Segments.
-3. Im selben Tooltip: Anteil jeder Technologie an der gesamten Produktion (in Klammern), übrige
-   Quellen, Spotpreis Day-Ahead als Tagesmittel in CHF/MWh. Im unteren Feld: Exportüberschuss
-   (positiv) oder Importüberschuss (negativ) der Schweiz.
-4. Kopfzeile des Tooltips: Juli 2024 ist BFE-definitiv, daher ohne Vermerk. Jüngste Tage tragen
-   «provisorisch» oder «Wasserkraft noch ohne BFE-Verankerung».
-5. Auflösung auf «Monat» stellen (Zeitraum 01.01.–31.12.2024): Laufwasser im Juli 2024 = 2428 GWh,
-   genau der BFE-Wert, daher ohne Band und ohne Whisker. Speicher- plus Umwälzbetrieb = 3522 GWh
-   (BFE-Speicherkraftwerke); unsicher bleibt nur ihre Aufteilung.
-6. «Anteil in %» zeigt die Zusammensetzung statt der Mengen.
-7. Ansicht «Vergleich»: dieselbe Grösse für bis zu fünf Jahre, Monate oder Tage übereinander, mit
-   grauem Unsicherheitsband.
-8. Ansicht «Quellenvergleich», Technologie Laufwasser, 2024, Auflösung Monat: Energy-Charts trifft
-   die BFE-Jahressumme, weicht aber pro Monat im Mittel um 8,7 % ab (MAPE); die
-   ENTSO-E-Originaldaten liegen rund 88 % unter der BFE-Statistik. Das untere Feld zeigt die
-   Abweichungen von der Referenz, die Tabelle darunter die Kennzahlen.
-9. Datentabelle öffnen bzw. CSV herunterladen: alle Werte inklusive unterer und oberer Grenzen und
-   dem Anteil geschätzter bzw. provisorischer Werte. Sprache oben rechts (DE/FR/IT/EN). Die
-   Adresszeile hält die Auswahl fest und lässt sich teilen, z. B.
-   ?view=sources&svar=ror&start=2024-01-01&end=2024-12-31&bin=month.
-
 
 ## Quellen {#quellen}
 
@@ -550,8 +465,12 @@ quellenverzeichnis()
 
 ```{r bildnachweise}
 sm_credits(
-  sm_credit("Titelbild: Lac de Moiry (VS)", "CCO Public Domain"),
-  sm_credit("Foto Staumauer Spitallamm", "Fotograf/in (Jahr) – ergänzen")
+  sm_credit("Titelbild: Lac de Moiry (VS)", "CC0 Public Domain"),
+  sm_credit("Überlauf Staumauer Gebidem, Sommer 2026", "Alpiq, 2026"),
+  sm_credit("Barrage de Rossens, lac rempli", "groupe e, 2025"),
+  sm_credit("Lac de la Gruyère abaissé; panneau d'information", "Lionel Chapuis, 2026"),
+  sm_credit("Staumauer Sanetsch im Winter", "BKW, 2020/21"),
+  sm_credit("Entleerung Sanetsch-Stausee, Juli 2026", "Fotograf/in – ergänzen")
 )
 ```
 
