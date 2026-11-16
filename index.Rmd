@@ -405,7 +405,7 @@ sm_slide_image("assets/sanetsch_1_red.jpg",
                           alt = "Der schneebedeckte Staudamm Sanetsch im Kt. Wallis"),
            sm_slide_image("assets/sanetsch_bas_red.jpg",
                           caption = "Entleerung des Sanetsch-Stausees aufgrund von Kontrollen im Juli 2026"),
-           center = c(8.515578, 46.443500), zoom = 13, pitch = 40, bearing = -60)
+           center = c(7.296233, 46.360081), zoom = 13, pitch = 40, bearing = -60)
 )
 ```
 
