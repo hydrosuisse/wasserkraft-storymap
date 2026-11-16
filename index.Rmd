@@ -424,7 +424,7 @@ sm_slide_image("assets/sanetsch_1_red.jpg",
                           caption = "Der schneebedeckte Staudamm Sanetsch im Kt. Wallis. Foto: BKW, winter 2020/21",
                           alt = "Der schneebedeckte Staudamm Sanetsch im Kt. Wallis"),
            sm_slide_image("assets/sanetsch_bas_red.jpg",
-                          caption = "Entleerung des Sanetsch-Stausees aufgrund von Kontrollen im Juli 2026", alt= "Entleerung des Sanetsch-Stausees aufgrund von Kontrollen im Juli 2026"),
+                          caption = "Entleerung des Sanetsch-Stausees aufgrund von Kontrollen im Juli 2026. Foto: Marcel Ottenkamp, ewb, Juli 2026.", alt= "Entleerung des Sanetsch-Stausees aufgrund von Kontrollen im Juli 2026"),
            center = c(7.296233, 46.360081), zoom = 12.5, pitch = 25, bearing = -60)
 )
 ```
