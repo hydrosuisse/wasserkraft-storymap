@@ -368,8 +368,6 @@ sm_sidecar(
 #Wartung und Instandhaltung 
 Dazu kommt, dass die Tiefstände im Frühling z.T. für Instandhaltungen und Wartungsarbeiten genutzt werden müssen. Für gewisse Arbeiten muss ein Speichersee sogar ganz abgelassen werden. So zeigen wir im Folgenden zwei Beispiele zu Wartungsarbeiten bei entleerten Seen, denn solche Entleerungen tragen auch zur Speicherwassersommerproduktion bei. 
 
-Beim Weiterscrollen fliegt die Karte in 3D zu den vier Beispielen
-
 ```{r tour 2}
 # 3D tour: swisstopo base map in colour (names, relief shading) draped over
 # swisstopo terrain (terrain = "swisstopo" in sm_sidecar below)
@@ -396,7 +394,14 @@ sm_sidecar(
   terrain = "swisstopo", exaggeration = 1.3,
   sm_slide(title = "Rossens – Lac de la Gruyère",
            tags$p("Bogenmauer an der Saane, 83 m hoch, 1947 fertiggestellt. ",
-                  "Sie staut den Lac de la Gruyère mit rund 200 Mio. m³ Inhalt (FR)."),
+                  "Le lac de la Gruyère alimente la centrale d'Hauterive pour une production moyenne annuelle de 220 GWh. Son grand volume de stockage de 163 Mio. m³, renouvelé près de 7 fois durant l'année par les apports de la Sarine, permet d'engager l'aménagement de manière saisonnière avec plus de la moitié de sa production en hiver. Ainsi le lac de la Gruyère est monté à son niveau maximum en début d'hiver et est abaissé progressivement pour la production hivernale avec le niveau le plus bas atteint généralement à fin avril. En 2026, cela a été atteint en Septembre, parce que des travaux de remplacement des vannes  ont nécessité l'abaissement du lac. Le but c'est de pouvoir recommencer à produire à pleine charge en décembre pour être prêt pour la production hivernale."),
+           sm_slide_image("assets/rossens_1_red.png",
+                          caption = "Le barrage de Rossens avec un lac de stockage rempli. Foto: groupe e, 2025",
+                          alt = "Le barrage de Rossens et le lac de Gruyère avec un lac de stockage rempli"),
+           sm_slide_image("assets/rossens_bas_red.png",
+                          caption = "Le lac de Gruyère abaissé à cause des travaux en Novembre 2026. Foto: Lionel Chapuis, 2026", alt = "Le lac de Gruyère abaissé à cause des travaux en Novembre 2026"),
+           sm_slide_image("assets/rossens_panneau_red.png",
+                          caption = "Panneau d'information pour le public sur la rive du lac de Gruyère. Foto: Lionel Chapuis, 2026", alt = "Panneau d'information sur les travaux pour le public sur la rive du lac de Gruyère"),
            center = c(7.112489, 46.71971), zoom = 12, pitch = 70, bearing = 140),
   sm_slide(title = "Robiei – Val Bavona",
            tags$p("Gewichtsmauer auf rund 1900 m ü. M., 68 m hoch, 1967. ",
