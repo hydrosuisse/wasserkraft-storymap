@@ -69,8 +69,7 @@ quellen <- list(
     url = "https://www.swissgrid.ch/de/home/newsroom/blog/2026/20260507-01.html"),
   swissolar_batterie = q(
     autor = "Swissolar", jahr = 2026,
-    titel = "Batteriemonitor Schweiz 2026: Marktentwicklung, Systemintegration und die Rolle von Batteriespeichern im Energiesystem",
-    typ = "Bericht", url = "https://www.swissolar.ch/02_markt-politik/batteriesmonitor/sws_batteriemonitor_2026.pdf"),
+    titel = "Batteriemonitor Schweiz 2026: Marktentwicklung, Systemintegration und die Rolle von Batteriespeichern im Energiesystem", url = "https://www.swissolar.ch/02_markt-politik/batteriesmonitor/sws_batteriemonitor_2026.pdf"),
   srf_laufenburg = q(
     autor = "SRF", jahr = "2024, 25. September",
     titel = "Riesenbatterie – Weltweit grösste Speicherbatterie in Laufenburg AG geplant",
