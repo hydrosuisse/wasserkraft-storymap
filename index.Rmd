@@ -23,8 +23,176 @@ source("R/storymap.R", encoding = "UTF-8")
 # Embedded pages. The two chart pages are built by build.R into charts/ and
 # refreshed daily by GitHub Actions; the dashboard stays on shinyapps.io.
 dashboard_url <- "https://hydrosuisse.shinyapps.io/wasserkraft-ch/"
-bfe_quelle <- 'Quelle: Bundesamt für Energie BFE, <a href="https://energiedashboard.admin.ch" target="_blank" rel="noopener">Energie-Dashboard</a>'
+
+# ---- Quellen (APA 6) -------------------------------------------------------------------------------------------------
+
+# Jede Quelle einmal mit q(...) eintragen – Reihenfolge egal. Automatisch:
+#   * Sortierung nach Nachname des Erstautors (bzw. Organisation), dann Jahr, Titel
+#   * Buchstaben bei gleichem Autor + Jahr (2026a, 2026b, …)
+#   * Kurzbeleg im Text (BFE, 2026a), Kursivschrift, Satzzeichen, Abrufdatum
+#
+# Felder von q():
+#   autor       wie im Verzeichnis: "Bundesamt für Energie BFE" oder
+#               Personen "Muster, A., & Beispiel, B. C." (Nachname, Initialen)
+#   kurz        Autor im Kurzbeleg (optional): "BFE". Ohne Angabe: Nachname(n)
+#   jahr        2026, "2022, 5. September" (Zeitungsartikel) oder NA (= o. J.)
+#   titel       ein Text; kursiv, ausser bei Artikeln (dann ist erschienen_in kursiv)
+#   erschienen_in  Zeitung/Zeitschrift, in der ein Artikel erschien (optional, kursiv)
+#   typ         Zusatz in eckigen Klammern (optional): "Datensatz", "Kartendienst"
+#   url         Adresse
+#   abruf       TRUE = "Abgerufen am <Build-Datum> von …" (für Seiten, die sich ändern)
+#   zusatz      Text am Schluss (optional), z. B. "(über die Frankfurter-API)"
+#
+# Verwenden:
+#   im Text:            `r zitat("kwo")`  ·  mehrere: `r zitat("bfe_speicher", "bfe_produktion")`
+#   unter Grafiken:     source = quelle("bfe_speicher")
+#   in tags$p(...):     tags$p("Text ", HTML(zitat("bfe_stauanlagen")))
+#   Zeilenumbruch in einem Titel (nicht APA-üblich): "Teil 1<br>Teil 2"
+
+q <- function(autor, jahr, titel, url = NULL, kurz = NULL, erschienen_in = NULL,
+              typ = NULL, abruf = FALSE, zusatz = NULL) {
+  list(autor = autor, jahr = jahr, titel = titel, url = url, kurz = kurz,
+       in_ = erschienen_in, typ = typ, abruf = abruf, zusatz = zusatz)
+}
+
+#Quellen - Liste ----------------------------------------------------------------------------------------------------
+
+quellen <- list(
+  # Vorlage zum Kopieren (Felder, die nicht gebraucht werden, weglassen):
+  # verweis_kurzbeleg = q(
+  #   autor = "Nachname, A., & Nachname, B.",   # oder Organisation, dann kurz = "Abk."
+  #   jahr = 2026,  titel = "Titel in einem Stück",  typ = "Datensatz",
+  #   url = "https://…",  abruf = TRUE),
+  entsoe = q(
+  autor = "ENTSO-E", kurz = "ENTSO-E",
+    jahr = 2026,  titel = "ENTSO-E Transparency Platform",  typ = "Datensatz",
+    url = "https://transparency.entsoe.eu/",  abruf = TRUE),
+  bfe_speicher = q(
+    autor = "Bundesamt für Energie BFE", kurz = "BFE", jahr = 2026,
+    titel = "Energie-Dashboard Schweiz: Füllstände der Speicherseen", typ = "Datensatz",
+    url = "https://energiedashboard.admin.ch/strom/fuellstaende-speicherseen", abruf = TRUE),
+  bfe_produktion = q(
+    autor = "Bundesamt für Energie BFE", kurz = "BFE", jahr = 2026,
+    titel = "Energie-Dashboard Schweiz: Stromproduktion, Import und Verbrauch", typ = "Datensatz",
+    url = "https://energiedashboard.admin.ch/strom/produktion", abruf = TRUE),
+  bfe_wasta = q(
+    autor = "Bundesamt für Energie BFE", kurz = "BFE", jahr = 2026,
+    titel = "Statistik der Wasserkraftanlagen der Schweiz (WASTA). Stand 1.1.2026",
+    typ = "Datensatz", url = "https://www.bfe.admin.ch/statistik-wasserkraft"),
+  bfe_stauanlagen = q(
+    autor = "Bundesamt für Energie BFE", kurz = "BFE", jahr = 2026,
+    titel = "Stauanlagen unter Bundesaufsicht", typ = "Geodatensatz ch.bfe.stauanlagen-bundesaufsicht",
+    url = "https://map.geo.admin.ch/#/map?layers=ch.bfe.stauanlagen-bundesaufsicht", abruf = TRUE),
+  swisstopo_karte = q(
+    autor = "Bundesamt für Landestopografie swisstopo", kurz = "swisstopo", jahr = 2026,
+    titel = "Basiskarte und Basiskarte hell (Vector Tiles)", typ = "Kartendienst",
+    url = "https://vectortiles.geo.admin.ch", abruf = TRUE),
+  swisstopo_terrain = q(
+    autor = "Bundesamt für Landestopografie swisstopo", kurz = "swisstopo", jahr = 2026,
+    titel = "Terrain 3D (ch.swisstopo.terrain.3d)", typ = "Digitales Höhenmodell",
+    url = "https://3d.geo.admin.ch/ch.swisstopo.terrain.3d/v1/layer.json", abruf = TRUE),
+  smard = q(
+    autor = "Bundesnetzagentur", jahr = 2026,
+    titel = "SMARD – Strommarktdaten: Day-Ahead-Preise", typ = "Datensatz, CC BY 4.0",
+    url = "https://www.smard.de", abruf = TRUE),
+  ezb = q(
+    autor = "Europäische Zentralbank", jahr = 2026, titel = "Euro-Referenzkurse", typ = "Datensatz",
+    url = "https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.de.html",
+    abruf = TRUE, zusatz = "(über die Frankfurter-API)"),
+  energycharts = q(
+    autor = "Fraunhofer-Institut für Solare Energiesysteme ISE", kurz = "Fraunhofer ISE", jahr = 2026,
+    titel = "Energy-Charts: Öffentliche Nettostromerzeugung Schweiz", typ = "Datensatz, CC BY 4.0",
+    url = "https://www.energy-charts.info", abruf = TRUE),
+  kwo = q(
+    autor = "Kraftwerke Oberhasli AG", kurz = "KWO", jahr = NA,
+    titel = "Interaktives Anlageschema",
+    url = "https://www.grimselstrom.ch/strom-aus-wasserkraft/interaktives-anlageschema", abruf = TRUE),
+  sda_kerzen = q(
+    autor = "SDA", jahr = "2022",              # genaues Datum ergänzen: "2022, 5. September"
+    titel = "Elcom-Chef rät zum Kauf von Kerzen und Holz", erschienen_in = "Berner Zeitung",
+    url = "https://www.bernerzeitung.ch/elcom-chef-raet-zum-kauf-von-kerzen-und-holz-825536238032")
+)
+
+#-------- Quellen - Funktionen (hier nichts ändern) ----------------------------------------------------------------
+
+heute <- local({
+  monate <- c("Januar", "Februar", "März", "April", "Mai", "Juni", "Juli",
+              "August", "September", "Oktober", "November", "Dezember")
+  d <- Sys.Date()
+  paste0(as.integer(format(d, "%d")), ". ", monate[as.integer(format(d, "%m"))], " ", format(d, "%Y"))
+})
+link <- function(url) sprintf('<a href="%s" target="_blank" rel="noopener">%s</a>', url, url)
+
+quellen <- local({
+  jahr_txt <- function(j) if (is.null(j) || is.na(j)) "o. J." else as.character(j)
+  jahr_kurz <- function(j) if (is.null(j) || is.na(j)) "o. J." else sub(",.*$", "", as.character(j))
+  autor_kurz <- function(a) {                       # "Muster, A., & Beispiel, B." -> "Muster & Beispiel"
+    if (!grepl(",", a)) return(a)                   # Organisation
+    namen <- trimws(regmatches(a, gregexpr("(^|&|,\\s)[^,&]+(?=,\\s*[A-ZÄÖÜ]\\.)", a, perl = TRUE))[[1]])
+    namen <- trimws(sub("^[&,]\\s*", "", namen))
+    if (length(namen) == 1) namen else if (length(namen) == 2) paste(namen, collapse = " & ")
+    else paste(namen[1], "et al.")
+  }
+  sortkey <- function(x) tolower(chartr("ÄÖÜäöüé", "AOUaoue", x))
+  ord <- order(sapply(quellen, function(x) sortkey(x$autor)),
+               sapply(quellen, function(x) jahr_kurz(x$jahr)),
+               sapply(quellen, function(x) sortkey(gsub("<[^>]+>", "", x$titel))))
+  quellen <- quellen[ord]
+  # a/b/c bei gleichem Autor + Jahr
+  gruppe <- sapply(quellen, function(x) paste(x$autor, jahr_kurz(x$jahr)))
+  for (g in unique(gruppe[duplicated(gruppe)])) {
+    idx <- which(gruppe == g)
+    for (i in seq_along(idx)) quellen[[idx[i]]]$suffix <- letters[i]
+  }
+  for (k in names(quellen)) {
+    x <- quellen[[k]]
+    s <- if (is.null(x$suffix)) "" else paste0(if (is.null(x$jahr) || is.na(x$jahr)) "-" else "", x$suffix)
+    jt <- jahr_txt(x$jahr)
+    jt <- if (s == "") jt else if (grepl(",", jt)) sub(",", paste0(s, ","), jt) else paste0(jt, s)
+    autor <- if (grepl("\\.$", x$autor)) x$autor else paste0(x$autor, ".")
+    titel <- if (!is.null(x$in_)) paste0(x$titel, ". <i>", x$in_, "</i>") else paste0("<i>", x$titel, "</i>")
+    typ <- if (!is.null(x$typ)) paste0(" [", x$typ, "]") else ""
+    url <- if (is.null(x$url)) "" else if (isTRUE(x$abruf))
+      paste0(" Abgerufen am ", heute, " von ", link(x$url)) else paste0(" ", link(x$url))
+    zus <- if (!is.null(x$zusatz)) paste0(" ", x$zusatz) else ""
+    quellen[[k]]$apa  <- paste0(autor, " (", jt, "). ", titel, typ, ".", url, zus)
+    quellen[[k]]$kurz <- paste0(if (!is.null(x$kurz)) x$kurz else autor_kurz(x$autor), ", ",
+                                jahr_kurz(x$jahr), s)
+  }
+  quellen
+})
+
+# Kurzbeleg im Text: (BFE, 2026a; swisstopo, 2026b) – mit dem Verzeichnis verlinkt
+zitat <- function(...) {
+  keys <- c(...)
+  fehlt <- setdiff(keys, names(quellen)); if (length(fehlt)) stop("Unbekannte Quelle: ", fehlt)
+  paste0("(", paste(vapply(keys, function(k)
+    sprintf('<a class="sm-cite" href="#ref-%s">%s</a>', k, quellen[[k]]$kurz), ""),
+    collapse = "; "), ")")
+}
+# Quellenzeile unter Grafiken/Karten: "Quelle: BFE (2026a)"
+quelle <- function(..., prefix = "Quelle: ") {
+  keys <- c(...)
+  fehlt <- setdiff(keys, names(quellen)); if (length(fehlt)) stop("Unbekannte Quelle: ", fehlt)
+  paste0(prefix, paste(vapply(keys, function(k) {
+    p <- regmatches(quellen[[k]]$kurz, regexec("^(.*), ([^,]+)$", quellen[[k]]$kurz))[[1]]
+    sprintf('<a class="sm-cite" href="#ref-%s">%s (%s)</a>', k, p[2], p[3])
+  }, ""), collapse = "; "))
+}
+# Verzeichnis (APA 6: alphabetisch, hängender Einzug)
+quellenverzeichnis <- function() {
+  tagList(
+    tags$style(HTML(".sm-ref{padding-left:calc(24px + 2em)!important;text-indent:-2em;font-size:.9375rem;line-height:1.6;margin-bottom:.75rem}.sm-ref:target{background:#fff6d6}.sm-cite{white-space:nowrap}")),
+    lapply(names(quellen), function(k)
+      tags$p(id = paste0("ref-", k), class = "sm-ref", HTML(quellen[[k]]$apa)))
+  )
+}
+
+# kompatibel mit bestehenden sm_frame(..., source = bfe_quelle)
+bfe_quelle <- quelle("bfe_speicher", "bfe_produktion")
 ```
+
+######## COVER ----------------------------------------------------------------------------------------
 
 ```{r cover}
 tagList(
@@ -58,6 +226,9 @@ tagList(
 )
 ```
 
+#### INHALT -----------------------------------------------------------------------------------------------------
+
+
 ## Winter is coming! {#einleitung}
 Erst kürzlich haben es Menschen "geschafft", den Winter zu einer Fussnote im Jahr verkommen zu lassen. Aber ganz ist der Respekt davor nicht verschwunden: Wir feiern Erntedankfeste im Herbst und freuen uns mit der Fasnacht über den Frühling. Allerspätestens seit den Volatilitäten auf den Energiemärkten im Herbst 2022 infolge des russischen Kriegs in der Ukraine und Elcom-Präsident Werner Luginbühls pointierter Aussage, dass man sich [Kerzen und Brennholz für den bevorstehenden Winter besorgen solle](https://www.bernerzeitung.ch/elcom-chef-raet-zum-kauf-von-kerzen-und-holz-825536238032), ist die Versorgungssicherheit der kritischen Infrastruktur Strom zurück in aller Munde. Im Speziellen wird dabei die Speicherwasserkraft als unsere "Winterversicherung" verstanden und die sömmerliche Produktion von Speicherwasser wird mit Argusaugen beobachtet. Zeit, sich anzuschauen, weshalb es gute Gründe gibt, dass auch die Speicherwasserkraft im Sommer Strom produzieren kann und auch sollte. 
 
@@ -79,7 +250,8 @@ Wird anstelle der erwarteten Produktion die realisierte Produktion über die let
 
 ```{r foto-jahresvergleich-prod}
 sm_image("assets/wasserkraft_ch_vergleich.png",
-caption = "Produktion aus Speicherwasseranlagen 2023-2026. Grafik: hydrosuisse. Quellen: BFE-Monatsdaten für Linien, ENTSO-E und Energy-Charts Daten für Konfidenzintervalle.",
+caption = "Produktion aus Speicherwasseranlagen 2023-2026. Grafik: hydrosuisse. Quellen: BFE-Monatsdaten für Linien; ENTSO-E und Energy-Charts-Daten wurden für die Konfidenzintervalle hinzugezogen.",
+source=quelle("bfe_produktion", "energycharts", ),
 alt = "Produktion aus Speicherwasseranlagen 2023-2026", width = "wide")
 ```
 
@@ -234,14 +406,15 @@ sm_frame(
 ## Quellen {#quellen}
 
 ```{r quellen}
+quellenverzeichnis()
+```
+
+### Bildnachweise
+
+```{r bildnachweise}
 sm_credits(
-  sm_credit("Dashboard: Produktions- und Preisdaten",
-            "Energy-Charts.info (Fraunhofer ISE), CC BY 4.0 · Preise: Bundesnetzagentur | SMARD.de, CC BY 4.0 · Wechselkurs: Europäische Zentralbank"),
-  sm_credit("Speicherseen, Stromproduktion",
-            'Bundesamt für Energie BFE, <a href="https://energiedashboard.admin.ch">energiedashboard.admin.ch</a>'),
-  sm_credit("Hintergrundkarten und Höhenmodell (3D)", "© swisstopo"),
-  sm_credit("Staumauern", "Bundesamt für Energie BFE, Stauanlagen unter Bundesaufsicht"),
-  sm_credit("Titelbild", "Lac de Moiry (VS) – Stock")
+  sm_credit("Titelbild: Lac de Moiry (VS)", "Fotograf/in (Jahr) – ergänzen"),
+  sm_credit("Foto Staumauer Spitallamm", "Fotograf/in (Jahr) – ergänzen")
 )
 ```
 
