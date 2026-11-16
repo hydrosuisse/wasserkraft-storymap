@@ -251,7 +251,7 @@ Wird anstelle der erwarteten Produktion die realisierte Produktion über die let
 ```{r foto-jahresvergleich-prod}
 sm_image("assets/wasserkraft_ch_vergleich.png",
 caption = "Produktion aus Speicherwasseranlagen 2023-2026. Grafik: hydrosuisse. Quellen: BFE-Monatsdaten für Linien; ENTSO-E und Energy-Charts-Daten wurden für die Konfidenzintervalle hinzugezogen.",
-source=quelle("bfe_produktion", "energycharts", ),
+source=quelle("bfe_produktion", "energycharts","entsoe"),
 alt = "Produktion aus Speicherwasseranlagen 2023-2026", width = "wide")
 ```
 
@@ -264,7 +264,7 @@ sm_frame(
   title = "Füllstände/Energieinhalt der Speicherseen in der Schweiz",
   height = "560px", auto_height = TRUE,
   caption = "Energieinhalt der Schweizer Speicherseen und Wasserkraftreserve. Täglich aktualisiert.",
-  source = bfe_quelle
+  source = quelle("bfe_speicher")
 )
 ```
 ## Exporte und Importe {#handel}
@@ -274,6 +274,7 @@ Exportiert wird die Strommenge, die über dem Landesverbrauch produziert wird. I
 ```{r energiedashboard nachgebaut}
 sm_image("assets/bfe_dashboard.png",
 caption = "Produktion und Landesverbrauch inkl. Verbrauch der Speicherpumpen. Täglich aktualisiert.",
+source=quelle("bfe_produktion"),
 alt = "Produktion und Landesverbrauch", width = "wide")
 ```
 Dabei könnte man meinen, dass die Exporte praktisch im Alleingang durch die Speicherkraft bewerkstelligt würden (s. z.B. Sommer 2024). Dies entspricht aber nicht der physikalischen Realität, denn erstens ist es arbiträr, welche Farben man wie aufeinanderlegt und zweitens entspricht der Exportmix dem Produktionsmix zur selben Zeit, d.h. der Export besteht proportional aus dem Produktionsmix. Um Missverständnisse wie jene vorzubeugen, wäre also eine umgebaute Visualisierung mit denselben Daten hilfreicher. Hier ein Vorschlag - zum Herumspielen, wie dies aussehen könnte: 
@@ -284,7 +285,7 @@ sm_frame(
   title = "Stromproduktion und Landesverbrauch",
   height = "540px", auto_height = TRUE,
   caption = "Produktion und Landesverbrauch inkl. Verbrauch der Speicherpumpen. Täglich aktualisiert.",
-  source = bfe_quelle
+  source = quelle("bfe_produktion", "energycharts","entsoe")
 )
 ```
 
