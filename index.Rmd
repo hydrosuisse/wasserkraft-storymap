@@ -192,8 +192,6 @@ quellenverzeichnis <- function() {
 bfe_quelle <- quelle("bfe_speicher", "bfe_produktion")
 ```
 
-######## COVER ----------------------------------------------------------------------------------------
-
 ```{r cover}
 tagList(
   sm_header(logo = "assets/Logo_hydrosuisse.svg", logo_alt = "hydrosuisse",
@@ -223,9 +221,6 @@ tagList(
   ))
 )
 ```
-
-#### INHALT -----------------------------------------------------------------------------------------------------
-
 
 ## Winter is coming! {#einleitung}
 Erst kürzlich haben es Menschen "geschafft", den Winter zu einer Fussnote im Jahr verkommen zu lassen. Aber ganz ist der Respekt davor nicht verschwunden: Wir feiern Erntedankfeste im Herbst und freuen uns mit der Fasnacht über den Frühling. Allerspätestens seit den Volatilitäten auf den Energiemärkten im Herbst 2022 infolge des russischen Kriegs in der Ukraine und Elcom-Präsident Werner Luginbühls pointierter Aussage, dass man sich [Kerzen und Brennholz für den bevorstehenden Winter besorgen solle](https://www.bernerzeitung.ch/elcom-chef-raet-zum-kauf-von-kerzen-und-holz-825536238032), ist die Versorgungssicherheit der kritischen Infrastruktur Strom zurück in aller Munde. Im Speziellen wird dabei die Speicherwasserkraft als unsere "Winterversicherung" verstanden und die sömmerliche Produktion von Speicherwasser wird mit Argusaugen beobachtet. Zeit, sich anzuschauen, weshalb es gute Gründe gibt, dass auch die Speicherwasserkraft im Sommer Strom produzieren kann und auch sollte. 
