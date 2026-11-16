@@ -226,15 +226,7 @@ tagList(
 ## Winter is coming! {#einleitung}
 Erst kürzlich haben es Menschen "geschafft", den Winter zu einer Fussnote im Jahr verkommen zu lassen. Aber ganz ist der Respekt davor nicht verschwunden: Wir feiern Erntedankfeste im Herbst und freuen uns mit der Fasnacht über den Frühling. Allerspätestens seit den Volatilitäten auf den Energiemärkten im Herbst 2022 infolge des russischen Kriegs in der Ukraine und Elcom-Präsident Werner Luginbühls pointierter Aussage, dass man sich [Kerzen und Brennholz für den bevorstehenden Winter besorgen solle](https://www.bernerzeitung.ch/elcom-chef-raet-zum-kauf-von-kerzen-und-holz-825536238032), ist die Versorgungssicherheit der kritischen Infrastruktur Strom zurück in aller Munde. Im Speziellen wird dabei die Speicherwasserkraft als unsere "Winterversicherung" verstanden und die sömmerliche Produktion von Speicherwasser wird mit Argusaugen beobachtet. Zeit, sich anzuschauen, weshalb es gute Gründe gibt, dass auch die Speicherwasserkraft im Sommer Strom produzieren kann und auch sollte. 
 
-1. wesentlich weniger dieses Jahr im Vergleich zu den letzten Sommern
-2. Füllstandslinie - relativieren
-4. Exporte - Missverständnisse
-5. Systemdienstleistungen
-6. Besonderheiten: Schmelzwasser-Speicherkraft
-7. Besonderheiten: Instandhaltungen
-8. Statistische Unschärfe bei der Zuteilung zu Kraftwerkstypen
-
-Im Folgenden wird daher sowohl auf die Eigenheiten verschiedener Speicherkraftwerke, wie
+Die folgende interaktive Übersicht listet einige Gründe und Begebenheiten zur Schweizer Speicherwasserkraft mit dem Ziel eine Antwort auf die eingehend gestellte Frage zur Sommerproduktion aus Speicherwasserkraft zumindest teilweise zu beantworten. 
 
 ##Speicherwasser ist nicht nur für den Winter gedacht {#funktionspeicherwasser}
 
