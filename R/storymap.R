@@ -94,8 +94,9 @@ sm_map <- function(map, caption = NULL, width = c("wide", "standard", "full"),
 }
 
 # zoom = TRUE: click opens the image enlarged (same viewer as sm_slide_image)
+# source: optional source line under the caption, e.g. source = quelle("bfe_produktion")
 sm_image <- function(src, caption = NULL, alt = "",
-                     width = c("standard", "wide", "full"), zoom = FALSE) {
+                     width = c("standard", "wide", "full"), zoom = FALSE, source = NULL) {
   width <- match.arg(width)
   img <- tags$img(src = src, alt = alt, loading = "lazy")
   if (zoom) img <- tags$button(type = "button", class = "sm-zoom", `data-full` = src,
@@ -105,7 +106,7 @@ sm_image <- function(src, caption = NULL, alt = "",
   tags$figure(
     class = paste0("sm-block sm-", width, " sm-image"),
     img,
-    if (!is.null(caption)) tags$figcaption(class = "sm-caption", HTML(caption))
+    sm_figcaption(caption, source)
   )
 }
 
@@ -132,6 +133,17 @@ sm_slide <- function(..., title = NULL, center = NULL, zoom = NULL,
   )
 }
 
+# caption + optional source line (used by sm_image and sm_slide_image)
+sm_figcaption <- function(caption = NULL, source = NULL) {
+  if (is.null(caption) && is.null(source)) return(NULL)
+  tags$figcaption(
+    class = "sm-caption",
+    if (!is.null(caption)) HTML(caption),
+    if (!is.null(caption) && !is.null(source)) tags$br(),
+    if (!is.null(source)) tags$span(class = "sm-source", HTML(source))
+  )
+}
+
 # Image inside a slide (or anywhere): shown as a thumbnail below the text,
 # opens enlarged on click (Esc or click outside closes it). Several sm_slide_image()
 # in one slide appear side by side; in the enlarged view, arrows page through them.
@@ -139,7 +151,7 @@ sm_slide <- function(..., title = NULL, center = NULL, zoom = NULL,
 #   caption text under the image and in the enlarged view (HTML allowed)
 #   alt     short description for screen readers (always fill in)
 #   full    optional larger file for the enlarged view (default: src)
-sm_slide_image <- function(src, caption = NULL, alt = "", full = src) {
+sm_slide_image <- function(src, caption = NULL, alt = "", full = src, source = NULL) {
   tags$figure(
     class = "sm-slide-figure",
     tags$button(
@@ -148,7 +160,7 @@ sm_slide_image <- function(src, caption = NULL, alt = "", full = src) {
       tags$img(src = src, alt = alt, loading = "lazy"),
       tags$span(class = "sm-zoom-icon", `aria-hidden` = "true", HTML("&#x2922;"))
     ),
-    if (!is.null(caption)) tags$figcaption(class = "sm-caption", HTML(caption))
+    sm_figcaption(caption, source)
   )
 }
 
