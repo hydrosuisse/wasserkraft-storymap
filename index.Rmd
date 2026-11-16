@@ -470,7 +470,7 @@ Laufwasser- und Speicherkraftwerke: Für jedes Jahr wird die Quelle des Stundenv
 BFE-Statistik entspricht. Danach wird jeder Monat mit dem BFE-Monatswert verglichen. Das 90.
 Perzentil der absoluten Monatsabweichungen ergibt die Bandbreite q dieses Jahres: Untergrenze =
 Schätzwert × (1 − q), Obergrenze = Schätzwert × (1 + q). Beispiel 2024: q = 15,6 % für Laufwasser
-und 4,3 % für Speicher.
+und 4,3 % für Speicher. Dieser Unsicherheitswert bleibt in jeder Auflösung (auch stündlich) prozentual derselbe für dasselbe Jahr. 
 
 Trifft die Quelle die BFE-Monate bereits genau (Laufwasser ab 2025) oder liegen weniger als sechs
 vollständige Monate vor (laufendes Jahr), wird der Median der übrigen Jahre verwendet (Laufwasser:
