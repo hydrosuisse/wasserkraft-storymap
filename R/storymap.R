@@ -94,8 +94,9 @@ sm_map <- function(map, caption = NULL, width = c("wide", "standard", "full"),
 }
 
 # zoom = TRUE: click opens the image enlarged (same viewer as sm_slide_image)
+# source: optional source line under the caption, e.g. source = quelle("bfe_produktion")
 sm_image <- function(src, caption = NULL, alt = "",
-                     width = c("standard", "wide", "full"), zoom = FALSE) {
+                     width = c("standard", "wide", "full"), zoom = FALSE, source = NULL) {
   width <- match.arg(width)
   img <- tags$img(src = src, alt = alt, loading = "lazy")
   if (zoom) img <- tags$button(type = "button", class = "sm-zoom", `data-full` = src,
@@ -105,19 +106,21 @@ sm_image <- function(src, caption = NULL, alt = "",
   tags$figure(
     class = paste0("sm-block sm-", width, " sm-image"),
     img,
-    if (!is.null(caption)) tags$figcaption(class = "sm-caption", HTML(caption))
+    sm_figcaption(caption, source)
   )
 }
 
 # One slide of a sidecar. `...` is the narrative (tags or markdown via
 # htmltools::HTML(markdown::mark(...)) ). The map flies to center/zoom/etc.
 # `show` / `hide`: layer ids to switch on/off when the slide becomes active.
+# `bounds`: c(west, south, east, north) - the map frames this area itself
+#   (fits any map width); replaces center/zoom. `padding`: margin in pixels.
 sm_slide <- function(..., title = NULL, center = NULL, zoom = NULL,
                      pitch = NULL, bearing = NULL, show = NULL, hide = NULL,
-                     duration = 2500) {
+                     bounds = NULL, padding = 40, duration = 2500) {
   view <- Filter(Negate(is.null), list(
     center = center, zoom = zoom, pitch = pitch, bearing = bearing,
-    duration = duration
+    bounds = bounds, padding = if (!is.null(bounds)) padding, duration = duration
   ))
   tags$div(
     class = "sm-slide",
@@ -132,6 +135,17 @@ sm_slide <- function(..., title = NULL, center = NULL, zoom = NULL,
   )
 }
 
+# caption + optional source line (used by sm_image and sm_slide_image)
+sm_figcaption <- function(caption = NULL, source = NULL) {
+  if (is.null(caption) && is.null(source)) return(NULL)
+  tags$figcaption(
+    class = "sm-caption",
+    if (!is.null(caption)) HTML(caption),
+    if (!is.null(caption) && !is.null(source)) tags$br(),
+    if (!is.null(source)) tags$span(class = "sm-source", HTML(source))
+  )
+}
+
 # Image inside a slide (or anywhere): shown as a thumbnail below the text,
 # opens enlarged on click (Esc or click outside closes it). Several sm_slide_image()
 # in one slide appear side by side; in the enlarged view, arrows page through them.
@@ -139,7 +153,7 @@ sm_slide <- function(..., title = NULL, center = NULL, zoom = NULL,
 #   caption text under the image and in the enlarged view (HTML allowed)
 #   alt     short description for screen readers (always fill in)
 #   full    optional larger file for the enlarged view (default: src)
-sm_slide_image <- function(src, caption = NULL, alt = "", full = src) {
+sm_slide_image <- function(src, caption = NULL, alt = "", full = src, source = NULL) {
   tags$figure(
     class = "sm-slide-figure",
     tags$button(
@@ -148,7 +162,7 @@ sm_slide_image <- function(src, caption = NULL, alt = "", full = src) {
       tags$img(src = src, alt = alt, loading = "lazy"),
       tags$span(class = "sm-zoom-icon", `aria-hidden` = "true", HTML("&#x2922;"))
     ),
-    if (!is.null(caption)) tags$figcaption(class = "sm-caption", HTML(caption))
+    sm_figcaption(caption, source)
   )
 }
 
@@ -159,9 +173,11 @@ sm_slide_image <- function(src, caption = NULL, alt = "", full = src) {
 #   (about 7 m per pixel in Switzerland) - the finest level swisstopo publishes
 #   for this layer. Coarser levels are used automatically when zoomed out.
 # exaggeration: vertical exaggeration of the relief (1 = true scale).
+# narrative_width: width of the text column, e.g. "36%" (default), "50%", "55%";
+#   the map takes the rest. On phones the map is always on top.
 .sm_counter <- new.env()
 sm_sidecar <- function(map, ..., panel = c("left", "right"),
-                       terrain = NULL, exaggeration = 1.3) {
+                       terrain = NULL, exaggeration = 1.3, narrative_width = "36%") {
   panel <- match.arg(panel)
   if (is.null(map$elementId)) {
     .sm_counter$n <- (if (is.null(.sm_counter$n)) 0 else .sm_counter$n) + 1
@@ -172,6 +188,7 @@ sm_sidecar <- function(map, ..., panel = c("left", "right"),
   map$height <- "100%"
   tags$section(
     class = paste0("sm-sidecar sm-panel-", panel),
+    style = paste0("--sm-narrative-w:", narrative_width, ";"),
     `data-map` = map_id,
     `data-terrain` = terrain,
     `data-exaggeration` = if (!is.null(terrain)) exaggeration,

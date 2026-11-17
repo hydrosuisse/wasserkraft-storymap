@@ -251,11 +251,11 @@ hr { border: 0; border-top: 2px solid var(--sm-rule); margin-top: 3rem; margin-b
 .sm-sidecar {
   position: relative;
   display: grid;
-  grid-template-columns: minmax(320px, 36%) 1fr;
+  grid-template-columns: minmax(320px, var(--sm-narrative-w, 36%)) 1fr;
   margin: 4rem 0;
   background: var(--sm-bg-2);
 }
-.sm-panel-right { grid-template-columns: 1fr minmax(320px, 36%); }
+.sm-panel-right { grid-template-columns: 1fr minmax(320px, var(--sm-narrative-w, 36%)); }
 .sm-panel-right .sm-sidecar-media { order: 1; }
 .sm-panel-right .sm-sidecar-narrative { order: 2; }
 

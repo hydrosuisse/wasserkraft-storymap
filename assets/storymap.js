@@ -115,6 +115,13 @@
     try { view = JSON.parse(slide.dataset.view || "{}"); } catch (e) {}
     setVisibility(map, slide.dataset.hide, "none");
     setVisibility(map, slide.dataset.show, "visible");
+    if (view.bounds && map.cameraForBounds) {
+      // frame an area: works for any map width; pitch/bearing applied on top
+      var b = view.bounds;
+      var cam = map.cameraForBounds([[b[0], b[1]], [b[2], b[3]]],
+        { padding: view.padding || 40, bearing: view.bearing || 0 });
+      if (cam) { view.center = [cam.center.lng, cam.center.lat]; view.zoom = cam.zoom; }
+    }
     if (view.center || view.zoom != null) {
       var opts = {};
       ["center", "zoom", "pitch", "bearing"].forEach(function (k) {
