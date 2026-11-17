@@ -280,6 +280,16 @@ sm_frame(
 
 Wie in der Einleitung angetönt, sind die Zuflüsse in die Speicherseen Schmelzwasser, was besonders in heissen Sommern besonders zu Buche schlägt. Einige Staudämme sind klein dimensioniert, so dass diese im Sommer turbinieren müssen, ansonsten bleibt das Potenzial ungenutzt. Im Folgenden zeigen wir Ihnen ein Extrembeispiel: 
 
+```{r vorbereitung}
+kraftwerke <- read.csv("data/kraftwerke.csv") |>
+  st_as_sf(coords = c("lon", "lat"), crs = 4326)
+kraftwerke$popup <- sprintf("<h4>%s</h4>%s · Kanton %s",
+                            kraftwerke$name, kraftwerke$typ, kraftwerke$kanton)
+
+# colours as in the Energie-Dashboard
+typ_farben <- c(Laufwasser = "#1B84CB", Speicher = "#59BBA4", Pumpspeicher = "#126057")
+```
+
 ```{r tour 1}
 # Dams (red points) are only used in tour 2 - read here, as before
 staumauern <- read.csv("data/staumauern.csv", encoding = "UTF-8") |>
@@ -385,15 +395,6 @@ source=quelle("bfe_produktion", "entsoe", "energycharts"),
 alt = "Quellenvergleich über verschiedene Energieträger in der 1. Augustwoche 2026", width = "wide")
 ```
 
-```{r vorbereitung}
-kraftwerke <- read.csv("data/kraftwerke.csv") |>
-  st_as_sf(coords = c("lon", "lat"), crs = 4326)
-kraftwerke$popup <- sprintf("<h4>%s</h4>%s · Kanton %s",
-                            kraftwerke$name, kraftwerke$typ, kraftwerke$kanton)
-
-# colours as in the Energie-Dashboard
-typ_farben <- c(Laufwasser = "#1B84CB", Speicher = "#59BBA4", Pumpspeicher = "#126057")
-```
 ## Wartung und Instandhaltung {#wartung}
 
 Dazu kommt, dass die Tiefstände im Frühling z.T. für Instandhaltungen und Wartungsarbeiten genutzt werden müssen. Für gewisse Arbeiten muss ein Speichersee sogar ganz abgelassen werden. So zeigen wir im Folgenden zwei Beispiele zu Wartungsarbeiten bei entleerten Seen, denn solche Entleerungen tragen auch zur Speicherwasser-Sommerproduktion bei. 
