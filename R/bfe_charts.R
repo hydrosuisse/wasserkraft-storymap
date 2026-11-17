@@ -225,22 +225,37 @@ bfe_produktion_handel_chart <- function(data, years = 5, height = 620) {
   # --- top panel: Landesproduktion vs. Landesverbrauch, gap filled ---
   # grey  = production above consumption (net export)
   # orange = consumption above production (net import, same colour as below)
+  # Hover: one row "Nettoexport: … GWh" or "Nettoimport: … GWh" per day (see hover_trace).
   verbrauch <- d$stromverbrauch
   unten <- pmin(produktion, verbrauch)
-  fill_trace <- function(p, upper, colour, name, group, legend) {
+  gwh <- function(x) paste0(formatC(x, format = "f", digits = 1, decimal.mark = ","), " GWh")
+  ist_export <- produktion >= verbrauch
+  fill_trace <- function(p, upper, colour, name, group) {
     p |>
       add_trace(y = unten, type = "scatter", mode = "lines",           # lower edge
                 line = list(width = 0, color = "rgba(0,0,0,0)"),
                 hoverinfo = "skip", showlegend = FALSE, legendgroup = group) |>
       add_trace(y = upper, type = "scatter", mode = "lines", fill = "tonexty",
                 fillcolor = colour, line = list(width = 0, color = colour),
-                hoverinfo = "skip", name = name, legendgroup = group, showlegend = legend)
+                hoverinfo = "skip", name = name, legendgroup = group)
+  }
+  # hover-only rows: values only on the days where the area exists (NA elsewhere),
+  # with a small square in the area's colour in front of the text
+  hover_trace <- function(p, aktiv, wert, colour, label, group) {
+    p |> add_trace(
+      y = ifelse(aktiv, pmax(produktion, verbrauch), NA), type = "scatter", mode = "lines",
+      line = list(width = 0, color = "rgba(0,0,0,0)"), showlegend = FALSE, legendgroup = group,
+      name = label, connectgaps = FALSE,
+      text = paste0("<span style='color:", colour, "'>\u25A0</span> <b>", label, ": ", gwh(wert), "</b>"),
+      hovertemplate = "%{text}<extra></extra>")
   }
   top <- plot_ly(x = d$date) |>
-    fill_trace(ifelse(produktion > verbrauch, produktion, unten), "#BDBDBD",
-               "Nettoexport (Produktion > Verbrauch)", "export_area", TRUE) |>
-    fill_trace(ifelse(verbrauch > produktion, verbrauch, unten), "#EB9F46",
-               "Nettoimport (Verbrauch > Produktion)", "import", TRUE) |>
+    fill_trace(ifelse(ist_export, produktion, unten), "#BDBDBD",
+               "Nettoexport (Produktion > Verbrauch)", "export_area") |>
+    fill_trace(ifelse(!ist_export, verbrauch, unten), "#EB9F46",
+               "Nettoimport (Verbrauch > Produktion)", "import") |>
+    hover_trace(ist_export, produktion - verbrauch, "#9E9E9E", "Nettoexport", "export_area") |>
+    hover_trace(!ist_export, verbrauch - produktion, "#EB9F46", "Nettoimport", "import") |>
     add_trace(y = produktion, type = "scatter", mode = "lines",
               line = list(color = "#000000", width = 1.5), name = "Landesproduktion",
               legendgroup = "prodline",
@@ -248,17 +263,7 @@ bfe_produktion_handel_chart <- function(data, years = 5, height = 620) {
     add_trace(y = verbrauch, type = "scatter", mode = "lines",
               line = list(color = "#000000", width = 1.5, dash = "dot"),
               name = "Landesverbrauch", legendgroup = "verbrauch",
-              hovertemplate = "Landesverbrauch: %{y:.1f} GWh<extra></extra>") |>
-    # invisible: adds "Nettoexport …" or "Nettoimport …" to the hover box of the top panel
-    add_trace(y = pmax(produktion, verbrauch), type = "scatter", mode = "lines",
-              line = list(width = 0, color = "rgba(0,0,0,0)"), showlegend = FALSE,
-              name = "Saldo",
-              text = ifelse(produktion >= verbrauch,
-                            paste0("Nettoexport: ", formatC(produktion - verbrauch, format = "f",
-                                                            digits = 1, decimal.mark = ","), " GWh"),
-                            paste0("Nettoimport: ", formatC(verbrauch - produktion, format = "f",
-                                                            digits = 1, decimal.mark = ","), " GWh")),
-              hovertemplate = "<b>%{text}</b><extra></extra>")
+              hovertemplate = "Landesverbrauch: %{y:.1f} GWh<extra></extra>")
 
   # --- bottom panel ---
   bottom <- plot_ly(x = d$date)
@@ -299,7 +304,7 @@ bfe_produktion_handel_chart <- function(data, years = 5, height = 620) {
   p <- subplot(top, bottom, nrows = 2, shareX = TRUE, heights = c(0.5, 0.5),
                margin = 0.07)
   p$height <- height
-  p |>
+  p <- p |>
     bfe_layout(
       xaxis  = bfe_xaxis(range = as.character(c(start, last))),
       yaxis  = bfe_yaxis(ticksuffix = " GWh", rangemode = "tozero"),
@@ -320,6 +325,15 @@ bfe_produktion_handel_chart <- function(data, years = 5, height = 620) {
                     yanchor = "top", font = list(size = 11), traceorder = "normal"),
       margin = list(l = 64, r = 16, t = 70, b = 10)
     )
+
+  # plotly stores hoverinfo = "skip" once per day; in "x unified" hover that still
+  # leaves empty rows (grey/orange swatches without text). Make it one scalar value.
+  p <- plotly_build(p)
+  for (i in seq_along(p$x$data)) {
+    h <- p$x$data[[i]]$hoverinfo
+    if (!is.null(h) && length(h) > 1 && all(h == "skip")) p$x$data[[i]]$hoverinfo <- "skip"
+  }
+  p
 }
 
 # Write one chart as a standalone page (embedded in the story via sm_frame()).
