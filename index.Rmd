@@ -1,5 +1,5 @@
 ---
-pagetitle: "Saisonale Produktion in der Schweizer Wasserkraft"
+pagetitle: "Weshalb produzieren Speicherwasserkraftwerke auch im Sommer Strom?"
 output:
   html_document:
     theme: null
@@ -23,7 +23,201 @@ source("R/storymap.R", encoding = "UTF-8")
 # Embedded pages. The two chart pages are built by build.R into charts/ and
 # refreshed daily by GitHub Actions; the dashboard stays on shinyapps.io.
 dashboard_url <- "https://hydrosuisse.shinyapps.io/wasserkraft-ch/"
-bfe_quelle <- 'Quelle: Bundesamt für Energie BFE, <a href="https://energiedashboard.admin.ch" target="_blank" rel="noopener">Energie-Dashboard</a>'
+
+# ---- Quellen (APA 6) -------------------------------------------------------------------------------------------------
+
+# Jede Quelle einmal mit q(...) eintragen – Reihenfolge egal. Automatisch:
+#   * Sortierung nach Nachname des Erstautors (bzw. Organisation), dann Jahr, Titel
+#   * Buchstaben bei gleichem Autor + Jahr (2026a, 2026b, …)
+#   * Kurzbeleg im Text (BFE, 2026a), Kursivschrift, Satzzeichen, Abrufdatum
+#
+# Felder von q():
+#   autor       wie im Verzeichnis: "Bundesamt für Energie BFE" oder
+#               Personen "Muster, A., & Beispiel, B. C." (Nachname, Initialen)
+#   kurz        Autor im Kurzbeleg (optional): "BFE". Ohne Angabe: Nachname(n)
+#   jahr        2026, "2022, 5. September" (Zeitungsartikel) oder NA (= o. J.)
+#   titel       ein Text; kursiv, ausser bei Artikeln (dann ist erschienen_in kursiv)
+#   erschienen_in  Zeitung/Zeitschrift, in der ein Artikel erschien (optional, kursiv)
+#   typ         Zusatz in eckigen Klammern (optional): "Datensatz", "Kartendienst"
+#   url         Adresse
+#   abruf       TRUE = "Abgerufen am <Build-Datum> von …" (für Seiten, die sich ändern)
+#   zusatz      Text am Schluss (optional), z. B. "(über die Frankfurter-API)"
+#
+# Verwenden:
+#   im Text:            `r zitat("kwo")`  ·  mehrere: `r zitat("bfe_speicher", "bfe_produktion")`
+#   unter Grafiken:     source = quelle("bfe_speicher")
+#   in tags$p(...):     tags$p("Text ", HTML(zitat("bfe_stauanlagen")))
+#   Zeilenumbruch in einem Titel (nicht APA-üblich): "Teil 1<br>Teil 2"
+
+q <- function(autor, jahr, titel, url = NULL, kurz = NULL, erschienen_in = NULL,
+              typ = NULL, abruf = FALSE, zusatz = NULL) {
+  list(autor = autor, jahr = jahr, titel = titel, url = url, kurz = kurz,
+       in_ = erschienen_in, typ = typ, abruf = abruf, zusatz = zusatz)
+}
+
+#Quellen - Liste ----------------------------------------------------------------------------------------------------
+
+quellen <- list(
+  # Vorlage zum Kopieren (Felder, die nicht gebraucht werden, weglassen):
+  # verweis_kurzbeleg = q(
+  #   autor = "Nachname, A., & Nachname, B.",   # oder Organisation, dann kurz = "Abk."
+  #   jahr = 2026,  titel = "Titel in einem Stück",  typ = "Datensatz",
+  #   url = "https://…",  abruf = TRUE),
+bafu_ezg = q(
+    autor = "Bundesamt für Umwelt BAFU", kurz = "BAFU", jahr = NA,
+    titel = "Teileinzugsgebiete 40 km² (ch.bafu.wasser-teileinzugsgebiete_40)", typ = "Geodatensatz",
+    url = "https://map.geo.admin.ch/#/map?layers=ch.bafu.wasser-teileinzugsgebiete_40", abruf = TRUE),
+  swissgrid_sdl = q(
+    autor = "Aebi, S.", jahr = "2026, 7. Mai",
+    titel = "PV-Energie für ein stabiles Netz", erschienen_in = "Swissgrid Blog",
+    url = "https://www.swissgrid.ch/de/home/newsroom/blog/2026/20260507-01.html"),
+  swissolar_batterie = q(
+    autor = "Swissolar", jahr = 2026,
+    titel = "Batteriemonitor Schweiz 2026: Marktentwicklung, Systemintegration und die Rolle von Batteriespeichern im Energiesystem", url = "https://www.swissolar.ch/02_markt-politik/batteriesmonitor/sws_batteriemonitor_2026.pdf"),
+  srf_laufenburg = q(
+    autor = "SRF", jahr = "2024, 25. September",
+    titel = "Riesenbatterie – Weltweit grösste Speicherbatterie in Laufenburg AG geplant",
+    erschienen_in = "SRF News",
+    url = "https://www.srf.ch/news/schweiz/riesenbatterie-weltweit-groesste-speicherbatterie-in-laufenburg-ag-geplant"),
+  naturpark_engeweiher = q(
+    autor = "Regionaler Naturpark Schaffhausen", jahr = NA, titel = "Engeweiher",
+    url = "https://naturpark-schaffhausen.ch/de/home/detail/engeweiher-91fb6a10-e065-4950-9306-0dd37fcd68bd.html",
+    abruf = TRUE),
+  bfe_elstat = q(
+    autor = "Bundesamt für Energie BFE", kurz = "BFE", jahr = 2026,
+    titel = "Schweizerische Elektrizitätsstatistik 2025", typ = "Bericht",
+    url = "https://pubdb.bfe.admin.ch/de/publication/download/12681"),
+  bfe_elbilanz = q(
+    autor = "Bundesamt für Energie BFE", kurz = "BFE", jahr = 2026,
+    titel = "Monatliche Elektrizitätsbilanz der Schweiz 2026 (provisorisch)", typ = "Datensatz",
+    url = "https://pubdb.bfe.admin.ch/fr/publication/download/12537", abruf = TRUE),
+  entsoe = q(
+  autor = "ENTSO-E", kurz = "ENTSO-E",
+    jahr = 2026,  titel = "ENTSO-E Transparency Platform",  typ = "Datensatz",
+    url = "https://transparency.entsoe.eu/",  abruf = TRUE),
+  bfe_speicher = q(
+    autor = "Bundesamt für Energie BFE", kurz = "BFE", jahr = 2026,
+    titel = "Energie-Dashboard Schweiz: Füllstände der Speicherseen", typ = "Datensatz",
+    url = "https://energiedashboard.admin.ch/strom/fuellstaende-speicherseen", abruf = TRUE),
+  bfe_produktion = q(
+    autor = "Bundesamt für Energie BFE", kurz = "BFE", jahr = 2026,
+    titel = "Energie-Dashboard Schweiz: Stromproduktion, Import und Verbrauch", typ = "Datensatz",
+    url = "https://energiedashboard.admin.ch/strom/produktion", abruf = TRUE),
+  bfe_wasta = q(
+    autor = "Bundesamt für Energie BFE", kurz = "BFE", jahr = 2026,
+    titel = "Statistik der Wasserkraftanlagen der Schweiz (WASTA). Stand 1.1.2026",
+    typ = "Datensatz", url = "https://www.bfe.admin.ch/statistik-wasserkraft"),
+  bfe_stauanlagen = q(
+    autor = "Bundesamt für Energie BFE", kurz = "BFE", jahr = 2026,
+    titel = "Stauanlagen unter Bundesaufsicht", typ = "Geodatensatz ch.bfe.stauanlagen-bundesaufsicht",
+    url = "https://map.geo.admin.ch/#/map?layers=ch.bfe.stauanlagen-bundesaufsicht", abruf = TRUE),
+  swisstopo_karte = q(
+    autor = "Bundesamt für Landestopografie swisstopo", kurz = "swisstopo", jahr = 2026,
+    titel = "Basiskarte und Basiskarte hell (Vector Tiles)", typ = "Kartendienst",
+    url = "https://vectortiles.geo.admin.ch", abruf = TRUE),
+  swisstopo_terrain = q(
+    autor = "Bundesamt für Landestopografie swisstopo", kurz = "swisstopo", jahr = 2026,
+    titel = "Terrain 3D (ch.swisstopo.terrain.3d)", typ = "Digitales Höhenmodell",
+    url = "https://3d.geo.admin.ch/ch.swisstopo.terrain.3d/v1/layer.json", abruf = TRUE),
+  smard = q(
+    autor = "Bundesnetzagentur", jahr = 2026,
+    titel = "SMARD – Strommarktdaten: Day-Ahead-Preise", typ = "Datensatz, CC BY 4.0",
+    url = "https://www.smard.de", abruf = TRUE),
+  ezb = q(
+    autor = "Europäische Zentralbank", jahr = 2026, titel = "Euro-Referenzkurse", typ = "Datensatz",
+    url = "https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.de.html",
+    abruf = TRUE, zusatz = "(über die Frankfurter-API)"),
+  energycharts = q(
+    autor = "Fraunhofer-Institut für Solare Energiesysteme ISE", kurz = "Fraunhofer ISE", jahr = 2026,
+    titel = "Energy-Charts: Öffentliche Nettostromerzeugung Schweiz", typ = "Datensatz, CC BY 4.0",
+    url = "https://www.energy-charts.info", abruf = TRUE),
+  kwo = q(
+    autor = "Kraftwerke Oberhasli AG", kurz = "KWO", jahr = NA,
+    titel = "Interaktives Anlageschema",
+    url = "https://www.grimselstrom.ch/strom-aus-wasserkraft/interaktives-anlageschema", abruf = TRUE),
+  sda_kerzen = q(
+    autor = "SDA", jahr = "2022",              # genaues Datum ergänzen: "2022, 5. September"
+    titel = "Elcom-Chef rät zum Kauf von Kerzen und Holz", erschienen_in = "Berner Zeitung",
+    url = "https://www.bernerzeitung.ch/elcom-chef-raet-zum-kauf-von-kerzen-und-holz-825536238032")
+)
+
+#-------- Quellen - Funktionen (hier nichts ändern) ----------------------------------------------------------------
+
+heute <- local({
+  monate <- c("Januar", "Februar", "März", "April", "Mai", "Juni", "Juli",
+              "August", "September", "Oktober", "November", "Dezember")
+  d <- Sys.Date()
+  paste0(as.integer(format(d, "%d")), ". ", monate[as.integer(format(d, "%m"))], " ", format(d, "%Y"))
+})
+link <- function(url) sprintf('<a href="%s" target="_blank" rel="noopener">%s</a>', url, url)
+
+quellen <- local({
+  jahr_txt <- function(j) if (is.null(j) || is.na(j)) "o. J." else as.character(j)
+  jahr_kurz <- function(j) if (is.null(j) || is.na(j)) "o. J." else sub(",.*$", "", as.character(j))
+  autor_kurz <- function(a) {                       # "Muster, A., & Beispiel, B." -> "Muster & Beispiel"
+    if (!grepl(",", a)) return(a)                   # Organisation
+    namen <- trimws(regmatches(a, gregexpr("(^|&|,\\s)[^,&]+(?=,\\s*[A-ZÄÖÜ]\\.)", a, perl = TRUE))[[1]])
+    namen <- trimws(sub("^[&,]\\s*", "", namen))
+    if (length(namen) == 1) namen else if (length(namen) == 2) paste(namen, collapse = " & ")
+    else paste(namen[1], "et al.")
+  }
+  sortkey <- function(x) tolower(chartr("ÄÖÜäöüé", "AOUaoue", x))
+  ord <- order(sapply(quellen, function(x) sortkey(x$autor)),
+               sapply(quellen, function(x) jahr_kurz(x$jahr)),
+               sapply(quellen, function(x) sortkey(gsub("<[^>]+>", "", x$titel))))
+  quellen <- quellen[ord]
+  # a/b/c bei gleichem Autor + Jahr
+  gruppe <- sapply(quellen, function(x) paste(x$autor, jahr_kurz(x$jahr)))
+  for (g in unique(gruppe[duplicated(gruppe)])) {
+    idx <- which(gruppe == g)
+    for (i in seq_along(idx)) quellen[[idx[i]]]$suffix <- letters[i]
+  }
+  for (k in names(quellen)) {
+    x <- quellen[[k]]
+    s <- if (is.null(x$suffix)) "" else paste0(if (is.null(x$jahr) || is.na(x$jahr)) "-" else "", x$suffix)
+    jt <- jahr_txt(x$jahr)
+    jt <- if (s == "") jt else if (grepl(",", jt)) sub(",", paste0(s, ","), jt) else paste0(jt, s)
+    autor <- if (grepl("\\.$", x$autor)) x$autor else paste0(x$autor, ".")
+    titel <- if (!is.null(x$in_)) paste0(x$titel, ". <i>", x$in_, "</i>") else paste0("<i>", x$titel, "</i>")
+    typ <- if (!is.null(x$typ)) paste0(" [", x$typ, "]") else ""
+    url <- if (is.null(x$url)) "" else if (isTRUE(x$abruf))
+      paste0(" Abgerufen am ", heute, " von ", link(x$url)) else paste0(" ", link(x$url))
+    zus <- if (!is.null(x$zusatz)) paste0(" ", x$zusatz) else ""
+    quellen[[k]]$apa  <- paste0(autor, " (", jt, "). ", titel, typ, ".", url, zus)
+    quellen[[k]]$kurz <- paste0(if (!is.null(x$kurz)) x$kurz else autor_kurz(x$autor), ", ",
+                                jahr_kurz(x$jahr), s)
+  }
+  quellen
+})
+
+# Kurzbeleg im Text: (BFE, 2026a; swisstopo, 2026b) – mit dem Verzeichnis verlinkt
+zitat <- function(...) {
+  keys <- c(...)
+  fehlt <- setdiff(keys, names(quellen)); if (length(fehlt)) stop("Unbekannte Quelle: ", fehlt)
+  paste0("(", paste(vapply(keys, function(k)
+    sprintf('<a class="sm-cite" href="#ref-%s">%s</a>', k, quellen[[k]]$kurz), ""),
+    collapse = "; "), ")")
+}
+# Quellenzeile unter Grafiken/Karten: "Quelle: BFE (2026a)"
+quelle <- function(..., prefix = "Quelle: ") {
+  keys <- c(...)
+  fehlt <- setdiff(keys, names(quellen)); if (length(fehlt)) stop("Unbekannte Quelle: ", fehlt)
+  paste0(prefix, paste(vapply(keys, function(k) {
+    p <- regmatches(quellen[[k]]$kurz, regexec("^(.*), ([^,]+)$", quellen[[k]]$kurz))[[1]]
+    sprintf('<a class="sm-cite" href="#ref-%s">%s (%s)</a>', k, p[2], p[3])
+  }, ""), collapse = "; "))
+}
+# Verzeichnis (APA 6: alphabetisch, hängender Einzug)
+quellenverzeichnis <- function() {
+  tagList(
+    tags$style(HTML(".sm-ref{padding-left:calc(24px + 2em)!important;text-indent:-2em;font-size:.9375rem;line-height:1.6;margin-bottom:.75rem}.sm-ref:target{background:#fff6d6}.sm-cite{white-space:nowrap}")),
+    lapply(names(quellen), function(k)
+      tags$p(id = paste0("ref-", k), class = "sm-ref", HTML(quellen[[k]]$apa)))
+  )
+}
+
+# kompatibel mit bestehenden sm_frame(..., source = bfe_quelle)
+bfe_quelle <- quelle("bfe_speicher", "bfe_produktion")
 ```
 
 ```{r cover}
@@ -31,8 +225,8 @@ tagList(
   sm_header(logo = "assets/Logo_hydrosuisse.svg", logo_alt = "hydrosuisse",
             logo_href = "https://www.hydrosuisse.ch"),
   sm_cover(
-    title   = "Füllstände und saisonale Produktion in der Wasserkraft.",
-    summary = "Winter is coming - eine interaktive Übersicht zu Produktionslogik und statistischen Konventionen",
+    title   = "Weshalb produzieren Speicherwasserkraftwerke auch im Sommer Strom?",
+    summary = "eine interaktive Übersicht zu Produktionslogik und statistischen Konventionen",
     byline  = "hydrosuisse",
     image   = "assets/Llac-de-moiry_1596657829.jpg",
     credit = htmltools::HTML(
@@ -40,49 +234,96 @@ tagList(
   )
 ),
   sm_nav(c(
-    einleitung   = "Der Winter",
-    typen = "Idealtypen",
-    statistische_klassifizierung = "Statistische Zugehörigkeit",
-    fuellstaende = "Füllstände",
+    einleitung   = "Winter",
+    funktionspeicherwasser = "Funktionen",
+   fuellstaende = "Füllstände",
+    sdl = "Systemdienstleistungen",
+    statistische_klassifizierung = "Statistik trifft Physik",
     beispiele = "Beispiele",
-    handel = "Export und Preise", 
-    missverstaendnisse   = "Missverständnisse",
-    dashboard    = "Vergleiche nach Kraftwerkskategorie über Zeit",
+    fazit    = "Fazit und Dashboard",
     quellen      = "Quellen"
   ))
 )
 ```
 
 ## Winter is coming! {#einleitung}
-Erst kürzlich haben es Menschen "geschafft", den Winter zu einer Fussnote im Jahr verkommen zu lassen. Aber ganz ist der Respekt davor nicht verschwunden: Wir feiern Erntedankfeste im Herbst und freuen uns mit der Fasnacht über den Frühling. Allerspätestens seit den Volatilitäten auf den Energiemärkten im Herbst 2022 infolge des russischen Kriegs in der Ukraine und Elcom-Präsident Werner Luginbühls pointierter Aussage, dass man sich [Kerzen und Brennholz für den bevorstehenden Winter besorgen solle](https://www.bernerzeitung.ch/elcom-chef-raet-zum-kauf-von-kerzen-und-holz-825536238032), ist die Versorgungssicherheit der kritischen Infrastruktur Strom zurück in aller Munde. Zeit, sich anzuschauen, wie die Wasserkraft, das Rückgrat der Schweizer Stromproduktion, funktioniert --- und weshalb statistische Konventionen und physikalische Realitäten zur Konfusion beitragen. 
+Erst kürzlich haben es Menschen "geschafft", den Winter zu einer Fussnote im Jahr verkommen zu lassen. Aber ganz ist der Respekt davor nicht verschwunden: Wir feiern Erntedankfeste im Herbst und freuen uns mit der Fasnacht über den Frühling. Allerspätestens seit den Volatilitäten auf den Energiemärkten im Herbst 2022 infolge des russischen Kriegs in der Ukraine und Elcom-Präsident Werner Luginbühls pointierter Aussage, dass man sich Kerzen und Brennholz für den bevorstehenden Winter besorgen solle `r zitat("sda_kerzen")`, ist die Versorgungssicherheit der kritischen Infrastruktur Strom zurück in aller Munde. Im Speziellen wird dabei die Speicherwasserkraft als unsere "Winterversicherung" verstanden und die sömmerliche Produktion von Speicherwasser wird mit Argusaugen beobachtet. Zeit, sich anzuschauen, weshalb es gute Gründe gibt, dass auch die Speicherwasserkraft im Sommer Strom produzieren kann und auch sollte. 
 
-## Eine Wasserkraftanlage begründet oft ihren eigenen Typ {#typen}
+Die folgende interaktive Übersicht listet einige Gründe und Begebenheiten zur Schweizer Speicherwasserkraft mit dem Ziel eine Antwort auf die eingehend gestellte Frage zur Sommerproduktion aus Speicherwasserkraft zumindest teilweise zu beantworten. 
+
+## Speicherwasser ist nicht nur für den Winter gedacht {#funktionspeicherwasser}
+
+Aufgrund des Schmelzwassers, das wegen sommerlicher Temperaturen zum grössten Teil im Sommer anfällt, müssen auch Speicherwasserkraftwerke Wasser turbinieren, andernfalls würden sie überflutet und liessen das Potenzial ungenutzt. Die meisten dieser Anlagen wurden auch nicht als reine Winterspeicher konzipiert und können daher auch nicht "nur" die Winterversorgerrolle übernehmen, sonst wären sie baulich komplett überdimensioniert. So erwarteten die Betreiber fürs Jahr 2026 je eine knapp hälftige Produktion der Speicherwasserkraft im Sommer und im Winter `r zitat("bfe_wasta")`. Bei der Laufwasserkraft lag die Produktionserwartung fürs Jahr 2026 hingegen etwa bei 60% im Sommerhalbjahr `r zitat("bfe_wasta")`.  
+Wird anstelle der erwarteten Produktion die realisierte Produktion über die letzten Jahre zu Rate gezogen, so zeigen sich sehr geringfügige Abweichungen des saisonalen Splits (Laufwasser 2015-26 32.5-39.5% im Winter; Speicherwasser 2015-26 43.6-52.8% im Winter `r zitat("bfe_elstat", "bfe_elbilanz")`). Im Jahr 2026 hat die Speicherwasserkraft im Vergleich zur selben Woche der Vorjahre gar bedeutend weniger produziert, wie untenstehende Grafik zeigt. Dies widerspiegelt die aussergewöhnliche Trockenheit aufgrund fehlender Niederschläge im Sommer 2026, die aber nur teilweise durch höhere Schmelzwasserzuflüsse kompensiert werden konnte. 
+
+```{r foto-jahresvergleich-prod}
+sm_image("assets/wasserkraft_ch_vergleich.png",
+caption = "Produktion aus Speicherwasseranlagen 2023-2026. Grafik: hydrosuisse. Quellen: BFE-Monatsdaten für Linien; ENTSO-E und Energy-Charts-Daten wurden für die Konfidenzintervalle hinzugezogen.",
+source=quelle("bfe_produktion", "energycharts","entsoe"),
+alt = "Stromproduktion nach Energieträger 2023-2026", width = "wide")
+```
+
+## Füllstände der Speicherseen {#fuellstaende}
+Auch die Füllstände der Schweizer Speicherseen (Grafik nachgebaut [nach dem BFE-Dashboard](https://energiedashboard.admin.ch/strom/fuellstaende-speicherseen)) reflektieren ebendiese Trockenheit. Auch dieser Indikator darf nicht als scharfe Winterreserve interpretiert werden und zwar aus folgenden Gründen: Erstens gibt es Speicherkraftwerke, die werden mehrfach im Jahr gefüllt und geleert, insbesondere jene, die viel Schmelzwasser aufnehmen. Letztere produzieren dementsprechend v.a. im Sommer, sind aber Speicherkraftwerke. Deren Füllstand ist deshalb hydrologisch bedingt im Herbst- und Winter nicht hoch. Bei Pumpspeicher- und/oder Umwälzkraftwerken greift die Füllstandsanzeige ebenfalls zu kurz, da die Umwälzwassermenge jederzeit wieder hochgepumpt werden kann, wenn der Speichersee leer ist. Die Abweichung vom Mittel hingegen, welche ebendiese systematischen Unterschiede in Einzugsgebiet und Funktion berücksichtigt, kann auch für die Zuläufe nicht korrigieren. Vielleicht sind ja die Zuflüsse noch relativ viel geringer ausgefallen, als diese Reduktion des Energieinhalts suggeriert und es wurde besonders vorsichtig turbiniert? :-) Wobei auch dies eine Hypothese bleibt, kann trotzdem darauf hingewiesen werden, dass die day-ahead Spotpreise im Vergleich zur selben Woche in den letzten Jahren nicht sonderlich interessant gewesen wären, schon gar nicht im Vergleich zu 2022 und 2023. Es ist also nicht davon auszugehen, dass der "Winterstrom im Sommer 2026 in unverhältnismässigem Masse" ausverkauft worden wäre. 
+
+```{r speicherseen}
+sm_frame(
+  src = "charts/speicherseen.html",
+  title = "Füllstände/Energieinhalt der Speicherseen in der Schweiz",
+  height = "560px", auto_height = TRUE,
+  caption = "Energieinhalt der Schweizer Speicherseen und Wasserkraftreserve. Wöchentlich aktualisiert.",
+  source = quelle("bfe_speicher")
+)
+```
+## Systemdienstleistungen sind auch im Sommer gefragt {#sdl}
+
+Darüber hinaus darf auch der bedeutende Markt der Regelenergie nicht ausser Acht gelassen werden. Damit das Stromnetz auf einer Frequenz von 50 Hz stabil bleibt und die Blindleistung nicht zu gross wird, bietet die Wasserkraft in der Schweiz - speziell die Pumpspeicherkraftwerke - Systemdienstleistungen an. Swissgrid kann innerhalb von Sekunden die Primärregelleistung, innerhalb von Minuten die gröbere Sekundärregelleistung und innerhalb von einer Viertelstunde das schwere Geschütz der Tertiärregelleistung abrufen. Hier gilt es sowohl Lasten (wenn die Frequenz zu hoch ist) oder zusätzliche Leistung (wenn die Frequenz zu tief ist) bereitstellen zu können. Diese Stabilisierungsdienstleistung wird Stand Mai 2026 zu rund 95% über die Schweizer Wasserkraft `r zitat("swissgrid_sdl")` abgedeckt. Solche Regelenergie wird das ganze Jahr hinüber gebraucht, nicht nur im Winter. Die Pumpspeicherwerke können hier als einzige Grossanlagen auch (-) Last liefern, indem sie die Pumpen anwerfen und Wasser ins Reservoir hochpumpen, sie bieten also nicht nur (+) zusätzlichen Strom. Kernkraftwerke, beispielsweise, können nicht derart schnell Lasten ankoppeln, bzw. ihre Produktion drosseln - und netzgekoppelte Batterien von vergleichbarer Grösse befinden sich derzeit im Aufbau. Laut dem Batteriemonitor von Swissolar `r zitat("swissolar_batterie")` sind Stand 2026 129 MW Leistung an Batterien ans Netz (front-of-meter) gekoppelt, mit dem Plan, bis 2030 2'270 MW zu installieren. Die Pumpspeicherkraftwerk- und Umwälzkapazität lag am 1.1.2026 bei 4'160 MW (WASTA 1.1.2026). Zu nennen ist insbesondere das Batterieprojekt von Laufenburg `r zitat("srf_laufenburg")` auf Netzebene 1, das dereinst eine Leistung von 1'200 MW bieten soll. 
+
+## Statistik trifft Physik {#statistische_klassifizierung} 
+
+Exportiert wird die Strommenge, die über dem Landesverbrauch produziert wird. Importiert wird das Delta zwischen Landesverbrauch und -Produktion, wenn letztere darunter fällt. Um zu schauen, wieviel Strom gerade exportiert und importiert wurde, wird oft das Dashboard zur Stromproduktion des BFE angeschaut, welches die tägliche Stromproduktion nach Energieträger, Nettoimporte und Landesverbrauch inklusive Speicherpumpen abbildet (s. nachgebaute Grafik unten). 
+
+```{r energiedashboard nachgebaut}
+sm_image("assets/bfe_dashboard.png",
+caption = "Produktion und Landesverbrauch inkl. Verbrauch der Speicherpumpen. Snapshot vom 12.11.2026",
+source=quelle("bfe_produktion"),
+alt = "Produktion und Landesverbrauch", width = "wide")
+```
+Dabei könnte man meinen, dass die Exporte praktisch im Alleingang durch die Speicherkraft bewerkstelligt würden (s. z.B. Sommer 2024). Dies entspricht aber nicht der physikalischen Realität, denn erstens ist es arbiträr, welche Farben man wie aufeinanderlegt und zweitens entspricht der Exportmix dem Produktionsmix zur selben Zeit, d.h. der Export besteht proportional aus dem Produktionsmix. Um Missverständnisse wie jene vorzubeugen, wäre also eine umgebaute Visualisierung mit denselben Daten hilfreicher. Hier ein Vorschlag - zum Herumspielen, wie dies aussehen könnte: 
+
+```{r produktion}
+sm_frame(
+  src = "charts/produktion.html",
+  title = "Stromproduktion und Landesverbrauch",
+  height = "540px", auto_height = TRUE,
+  caption = "Produktion und Landesverbrauch inkl. Verbrauch der Speicherpumpen. Täglich aktualisiert.",
+  source = quelle("bfe_produktion", "energycharts","entsoe")
+)
+``` 
+### Ist das nun Lauf- oder Speicherwasserstrom? 
+
 In der Tat besteht der Schweizer Wasserkraftwerkspark aus lauter Einzelfällen. Die Statistik der Wasserkraft in der Schweiz (WASTA) kennt vier Idealtypen, wobei eine Anlage in der Statistik zentralenscharf abgebildet ist (Anlagen des gleichen Typs in derselben Zentrale werden zusammengenommen). Grundsätzlich werden bei den Ausleitkraftwerken, d.h. jenen, die den Gewässern Wasser entnehmen, in einer Leitung/Tunnel/Zulauf den Turbinen zuleiten, turbinieren und wieder ins Gewässer zurückgeben, vier Idealtypen: 
 
 1. **Laufwasserkraftwerke**: Nutzen die Strömung eines Fliessgewässers und die Höhendifferenz über kleinere Staudämme oder -Mauern. 
 2. **Speicherkraftwerke**: Stauen i.d.R. verschiedene kleine Gewässer über eine Talsperre (Staudamm/Staumauer) und nutzen die Höhendifferenz zwischen dem gestauten Bergwasser und der Turbine unten im Tal. 
 3. **Pumpspeicherkraftwerke**: Eine Art von Speicherkraftwerken, welche (ein Teil des) turbinierten Wassers wieder zurück in den Stausee pumpt. Ein solches hat i.d.R. natürliche Zuflüsse.  
-4. **reine Umwälzkraftwerke**: ein Speicherkraftwerk ohne natürlichen Zufluss. Die Netto-Stromproduktion ist daher i.d.R. nahe bei null oder ein bisschen negativ, weil die gesamte Menge turbinierten Wassers auch wieder hochgepumpt werden muss und die Pumpen einen hohen aber nicht 100%-igen Wirkungsgrad haben.  
+4. **reine Umwälzkraftwerke**: ein Speicherkraftwerk ohne natürlichen Zufluss. Die Netto-Stromproduktion ist daher i.d.R. nahe bei null, d.h. etwas negativ, weil die gesamte Menge turbinierten Wassers auch wieder hochgepumpt werden muss und die Pumpen einen hohen, aber nicht 100%-igen Wirkungsgrad haben. In R(h)einform gibt es diese allerdings kaum in der Schweiz, nur der Engeweiher in Schaffhausen `r zitat("naturpark_engeweiher")` entspricht der strikten Definition. In der WASTA werden aber noch 8 andere Pumpspeicherkraftwerke als solche geführt. 
 
-## Statistik trifft Physik {#statistische_klassifizierung}
+In der Realität ist es nicht immer eindeutig, ob man die Produktion einer Wasserkraftanlage (WKA) der Speicher-, Pumpspeicher- oder Laufwasserkategorie zuordnen sollte. Es ist sehr schwer, diese Diversität in den Statistiken scharf abzubilden. 
 
-Ein einzelnes Unternehmen, wie z.B. die [Kraftwerke Oberhasli AG (KWO)](https://www.grimselstrom.ch/strom-aus-wasserkraft/interaktives-anlageschema) betreibt 13 Zentralen mit 28 Anlagen. Obwohl man gemeinhin denkt, die KWO sei der Speicher am Grimsel hat die KWO daher einen mittleren erwarteten Laufwasseranteil von 2.2% (WASTA 2026 fürs Jahr 2025). 
+Ein Beispiel: <i>Ein einzelnes Unternehmen, wie z.B. die Kraftwerke Oberhasli AG `r zitat("kwo")` betreibt 13 Zentralen mit 28 Anlagen. Obwohl man gemeinhin denkt, die KWO sei der Speicher am Grimsel hat die KWO daher einen mittleren erwarteten Laufwasseranteil von 2.2% `r zitat("bfe_wasta")`, turbinierte sie einen Laufwasseranteil im Jahr 2025 von 26% (basierend auf Produktionssplit-Daten der KWO). Die Anlagen in deren System können aufgrund existierender Querverbindungen zwischen Lauf- und Speicherwasserfassungen daher nicht trennscharf einer Kategorie zugeordnet werden.</i> 
 
-In der Realität ist es nicht immer eindeutig, ob man die Produktion einer Wasserkraftanlage (WKA) der Speicher-, Pumpspeicher- oder Laufwasserkategorie zuordnen sollte. Diese Diversität kann man in den Statistiken nicht abbilden.
+Es stellt sich die Grundsatzfrage: Wie fasst man eine Anlage zusammen, die beides kann und tut? Bleibt man bei fixierten Kategorie-Zuschreibungen, die über die Betriebsjahre nicht ändern oder müsste man sich die Mühe machen, turbinierte Anteile des Splits Speicherwasser/Laufwasser innerhalb einer Anlage zu erfassen? Dieses Beispiel zeigt, dass in der Tat dieser Split in den aggregierten Statistiken - wie er jährlich geschätzt wird, nicht als trennscharf interpretiert werden kann und sollte.
 
+### Modellbasierte Schätzungen füllen Messlücken
 
-## Füllstände der Speicherseen {#fuellstaende}
+Das BFE-Energiedashboard, das den Produktionssplit täglich rapportiert hat auch gewisse Unschärfen wegen unterschiedlichen Rapportierhorizonten der Betreiber an die Swissgrid, welche diese Daten, die i.d.R. nicht für die Gesamtheit aller Kraftwerkskategorien und kWh vorliegen, über Modellrechnungen auf den Lastgang hochskaliert. In diesen Rechnungen ist die Wasserkraft das Residual, d.h. die Menge, die übrigbleibt, wenn alle anderen mit Modellen skalierte Wertungen anderer Technologien von der gesamten Last abgezogen werden. So ist es nicht erstaunlich, dass je nach Datenquelle, die jeweils unterschiedliche Modelle und Annahmen im Hintergrund haben, auch unterschiedliche Zuordnungen der Produktion auf verschiedene Technologien resultieren. Wie das untenstehende Bild erkennen lässt, kann diese Unschärfe in Produktionspitzen bis zu ca. 1.5-2 GWh pro Stunde betragen. Um das statistische Argument zu verdeutlichen, kann in der App ganz unten mit stündlichen Daten aus den verschiedenen Modellen des BFE, von den Energy-Charts und von ENTSO-E gespielt werden. 
 
-Füllstand der Schweizer Speicherseen im Jahresverlauf, im Vergleich zum Mittel und zu den Extremwerten der letzten zehn Jahre, inklusive Wasserkraftreserve.
-
-```{r speicherseen}
-sm_frame(
-  src = "charts/speicherseen.html",
-  title = "Füllstände der Speicherseen",
-  height = "560px", auto_height = TRUE,
-  caption = "Energieinhalt der Schweizer Speicherseen und Wasserkraftreserve. Täglich aktualisiert.",
-  source = bfe_quelle
-)
+```{r foto-stat unschaerfe}
+sm_image("assets/wasserkraft_ch_quellenvergleich.png",
+caption = "Quellenvergleich und Abweichungen anderer Energieträger-Kategorisierungen gegenüber den BFE-Daten in der 1. Augustwoche 2026. Grafik: hydrosuisse. Quellen: BFE-Energiedashboard, ENTSO-E und Energy-Charts.",
+source=quelle("bfe_produktion", "entsoe", "energycharts"),
+alt = "Quellenvergleich über verschiedene Energieträger in der 1. Augustwoche 2026", width = "wide")
 ```
 
 ```{r vorbereitung}
@@ -94,23 +335,72 @@ kraftwerke$popup <- sprintf("<h4>%s</h4>%s · Kanton %s",
 # colours as in the Energie-Dashboard
 typ_farben <- c(Laufwasser = "#1B84CB", Speicher = "#59BBA4", Pumpspeicher = "#126057")
 ```
+## Sommerspeicherproduktion - konkrete Beispiele {#beispiele}
 
+### Viel Schmelzwasser = viel Energiepotenzial
 
-## Beispiele: Wasserkraftwerke und Staumauern {#beispiele}
+Wie in der Einleitung angetönt, sind die Zuflüsse in die Speicherseen Schmelzwasser, was besonders in heissen Sommern besonders zu Buche schlägt. Einige Staudämme sind klein dimensioniert, so dass diese im Sommer turbinieren müssen, ansonsten bleibt das Potenzial ungenutzt. Im Folgenden zeigen wir Ihnen ein Extrembeispiel: 
 
-Ausgewählte Speicher-, Pumpspeicher- und Laufwasserkraftwerke (Beispieldaten – Standorte bitte prüfen bzw. durch eigene Daten ersetzen).
-
-Beim Weiterscrollen fliegt die Karte in 3D zu vier Staumauern.
-
-```{r tour}
-# Dams: positions and figures from the federal dam register
-# (BFE, "Stauanlagen unter Bundesaufsicht", map.geo.admin.ch)
+```{r tour 1}
+# Dams (red points) are only used in tour 2 - read here, as before
 staumauern <- read.csv("data/staumauern.csv", encoding = "UTF-8") |>
   st_as_sf(coords = c("lon", "lat"), crs = 4326)
 staumauern$popup <- sprintf("<h4>Staumauer %s</h4>%s · %s, %s m hoch · %s",
                             staumauern$name, staumauern$see, staumauern$typ,
                             staumauern$hoehe_m, staumauern$baujahr)
 
+# Catchment of the Massa down to the Gebidem dam (BAFU, Teileinzugsgebiet 108611, 196 km²)
+einzugsgebiet <- st_read("data/einzugsgebiet_gebidem.geojson", quiet = TRUE)
+einzugsgebiet$popup <- "<h4>Einzugsgebiet Massa</h4>bis Staumauer Gebidem · 196 km²"
+
+# 3D tour: swisstopo base map in colour (names, relief shading) draped over
+# swisstopo terrain (terrain = "swisstopo" in sm_sidecar below)
+tour <- maplibre(style = swisstopo_color, center = c(8.2, 46.75), zoom = 7.2,
+                 projection = "mercator", scrollZoom = FALSE, maxPitch = 85) |>
+  add_navigation_control(position = "top-right", visualize_pitch = TRUE)
+for (typ in names(typ_farben)) {
+  tour <- tour |> add_circle_layer(
+    id = tolower(typ), source = kraftwerke[kraftwerke$typ == typ, ],
+    circle_color = typ_farben[[typ]], circle_radius = 7,
+    circle_stroke_color = "#fff", circle_stroke_width = 2, popup = "popup"
+  )
+}
+tour <- tour |>
+  add_fill_layer(
+    id = "einzugsgebiet", source = einzugsgebiet,
+    fill_color = "#2E86C1", fill_opacity = 0.35,
+    popup = "popup", tooltip = "name"
+  ) |>
+  add_line_layer(
+    id = "einzugsgebiet-rand", source = einzugsgebiet,
+    line_color = "#1B4F72", line_width = 2
+  ) |>
+  add_categorical_legend(
+    legend_title = "", values = "Einzugsgebiet Massa bis Gebidem (196 km²)",
+    colors = "#2E86C1", position = "bottom-left"
+  )
+
+sm_sidecar(
+  tour,
+  terrain = "swisstopo", exaggeration = 1.3,
+  narrative_width = "50%",          # text column 50 %, map 50 % (default: 36 %)
+  sm_slide(title = "Gebidem – Massa",
+           tags$p("Bogenmauer in der Massaschlucht (Naters/Bitsch), 122 m hoch, 1967 fertiggestellt. ",
+                  "Das Speichervolumen der Staumauer Gebidem ist mit knapp 9 Mio. m³ eher klein. Das Einzugsgebiet hingegen, mit fast 200 km², ist gross und entsprechend sind auch die Zuflüsse im Sommer sehr hoch. Im Sommer 2026 wurden Zuflüsse um die 130 m³/s gemessen, welche die Kapazität von 57 m³/s, mit welcher in Bitsch turbinieren werden kann, um mehr als Faktor 2 übertroffen. Dies führt dann zum Überlauf bei der Staumauer Gebidem (siehe Bild im Anhang mit ca.70 m³/s Überlauf). Im Winter liegen die Zuflüsse aber wiederum bei wenigen 100 l/s. Die Produktion von Electra-Massa AG erfolgt somit vorwiegend zwischen Mai-Oktober. In den Wintermonaten kann aufgrund des geringen Zuflusses der See nur einmal geleert werden. Wird aber das ganze Jahr angeschaut, liegen die gesamten Zuflüsse bei rund 600 Mio. m³, heisst der See wird über 60x gefüllt und entleert! Die Zuflüsse setzen sich zusammen aus der Gletscherschmelze, der Schneeschmelze sowie den Niederschlägen während dem Jahr."),
+           sm_slide_image("assets/gibidem_ueberlauf_Juli_26_red.png",
+                          caption = "Gibidem im Sommer 2026. Foto: Alpiq, 2026",
+                          alt = "Gibidem ist voll"),
+           # whole catchment in view, from the dam (south) looking up the valley (north)
+           bounds = c(7.890, 46.365, 8.120, 46.566), pitch = 40, bearing = 10)
+)
+```
+
+
+# Wartung und Instandhaltung 
+
+Dazu kommt, dass die Tiefstände im Frühling z.T. für Instandhaltungen und Wartungsarbeiten genutzt werden müssen. Für gewisse Arbeiten muss ein Speichersee sogar ganz abgelassen werden. So zeigen wir im Folgenden zwei Beispiele zu Wartungsarbeiten bei entleerten Seen, denn solche Entleerungen tragen auch zur Speicherwasser-Sommerproduktion bei. 
+
+```{r tour 2}
 # 3D tour: swisstopo base map in colour (names, relief shading) draped over
 # swisstopo terrain (terrain = "swisstopo" in sm_sidecar below)
 tour <- maplibre(style = swisstopo_color, center = c(8.2, 46.75), zoom = 7.2,
@@ -127,6 +417,7 @@ tour <- tour |> add_circle_layer(
   id = "staumauern", source = staumauern,
   circle_color = summit$accent2, circle_radius = 10,
   circle_stroke_color = "#ffffff", circle_stroke_width = 3,
+  circle_pitch_alignment = "map",
   popup = "popup", tooltip = "name"
 )
 
@@ -134,48 +425,41 @@ sm_sidecar(
   tour,
   terrain = "swisstopo", exaggeration = 1.3,
   sm_slide(title = "Rossens – Lac de la Gruyère",
-           tags$p("Bogenmauer an der Saane, 83 m hoch, 1947 fertiggestellt. ",
-                  "Sie staut den Lac de la Gruyère mit rund 200 Mio. m³ Inhalt (FR)."),
-           center = c(7.1123, 46.7180), zoom = 14.3, pitch = 70, bearing = 140),
-  sm_slide(title = "Gebidem – Massa",
-           tags$p("Bogenmauer in der Massaschlucht (Naters/Bitsch), 122 m hoch, 1967. ",
-                  "Der Stausee Gebidem (9,2 Mio. m³) fängt das Schmelzwasser des Grossen Aletschgletschers (VS)."),
-           center = c(8.0025, 46.3712), zoom = 12, pitch = 40, bearing = 10),
-  sm_slide(title = "Spitallamm – Grimselsee (KWO)",
-           tags$p("Bogengewichtsmauer von 1932, 114 m hoch, beim Grimsel Hospiz. ",
-                  "Seit 2019 hat die KWO unmittelbar davor eine neue doppelt gekrümmte Bogenmauer gebaut (BE)."),
-           center = c(8.3296, 46.5722), zoom = 14, pitch = 65, bearing = 100),
-  sm_slide(title = "Robiei – Val Bavona",
-           tags$p("Gewichtsmauer auf rund 1900 m ü. M., 68 m hoch, 1967. ",
-                  "Der Lago di Robièi (6,9 Mio. m³) gehört zu den Maggia-Kraftwerken (TI)."),
-           center = c(8.5154, 46.4439), zoom = 14.8, pitch = 45, bearing = -60)
+           tags$p("barrage-voûte à 83 m, construit 1947. ",
+                  "Le lac de la Gruyère alimente la centrale d'Hauterive pour une production moyenne annuelle de 220 GWh. Son grand volume de stockage de 163 Mio. m³, renouvelé près de 7 fois durant l'année par les apports de la Sarine, permet d'engager l'aménagement de manière saisonnière avec plus de la moitié de sa production en hiver. Ainsi le lac de la Gruyère est monté à son niveau maximum en début d'hiver et est abaissé progressivement pour la production hivernale avec le niveau le plus bas atteint généralement à fin avril. En 2026, cela a été atteint en Septembre, parce que des travaux de remplacement des vannes  ont nécessité l'abaissement du lac. Le but c'est de pouvoir recommencer à produire à pleine charge en décembre pour être prêt pour la production hivernale."),
+           sm_slide_image("assets/rossens_1_red.JPG",
+                          caption = "Le barrage de Rossens avec un lac de stockage rempli. Foto: groupe e, 2025",
+                          alt = "Le barrage de Rossens et le lac de Gruyère avec un lac de stockage rempli"),
+           sm_slide_image("assets/rossens_bas_red.jpg",
+                          caption = "Le lac de Gruyère abaissé à cause des travaux en Novembre 2026. Foto: Lionel Chapuis, 2026", alt = "Le lac de Gruyère abaissé à cause des travaux en Novembre 2026"),
+           sm_slide_image("assets/rossens_panneau_red.jpg",
+                          caption = "Panneau d'information pour le public sur la rive du lac de Gruyère. Foto: Lionel Chapuis, 2026", alt = "Panneau d'information sur les travaux pour le public sur la rive du lac de Gruyère"),
+           center = c(7.112489, 46.71971), zoom = 12, pitch = 70, bearing = 140),
+  sm_slide(title = "Staumauer Sanetsch bei Gstaad",
+           tags$p("Gewichtsstaumauer mit 42m Höhe, 1959-1966 gebaut.",
+                  "Die Sanetsch-Staumauer, die ein Reservoir von 2.6 Mio. m³ umfasst, wurde im Frühling 2026 einer Kontrolle unterzogen. Der See musste dafür vollständig entleert werden. Der See staut die Saane und hat ein vergleichsweise kleines Einzugsgebiet von 10.7 km²."),
+sm_slide_image("assets/sanetsch_1_red.jpg",
+                          caption = "Der schneebedeckte Staudamm Sanetsch im Kt. Wallis. Foto: BKW, winter 2020/21",
+                          alt = "Der schneebedeckte Staudamm Sanetsch im Kt. Wallis"),
+           sm_slide_image("assets/sanetsch_bas_red.jpg",
+                          caption = "Entleerung des Sanetsch-Stausees aufgrund von Kontrollen im Juli 2026. Foto: Marcel Ottenkamp, ewb, Juli 2026.", alt= "Entleerung des Sanetsch-Stausees aufgrund von Kontrollen im Juli 2026"),
+           center = c(7.296233, 46.360081), zoom = 12.5, pitch = 25, bearing = -60)
 )
 ```
 
-## Export und Preise {#handel}
 
-*Text folgt.*
+## Fazit und Dashboard {#fazit}
 
-### Stromproduktion und Landesverbrauch
+Werden diese (und es gäbe sicherlich noch mehr) Gründe betrachtet, ergibt sich ein differenziertes Bild der Produktionslogik der Speicherwasserkraft im Sommer.
 
-Tägliche Stromproduktion nach Energieträger, Nettoimporte und Landesverbrauch inklusive Speicherpumpen.
+1. Deren Funktion ist nicht nur die Stromproduktion im Winter; 
+2. Die Füllstände der Speicherseen messen nicht (direkt) die Zuflüsse;
+3. Die Wasserkraft stemmt grossmehrheitlich die Systemdienstleistungen fürs Stromnetz - das ganze Jahr; 
+4. Unschärfen in der Zuteilung zu Lauf- vs. Speicherwasserkraft können einen statistischen Unterschied machen; 
+5. Gletscher- und Schneewasser füllt manche Speicherseen viel mehr als 1x - deshalb müssen sie im Sommer produzieren;
+6. Die Wartung und Instandhaltung von Speicherseen, Staumauern und -Dämmen geschieht v.a. im Sommerhalbjahr.
 
-```{r produktion}
-sm_frame(
-  src = "charts/produktion.html",
-  title = "Stromproduktion und Landesverbrauch",
-  height = "540px", auto_height = TRUE,
-  caption = "Produktion und Landesverbrauch inkl. Verbrauch der Speicherpumpen. Täglich aktualisiert.",
-  source = bfe_quelle
-)
-```
-
-## Missverständnisse {#missverstaendnisse}
-Schaut man sich die obenstehende Grafik an, könnte man den Eindruck gewinnen, dass die Speicherwasserkraft in den Export geht. Das ist aber ein graphische Irreführung, man hätte die Speicherwasserkraft auch als unterste Lage der Grafik abtragen können, wo jetzt die Laufwasserkraft steht. Stattdessen zeigen die Spitzen über der Landesverbrauchskurve nur die Menge an Exporte an, nicht aber den Exporttypen. Aus physikalischen Gründen entspricht der Erzeugermix im Export dem Erzeugermix im Inland - jeder der Typen exportiert proportional zur vorhandenen Gesamtmenge an Strom. 
-
-## Wasserkraft und Spotpreise {#dashboard}
-
-Erzeugung aus Lauf-, Speicher- und Pumpspeicherkraftwerken im Vergleich zu allen anderen Quellen, mit Day-ahead-Preis und grenzüberschreitendem Handel. Zeitraum und Darstellung wählen Sie direkt im Dashboard.
+Zuallerletzt kann die interessierte LeserIn in der untentstehenden App (s. Dokumentation zum Verständnis unterhalb) mit verschiedenen Datenquellen selbst erfassen, wie die Datenlage der letzten Jahre in der Produktion der Schweizer Wasserkraft aussieht und welche Grössenordnungen von Unschärfen bei der Zuteilung auf die verschiedenen Wasserkrafttypen etwa zu erwarten sind.  
 
 ```{r dashboard}
 sm_frame(
@@ -185,23 +469,26 @@ sm_frame(
   load = "after_page", delay_ms = 2000,   # start 2 s after the story has loaded
   loading_text = "Dashboard wird gestartet … (kann einige Sekunden dauern)",
   caption = "Interaktives Dashboard «Wasserkraft und Spotpreise».",
-  source = "Daten: Energy-Charts.info (Fraunhofer ISE), Bundesnetzagentur | SMARD.de, EZB"
+source = quelle("energycharts", "smard", "ezb", prefix = "Daten: ")
 )
 ```
-
-*Hinweis:* Pumpspeicher als Brutto-Turbinenleistung – der Strom für das Hochpumpen ist nicht abgezogen. Exportüberschuss: positive Werte = Nettoexport, negative Werte = Nettoimport der Schweiz.
 
 ## Quellen {#quellen}
 
 ```{r quellen}
+quellenverzeichnis()
+```
+
+### Bildnachweise
+
+```{r bildnachweise}
 sm_credits(
-  sm_credit("Dashboard: Produktions- und Preisdaten",
-            "Energy-Charts.info (Fraunhofer ISE), CC BY 4.0 · Preise: Bundesnetzagentur | SMARD.de, CC BY 4.0 · Wechselkurs: Europäische Zentralbank"),
-  sm_credit("Speicherseen, Stromproduktion",
-            'Bundesamt für Energie BFE, <a href="https://energiedashboard.admin.ch">energiedashboard.admin.ch</a>'),
-  sm_credit("Hintergrundkarten und Höhenmodell (3D)", "© swisstopo"),
-  sm_credit("Staumauern", "Bundesamt für Energie BFE, Stauanlagen unter Bundesaufsicht"),
-  sm_credit("Titelbild", "Lac de Moiry (VS) – Fotograf/in, Jahr ergänzen")
+  sm_credit("Titelbild: Lac de Moiry (VS)", "CC0 Public Domain"),
+  sm_credit("Überlauf Staumauer Gebidem, Sommer 2026", "Alpiq, 2026"),
+  sm_credit("Barrage de Rossens, lac rempli", "groupe e, 2025"),
+  sm_credit("Lac de la Gruyère abaissé; panneau d'information", "Lionel Chapuis, 2026"),
+  sm_credit("Staumauer Sanetsch im Winter", "BKW, 2020/21"),
+  sm_credit("Entleerung Sanetsch-Stausee, Juli 2026", "Marcel Ottenkamp, 2026")
 )
 ```
 
