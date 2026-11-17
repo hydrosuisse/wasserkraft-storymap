@@ -247,6 +247,12 @@ tagList(
 )
 ```
 
+::: {.sm-abstract}
+[Zusammenfassung]{.sm-abstract-titel}
+Hier steht Ihr Abstract. Normales Markdown funktioniert: **fett**, *kursiv*,
+[Links](https://…) und auch `r zitat("bfe_wasta")`.
+:::
+
 ## Winter is coming! {#einleitung}
 Erst kürzlich haben es Menschen "geschafft", den Winter zu einer Fussnote im Jahr verkommen zu lassen. Aber ganz ist der Respekt davor nicht verschwunden: Wir feiern Erntedankfeste im Herbst und freuen uns mit der Fasnacht über den Frühling. Allerspätestens seit den Volatilitäten auf den Energiemärkten im Herbst 2022 infolge des russischen Kriegs in der Ukraine und Elcom-Präsident Werner Luginbühls pointierter Aussage, dass man sich Kerzen und Brennholz für den bevorstehenden Winter besorgen solle `r zitat("sda_kerzen")`, ist die Versorgungssicherheit der kritischen Infrastruktur Strom zurück in aller Munde. Im Speziellen wird dabei die Speicherwasserkraft als unsere "Winterversicherung" verstanden und die sömmerliche Produktion von Speicherwasser wird mit Argusaugen beobachtet. Zeit, sich anzuschauen, weshalb es gute Gründe gibt, dass auch die Speicherwasserkraft im Sommer Strom produzieren kann und auch sollte. 
 
