@@ -63,6 +63,10 @@ quellen <- list(
   #   autor = "Nachname, A., & Nachname, B.",   # oder Organisation, dann kurz = "Abk."
   #   jahr = 2026,  titel = "Titel in einem Stück",  typ = "Datensatz",
   #   url = "https://…",  abruf = TRUE),
+bafu_ezg = q(
+    autor = "Bundesamt für Umwelt BAFU", kurz = "BAFU", jahr = NA,
+    titel = "Teileinzugsgebiete 40 km² (ch.bafu.wasser-teileinzugsgebiete_40)", typ = "Geodatensatz",
+    url = "https://map.geo.admin.ch/#/map?layers=ch.bafu.wasser-teileinzugsgebiete_40", abruf = TRUE),
   swissgrid_sdl = q(
     autor = "Aebi, S.", jahr = "2026, 7. Mai",
     titel = "PV-Energie für ein stabiles Netz", erschienen_in = "Swissgrid Blog",
@@ -338,11 +342,16 @@ typ_farben <- c(Laufwasser = "#1B84CB", Speicher = "#59BBA4", Pumpspeicher = "#1
 Wie in der Einleitung angetönt, sind die Zuflüsse in die Speicherseen Schmelzwasser, was besonders in heissen Sommern besonders zu Buche schlägt. Einige Staudämme sind klein dimensioniert, so dass diese im Sommer turbinieren müssen, ansonsten bleibt das Potenzial ungenutzt. Im Folgenden zeigen wir Ihnen ein Extrembeispiel: 
 
 ```{r tour 1}
+# Dams (red points) are only used in tour 2 - read here, as before
 staumauern <- read.csv("data/staumauern.csv", encoding = "UTF-8") |>
   st_as_sf(coords = c("lon", "lat"), crs = 4326)
 staumauern$popup <- sprintf("<h4>Staumauer %s</h4>%s · %s, %s m hoch · %s",
                             staumauern$name, staumauern$see, staumauern$typ,
                             staumauern$hoehe_m, staumauern$baujahr)
+
+# Catchment of the Massa down to the Gebidem dam (BAFU, Teileinzugsgebiet 108611, 196 km²)
+einzugsgebiet <- st_read("data/einzugsgebiet_gebidem.geojson", quiet = TRUE)
+einzugsgebiet$popup <- "<h4>Einzugsgebiet Massa</h4>bis Staumauer Gebidem · 196 km²"
 
 # 3D tour: swisstopo base map in colour (names, relief shading) draped over
 # swisstopo terrain (terrain = "swisstopo" in sm_sidecar below)
@@ -356,26 +365,36 @@ for (typ in names(typ_farben)) {
     circle_stroke_color = "#fff", circle_stroke_width = 2, popup = "popup"
   )
 }
-tour <- tour |> add_circle_layer(
-  id = "staumauern", source = staumauern,
-  circle_color = summit$accent2, circle_radius = 10,
-  circle_stroke_color = "#ffffff", circle_stroke_width = 3,
-  circle_pitch_alignment = "map",
-  popup = "popup", tooltip = "name"
-)
+tour <- tour |>
+  add_fill_layer(
+    id = "einzugsgebiet", source = einzugsgebiet,
+    fill_color = "#2E86C1", fill_opacity = 0.35,
+    popup = "popup", tooltip = "name"
+  ) |>
+  add_line_layer(
+    id = "einzugsgebiet-rand", source = einzugsgebiet,
+    line_color = "#1B4F72", line_width = 2
+  ) |>
+  add_categorical_legend(
+    legend_title = "", values = "Einzugsgebiet Massa bis Gebidem (196 km²)",
+    colors = "#2E86C1", position = "bottom-left"
+  )
 
 sm_sidecar(
   tour,
   terrain = "swisstopo", exaggeration = 1.3,
+  narrative_width = "50%",          # text column 50 %, map 50 % (default: 36 %)
   sm_slide(title = "Gebidem – Massa",
            tags$p("Bogenmauer in der Massaschlucht (Naters/Bitsch), 122 m hoch, 1967 fertiggestellt. ",
                   "Das Speichervolumen der Staumauer Gebidem ist mit knapp 9 Mio. m³ eher klein. Das Einzugsgebiet hingegen, mit fast 200 km², ist gross und entsprechend sind auch die Zuflüsse im Sommer sehr hoch. Im Sommer 2026 wurden Zuflüsse um die 130 m³/s gemessen, welche die Kapazität von 57 m³/s, mit welcher in Bitsch turbinieren werden kann, um mehr als Faktor 2 übertroffen. Dies führt dann zum Überlauf bei der Staumauer Gebidem (siehe Bild im Anhang mit ca.70 m³/s Überlauf). Im Winter liegen die Zuflüsse aber wiederum bei wenigen 100 l/s. Die Produktion von Electra-Massa AG erfolgt somit vorwiegend zwischen Mai-Oktober. In den Wintermonaten kann aufgrund des geringen Zuflusses der See nur einmal geleert werden. Wird aber das ganze Jahr angeschaut, liegen die gesamten Zuflüsse bei rund 600 Mio. m³, heisst der See wird über 60x gefüllt und entleert! Die Zuflüsse setzen sich zusammen aus der Gletscherschmelze, der Schneeschmelze sowie den Niederschlägen während dem Jahr."),
            sm_slide_image("assets/gibidem_ueberlauf_Juli_26_red.png",
                           caption = "Gibidem im Sommer 2026. Foto: Alpiq, 2026",
                           alt = "Gibidem ist voll"),
-           center = c(8.002414, 46.371158), zoom = 13, pitch = 45, bearing = 10)
+           # whole catchment in view, from the dam (south) looking up the valley (north)
+           bounds = c(7.890, 46.365, 8.120, 46.566), pitch = 40, bearing = 10)
 )
 ```
+
 
 # Wartung und Instandhaltung 
 
