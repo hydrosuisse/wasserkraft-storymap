@@ -558,8 +558,8 @@ sm_credits(
 
 ```{r tabellennachweis}
 sm_credits(
-  sm_credit("Tabelle 1: Split Sommer/Winter der realisierten Produktion 2015–2026",
-            quelle("bfe_elprod", "bfe_elstat", prefix = "Daten: "))
+sm_credit("Tabelle 1: Split Sommer/Winter der realisierten Produktion 2015–2026",
+          paste0("Daten: ", zitat("bfe_elprod", "bfe_elstat")))
 )
 ```
 
