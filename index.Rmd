@@ -466,6 +466,7 @@ tour <- tour |> add_circle_layer(
 sm_sidecar(
   tour,
   terrain = "swisstopo", exaggeration = 1.3,
+  narrative_width = "50%",          # text column 50 %, map 50 % (default: 36 %)
   sm_slide(title = "Rossens – Lac de la Gruyère",
            tags$p("Barrage-voûte de 83 m de hauteur, construit en 1947.",
                   "Le lac de la Gruyère alimente la centrale d'Hauterive pour une production moyenne annuelle de 220 GWh. Son grand volume de stockage de 163 Mio. m³, renouvelé près de 7 fois durant l'année par les apports de la Sarine, permet d'engager l'aménagement de manière saisonnière avec plus de la moitié de sa production en hiver. Ainsi le lac de la Gruyère est monté à son niveau maximum en début d'hiver et est abaissé progressivement pour la production hivernale avec le niveau le plus bas atteint généralement à fin avril. En septembre 2026, un abaissement exceptionnel du lac a été nécessaire en lien avec des travaux de remplacement d’une vanne. Le but est d’assurer à nouveau la pleine disponibilité de la centrale et un lac plein dès décembre pour la production hivernale."),
@@ -494,11 +495,14 @@ sm_slide_image("assets/sanetsch_1_red.jpg",
 
 Exportiert wird die Strommenge, die über dem Landesverbrauch produziert wird. Importiert wird das Delta zwischen Landesverbrauch und -Produktion, wenn letztere darunter fällt. Um zu schauen, wieviel Strom gerade exportiert und importiert wurde, wird oft das Dashboard zur Stromproduktion des BFE angeschaut, welches die tägliche Stromproduktion nach Energieträger, Nettoimporte und Landesverbrauch inklusive Speicherpumpen abbildet (s. nachgebaute Grafik unten). 
 
-```{r energiedashboard nachgebaut}
-sm_image("assets/bfe_dashboard.png",
-caption = "Produktion und Landesverbrauch inkl. Verbrauch der Speicherpumpen. Snapshot vom 12.11.2026",
-source=quelle("bfe_produktion"),
-alt = "Produktion und Landesverbrauch", width = "wide")
+```{r produktion-bfe}
+sm_frame(
+  src = "charts/produktion_bfe.html",
+  title = "Stromproduktion nach Energieträger nach Energiedashboard",
+  height = "480px", auto_height = TRUE,
+  caption = "Tägliche Stromproduktion nach Energieträger, Nettoimporte und Landesverbrauch. Täglich aktualisiert.",
+  source = quelle("bfe_produktion")
+)
 ```
 Dabei könnte man meinen, dass die Exporte praktisch im Alleingang durch die Speicherkraft bewerkstelligt würden (s. z.B. Sommer 2024). Dies entspricht aber nicht der physikalischen Realität, denn erstens ist es arbiträr, welche Farben man wie aufeinanderlegt und zweitens entspricht der Exportmix dem Produktionsmix zur selben Zeit, d.h. der Export besteht proportional aus dem Produktionsmix. Um Missverständnisse wie jene vorzubeugen, wäre also eine umgebaute Visualisierung mit denselben Daten hilfreicher. Hier ein Vorschlag - zum Herumspielen, wie dies aussehen könnte: 
 
