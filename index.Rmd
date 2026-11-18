@@ -249,18 +249,17 @@ tagList(
 
 ::: {.sm-abstract}
 [Zusammenfassung]{.sm-abstract-titel}
-Hier steht Ihr Abstract. Normales Markdown funktioniert: **fett**, *kursiv*,
-[Links](https://…) und auch `r zitat("bfe_wasta")`.
+Hier steht der Abstract. Normales Markdown funktioniert: **fett**, *kursiv*.
 :::
 
 ## Winter is coming! {#einleitung}
-Erst kürzlich haben es Menschen "geschafft", den Winter zu einer Fussnote im Jahr verkommen zu lassen. Aber ganz ist der Respekt davor nicht verschwunden: Wir feiern Erntedankfeste im Herbst und freuen uns mit der Fasnacht über den Frühling. Allerspätestens seit den Volatilitäten auf den Energiemärkten im Herbst 2022 infolge des russischen Kriegs in der Ukraine und Elcom-Präsident Werner Luginbühls pointierter Aussage, dass man sich Kerzen und Brennholz für den bevorstehenden Winter besorgen solle `r zitat("sda_kerzen")`, ist die Versorgungssicherheit der kritischen Infrastruktur Strom zurück in aller Munde. Im Speziellen wird dabei die Speicherwasserkraft als unsere "Winterversicherung" verstanden und die sömmerliche Produktion von Speicherwasser wird mit Argusaugen beobachtet. Zeit, sich anzuschauen, weshalb es gute Gründe gibt, dass auch die Speicherwasserkraft im Sommer Strom produzieren kann und auch sollte. 
+Erst kürzlich haben es Menschen "geschafft", den Winter zu einer Fussnote im Jahr verkommen zu lassen. Trotzdem ist der Respekt davor nicht verschwunden: Wir feiern Erntedankfeste im Herbst und freuen uns mit der Fasnacht über den Frühling. Allerspätestens seit den Volatilitäten auf den Energiemärkten im Herbst 2022 infolge des russischen Kriegs in der Ukraine und Elcom-Präsident Luginbühls pointierter Aussage, dass man sich Kerzen und Brennholz für den bevorstehenden Winter besorgen solle `r zitat("sda_kerzen")`, ist die Versorgungssicherheit der kritischen Infrastruktur Strom zurück in aller Munde. Im Speziellen wird dabei die Speicherwasserkraft als unsere "Winterversicherung" verstanden. Die sömmerliche Produktion von Speicherwasser wird daher mit Argusaugen beobachtet. Zeit, sich anzuschauen, weshalb es gute Gründe gibt, dass auch die Speicherwasserkraft im Sommer Strom produzieren kann und auch sollte. 
 
-Die folgende interaktive Übersicht listet einige Gründe und Begebenheiten zur Schweizer Speicherwasserkraft mit dem Ziel eine Antwort auf die eingehend gestellte Frage zur Sommerproduktion aus Speicherwasserkraft zumindest teilweise zu beantworten. 
+Die folgende interaktive Übersicht listet einige gewichtige Gründe und Begebenheiten zur Schweizer Speicherwasserkraft mit dem Ziel eine Antwort auf die eingehend gestellte Frage zur Sommerproduktion aus Speicherwasserkraft zu liefern. 
 
 ## Speicherwasser ist nicht nur für den Winter gedacht {#funktionspeicherwasser}
 
-Aufgrund des Schmelzwassers, das wegen sommerlicher Temperaturen zum grössten Teil im Sommer anfällt, müssen auch Speicherwasserkraftwerke Wasser turbinieren, andernfalls würden sie überflutet und liessen das Potenzial ungenutzt. Die meisten dieser Anlagen wurden auch nicht als reine Winterspeicher konzipiert und können daher auch nicht "nur" die Winterversorgerrolle übernehmen, sonst wären sie baulich komplett überdimensioniert. So erwarteten die Betreiber fürs Jahr 2026 je eine knapp hälftige Produktion der Speicherwasserkraft im Sommer und im Winter `r zitat("bfe_wasta")`. Bei der Laufwasserkraft lag die Produktionserwartung fürs Jahr 2026 hingegen etwa bei 60% im Sommerhalbjahr `r zitat("bfe_wasta")`.  
+Zuallererst ist die Winterstromproduktion nicht die einzige Funktion der Speicherwasserkraftwerke. Aufgrund des Schmelzwassers, das wegen sommerlicher Temperaturen zum grössten Teil im Sommer anfällt, müssen auch Speicherwasserkraftwerke Wasser turbinieren, andernfalls würden sie überflutet und liessen das Potenzial ungenutzt. Die meisten Anlagen wurden bei deren Projektion auch nicht als reine Winterspeicher konzipiert, dafür sind die meisten baulich komplett unterdimensioniert. So erwarteten die Betreiber fürs Jahr 2026 je eine knapp hälftige Produktion der Speicherwasserkraft im Sommer und im Winter `r zitat("bfe_wasta")`. Bei der Laufwasserkraft lag die Produktionserwartung fürs Jahr 2026 hingegen etwa bei 60% im Sommerhalbjahr `r zitat("bfe_wasta")`.  
 
 Tabelle 1: Split Sommer/Winter der realisierten Produktion 2015-2026
 
@@ -271,7 +270,7 @@ Tabelle 1: Split Sommer/Winter der realisierten Produktion 2015-2026
 
 Daten: `r zitat("bfe_elstat", bfe_elbilanz")`
 
-Wird anstelle der erwarteten Produktion die realisierte Produktion über die letzten Jahre zu Rate gezogen, so zeigen sich sehr geringfügige Abweichungen des saisonalen Splits. Im Jahr 2026 hat die Speicherwasserkraft im Vergleich zur selben Woche der Vorjahre gar bedeutend weniger produziert, wie die untenstehende Grafik zeigt. Dies widerspiegelt die aussergewöhnliche Trockenheit aufgrund fehlender Niederschläge im Sommer 2026, die aber nur teilweise durch höhere Schmelzwasserzuflüsse kompensiert werden konnte. 
+Wird anstelle der erwarteten Produktion die realisierte Produktion über die letzten Jahre zu Rate gezogen, so zeigen sich sehr geringfügige Abweichungen des saisonalen Splits. Im Jahr 2026 hat die Speicherwasserkraft im Vergleich zur selben Woche der Vorjahre gar bedeutend weniger produziert, wie die untenstehende Grafik zeigt. Dies widerspiegelt die aussergewöhnliche Trockenheit aufgrund fehlender Niederschläge im Sommer 2026. Gleichzeitig vermochte die hohen Schmelzwasserzuflüsse aufgrund der Hitzeperioden diesen Ausfall nur teilweise kompensieren.  
 
 ```{r foto-jahresvergleich-prod}
 sm_image("assets/wasserkraft_ch_vergleich.png",
