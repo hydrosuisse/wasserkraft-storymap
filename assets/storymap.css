@@ -401,3 +401,38 @@ html.sm-lb-open { overflow: hidden; }
   font-family: var(--sm-font-head); font-size: .8125rem; font-weight: 700;
   letter-spacing: .06em; text-transform: uppercase; color: var(--sm-accent);
 }
+
+/* ---------- tables in the text (Markdown | pipe tables or knitr::kable) ------ */
+.section > table {
+  width: calc(100% - 48px);
+  max-width: var(--sm-col);
+  margin: 1.75rem auto 2rem;
+  border-collapse: collapse;
+  font-family: var(--sm-font-head);
+  font-size: .9375rem;
+  line-height: 1.45;
+  color: var(--sm-text);
+}
+.section > table caption {
+  caption-side: top; text-align: left;
+  padding-bottom: .6rem;
+  font-family: var(--sm-font-body); font-size: .875rem; color: var(--sm-caption);
+}
+.section > table th {
+  text-align: left; vertical-align: bottom;   /* default; :---: and ---: set below */
+  padding: 8px 12px 8px 0;
+  border-bottom: 2px solid var(--sm-heading);
+  color: var(--sm-heading); font-weight: 600;
+}
+.section > table td {
+  padding: 8px 12px 8px 0;
+  border-bottom: 1px solid var(--sm-rule);
+  vertical-align: top;
+}
+.section > table tr:last-child td { border-bottom: 2px solid var(--sm-rule); }
+.section > table :is(th, td):last-child { padding-right: 0; }
+.section > table th[align="right"], .section > table th[style*="right"] { text-align: right; }
+.section > table th[align="center"], .section > table th[style*="center"] { text-align: center; }
+@media (max-width: 600px) {          /* narrow screens: table scrolls sideways if needed */
+  .section > table { display: block; overflow-x: auto; }
+}
