@@ -265,7 +265,7 @@ Daten: `r zitat("bfe_elstat", "bfe_elbilanz")`
 Wird anstelle der erwarteten Produktion die realisierte Produktion über die letzten Jahre zu Rate gezogen, so zeigen sich sehr geringfügige Abweichungen des saisonalen Splits. Im Jahr 2026 hat die Speicherwasserkraft im Vergleich zur selben Woche der Vorjahre gar bedeutend weniger produziert, wie die untenstehende Grafik zeigt. Dies widerspiegelt die aussergewöhnliche Trockenheit aufgrund fehlender Niederschläge im Sommer 2026. Gleichzeitig vermochte die hohen Schmelzwasserzuflüsse aufgrund der Hitzeperioden diesen Ausfall nur teilweise kompensieren.  
 
 ```{r foto-jahresvergleich-prod}
-sm_image("assets/wasserkraft_ch_vergleich.svg",
+sm_image("assets/wasserkraft_ch_vergleich.pdf",
 caption = "Produktion aus Speicherwasseranlagen 2023-2026. Grafik: hydrosuisse. Quellen: BFE-Monatsdaten für Linien; ENTSO-E und Energy-Charts-Daten wurden für die Unsicherheitsbänder hinzugezogen.",
 source=quelle("bfe_produktion", "energycharts","entsoe"),
 alt = "Stromproduktion nach Energieträger 2022-2026", width = "wide")
@@ -491,7 +491,7 @@ Darüber hinaus sollte die statistische Zuteilung der Stromproduktion zu einzeln
 3. **Pumpspeicherkraftwerke**: Ein Pumpspeicherkraftwerk ist eine Kombination von Speicherkraftwerk und reinem Umwälzwerk. [Anm. hydrosuisse: Ein solches hat i.d.R. natürliche Zuflüsse.]  
 4. **reine Umwälzkraftwerke**: Nutzen nur Wasser, das vorgängig gepumpt und gespeichert wird. Pumpen und Turbinen sind in der Regel an dasselbe Unter- bzw. Oberbeckenangeschlossen. [Anm. hydrosuisse: In R(h)einform gibt es diese allerdings kaum in der Schweiz, nur der Engeweiher in Schaffhausen `r zitat("naturpark_engeweiher")` entspricht der strikten Definition.] 
 
-Bereits die obenstehende Speicherkraftdefinition als solche gibt bereits eine Unschärfe in der Klassifikation vor: Auch bei 74% Laufwasser im Winter kann eine mitelländische Zentrale statistisch als Speicherkraftwerk geführt werden. Unschärfen betreffen aber auch Zentralen im Alpenraum. Dies zeigt das folgende Beispiel eindrücklich:  
+Bereits die obenstehende Speicherkraftdefinition als solche gibt bereits eine erste Unschärfe in der Klassifikation vor: Auch bei 74% Laufwasser im Winter kann eine mitelländische Zentrale statistisch als Speicherkraftwerk geführt werden. Unschärfen betreffen aber auch Zentralen im Alpenraum. Dies zeigt das folgende Beispiel eindrücklich:  
 
 <i>Ein einzelnes Unternehmen, wie z.B. die Kraftwerke Oberhasli AG `r zitat("kwo")` betreibt 13 Zentralen mit 28 Anlagen. Obwohl man gemeinhin denkt, die KWO sei der Speicher am Grimsel hat die KWO daher einen mittleren erwarteten Laufwasseranteil von 2.2% `r zitat("bfe_wasta")`, turbinierte sie einen Laufwasseranteil im Jahr 2025 von 26% (basierend auf Produktionssplit-Daten der KWO). Die Anlagen in deren System können aufgrund existierender Querverbindungen zwischen Lauf- und Speicherwasserfassungen nicht trennscharf einer Kategorie zugeordnet werden.</i> 
 
@@ -503,7 +503,7 @@ Im vorliegenden Falle entspricht der erwartete Split also überhaupt nicht dem t
 Schlussendlich ist die Zuteilung des Stroms zum Typ der Erzeugungsanlage auch eine Modellierungsfrage. Das BFE-Energiedashboard, das den Produktionssplit täglich rapportiert, ist zwingend auf Modelle angewiesen. So haben die Kraftwerksbetreiber von Gross- und Kleinanlagen unterschiedliche Rapportierhorizonte gegenüber der Swissgrid. Bei der Swissgrid liegen in der Regel also nicht zu jedem Zeitpunkt für jeden Kraftwerkstypen und jede kWh vor. Die Swissgrid muss stattdessen die Kraftwerksanteile über Modellierungen komplettieren und auf den gesamten Lastgang hochrechnen. Dazu kommt, dass die Swissgrid, als Betreiberin des Hochspannungsnetzes, auf Daten von Messpunkten der Verteilnetzbetreiber oder der Kraftwerksbetreiber selbst angewiesen ist. In diesen Skalierungen wird die Speicherkraft jeweils als Residual behandelt. Dies bedeutet, dass ihr jene Strommenge zugeteilt wird, welche nach Abzug der anderen (teil-modellierten) Werten übrigbleibt. So ist es nicht erstaunlich, dass je nach Datenquelle, die jeweils unterschiedliche Modelle führen, auch unterschiedliche Zuordnungen der Produktion auf verschiedene Technologien resultieren. Wie das untenstehende Bild erkennen lässt, kann diese Unschärfe zwischen den Modellen bis zu ca. 1.5-2 GWh pro Stunde betragen. (Um das statistische Argument zu verdeutlichen, kann in der App ganz unten mit stündlichen Daten aus den verschiedenen Modellen des BFE, von den Energy-Charts und von ENTSO-E gespielt werden.)
 
 ```{r foto-stat unschaerfe}
-sm_image("assets/wasserkraft_ch_quellenvergleich.png",
+sm_image("assets/wasserkraft_ch_quellenvergleich.pdf",
 caption = "Quellenvergleich und Abweichungen anderer Energieträger-Kategorisierungen gegenüber den BFE-Daten in der 1. Augustwoche 2026. Grafik: hydrosuisse. Quellen: BFE-Energiedashboard, ENTSO-E und Energy-Charts.",
 source=quelle("bfe_produktion", "entsoe", "energycharts"),
 alt = "Quellenvergleich über verschiedene Energieträger in der 1. Augustwoche 2026", width = "wide")
