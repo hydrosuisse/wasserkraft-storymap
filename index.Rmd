@@ -268,7 +268,7 @@ Tabelle 1: Split Sommer/Winter der realisierten Produktion 2015-2026
 | Laufwasser            |    32.5-39.5% |
 | Speicherwasser        |    43.6-52.8% |
 
-Daten: `r zitat("bfe_elstat", bfe_elbilanz")`
+Daten: `r zitat("bfe_elstat", "bfe_elbilanz")`
 
 Wird anstelle der erwarteten Produktion die realisierte Produktion über die letzten Jahre zu Rate gezogen, so zeigen sich sehr geringfügige Abweichungen des saisonalen Splits. Im Jahr 2026 hat die Speicherwasserkraft im Vergleich zur selben Woche der Vorjahre gar bedeutend weniger produziert, wie die untenstehende Grafik zeigt. Dies widerspiegelt die aussergewöhnliche Trockenheit aufgrund fehlender Niederschläge im Sommer 2026. Gleichzeitig vermochte die hohen Schmelzwasserzuflüsse aufgrund der Hitzeperioden diesen Ausfall nur teilweise kompensieren.  
 
