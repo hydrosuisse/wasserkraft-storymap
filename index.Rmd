@@ -554,6 +554,11 @@ sm_credits(
   sm_credit("Entleerung Sanetsch-Stausee, Juli 2026", "Marcel Ottenkamp, 2026")
 )
 ```
+```{r tabellennachweis}
+sm_credits(
+  sm_credit("Tabelle 1:  Split Sommer/Winter der realisierten Produktion 2015-2026", Daten: `r zitat("bfe_elstat", "bfe_elbilanz")`),
+)
+```
 
 ```{r footer}
 sm_footer("© hydrosuisse · Erstellt mit R, R Markdown und mapgl")
