@@ -261,7 +261,17 @@ Die folgende interaktive Übersicht listet einige Gründe und Begebenheiten zur 
 ## Speicherwasser ist nicht nur für den Winter gedacht {#funktionspeicherwasser}
 
 Aufgrund des Schmelzwassers, das wegen sommerlicher Temperaturen zum grössten Teil im Sommer anfällt, müssen auch Speicherwasserkraftwerke Wasser turbinieren, andernfalls würden sie überflutet und liessen das Potenzial ungenutzt. Die meisten dieser Anlagen wurden auch nicht als reine Winterspeicher konzipiert und können daher auch nicht "nur" die Winterversorgerrolle übernehmen, sonst wären sie baulich komplett überdimensioniert. So erwarteten die Betreiber fürs Jahr 2026 je eine knapp hälftige Produktion der Speicherwasserkraft im Sommer und im Winter `r zitat("bfe_wasta")`. Bei der Laufwasserkraft lag die Produktionserwartung fürs Jahr 2026 hingegen etwa bei 60% im Sommerhalbjahr `r zitat("bfe_wasta")`.  
-Wird anstelle der erwarteten Produktion die realisierte Produktion über die letzten Jahre zu Rate gezogen, so zeigen sich sehr geringfügige Abweichungen des saisonalen Splits (Laufwasser 2015-26 32.5-39.5% im Winter; Speicherwasser 2015-26 43.6-52.8% im Winter `r zitat("bfe_elstat", "bfe_elbilanz")`). Im Jahr 2026 hat die Speicherwasserkraft im Vergleich zur selben Woche der Vorjahre gar bedeutend weniger produziert, wie untenstehende Grafik zeigt. Dies widerspiegelt die aussergewöhnliche Trockenheit aufgrund fehlender Niederschläge im Sommer 2026, die aber nur teilweise durch höhere Schmelzwasserzuflüsse kompensiert werden konnte. 
+
+Tabelle 1: Split Sommer/Winter der realisierten Produktion 2015-2026
+
+| Kraftwerkstyp         | Anteil Winter |
+|:----------------------|:-------------:|
+| Laufwasser            |    32.5-39.5% |
+| Speicherwasser        |    43.6-52.8% |
+
+Daten: `r zitat("bfe_elstat", bfe_elbilanz")`
+
+Wird anstelle der erwarteten Produktion die realisierte Produktion über die letzten Jahre zu Rate gezogen, so zeigen sich sehr geringfügige Abweichungen des saisonalen Splits. Im Jahr 2026 hat die Speicherwasserkraft im Vergleich zur selben Woche der Vorjahre gar bedeutend weniger produziert, wie die untenstehende Grafik zeigt. Dies widerspiegelt die aussergewöhnliche Trockenheit aufgrund fehlender Niederschläge im Sommer 2026, die aber nur teilweise durch höhere Schmelzwasserzuflüsse kompensiert werden konnte. 
 
 ```{r foto-jahresvergleich-prod}
 sm_image("assets/wasserkraft_ch_vergleich.png",
