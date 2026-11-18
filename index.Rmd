@@ -241,7 +241,7 @@ tagList(
 
 ::: {.sm-abstract}
 [Zusammenfassung]{.sm-abstract-titel}
-Es gibt vielfältige Gründe, weshalb es sinnvoll ist, dass die Speicherwasserkraftwerke auch im Sommer Strom produzieren: Zuallererst entspricht die reine Winterproduktion nicht deren alleiniger Funktion - die erwartete Produktion liegt seit Jahrzehnten konstant etwa hälftig in den Sommer- und Winterhalbjahren. Im Vergleich zu den Vorjahren wurde im Sommer 2026 aufgrund der Trockenheit gar bedeutend weniger Strom aus Speicherkraft generiert. Zweitens widerspiegeln die tiefen Füllstände nicht die Zuflüsse und sollten daher nicht als Produktion interpretiert werden. Drittens gibt es Speicherkraftwerke, die aufgrund von Schmelzwasser und/oder grossen Einzugsgebieten im Sommer produzieren müssen, als Extrembeispiel sei hier Elektro-Massa mit dem KW Gibidem genannt, welches den See bis zu 60x im Jahr füllt, im Winter aber nur Zuflüsse von einigen 100 l/s verzeichnet. Viertens liefert die Wasserkraft in der Schweiz den allergrössten Teil des zusätzlichen Stroms und der Last zum Ausgleich der Netzfrequenz, d.h. zur Sicherstellung der Netzstabilität. Fünftens müssen Kraftwerke instand gehalten werden. Normalerweise unternimmt man diese Arbeiten beim tiefsten Wasserstand im Speichersee, der zumeist im Frühling vorliegt, aber es gibt diverse Gründe, weshalb diese in den Sommer verschoben werden muss. Zu guter Letzt ist die statistische Zuweisung zwischen Energieträgern und letztlich zwischen Speicher- und Wasserkraft nicht als trennscharf zu interpretieren, denn diese erfolgt nicht rein messungsbasiert. Je nach Modell, welche die Messlücken füllt, ergeben sich schon grosse Unterschiede in der Zuteilung. 
+Es gibt vielfältige Gründe, weshalb es sinnvoll ist, dass die Speicherwasserkraftwerke auch im Sommer Strom produzieren: Zuallererst entspricht die reine Winterproduktion nicht deren alleiniger Funktion - die erwartete Produktion liegt seit Jahrzehnten konstant etwa hälftig in den Sommer- und Winterhalbjahren. Im Vergleich zu den Vorjahren wurde im Sommer 2026 aufgrund der Trockenheit gar bedeutend weniger Strom aus Speicherkraft generiert. Zweitens widerspiegeln die tiefen Füllstände nicht die Zuflüsse und sollten daher nicht als Produktion interpretiert werden. Drittens gibt es Speicherkraftwerke, die aufgrund von Schmelzwasser und/oder grossen Einzugsgebieten im Sommer produzieren müssen, als Extrembeispiel sei hier Elektro-Massa mit dem KW Gibidem genannt, welches den See bis zu 60x im Jahr füllt, im Winter aber nur Zuflüsse von einigen 100 l/s verzeichnet. Viertens liefert die Wasserkraft in der Schweiz den allergrössten Teil des zusätzlichen Stroms und der Last zum Ausgleich der Netzfrequenz, d.h. zur Sicherstellung der Netzstabilität. Fünftens müssen Kraftwerke instand gehalten werden. Normalerweise unternimmt man diese Arbeiten beim tiefsten Wasserstand im Speichersee, der zumeist im Frühling vorliegt, aber es gibt diverse Gründe, weshalb die Instandhaltung in den Sommer verschoben werden muss. Zu guter Letzt ist die statistische Zuweisung zwischen Energieträgern und letztlich zwischen Speicher- und Wasserkraft nicht als trennscharf zu interpretieren, denn die Zuteilung erfolgt nicht rein messungsbasiert. Je nach Modell, welche die Messlücken füllt, ergeben sich grosse Unterschiede.
 :::
 
 ## Winter is coming! {#einleitung}
@@ -265,22 +265,14 @@ Daten: `r zitat("bfe_elstat", "bfe_elbilanz")`
 Wird anstelle der erwarteten Produktion die realisierte Produktion über die letzten Jahre zu Rate gezogen, so zeigen sich sehr geringfügige Abweichungen des saisonalen Splits. Im Jahr 2026 hat die Speicherwasserkraft im Vergleich zur selben Woche der Vorjahre gar bedeutend weniger produziert, wie die untenstehende Grafik zeigt. Dies widerspiegelt die aussergewöhnliche Trockenheit aufgrund fehlender Niederschläge im Sommer 2026. Gleichzeitig vermochte die hohen Schmelzwasserzuflüsse aufgrund der Hitzeperioden diesen Ausfall nur teilweise kompensieren.  
 
 ```{r foto-jahresvergleich-prod}
-sm_image("assets/wasserkraft_ch_vergleich.png",
-caption = "Produktion aus Speicherwasseranlagen 2023-2026. Grafik: hydrosuisse. Quellen: BFE-Monatsdaten für Linien; ENTSO-E und Energy-Charts-Daten wurden für die Konfidenzintervalle hinzugezogen.",
+sm_image("assets/wasserkraft_ch_vergleich.svg",
+caption = "Produktion aus Speicherwasseranlagen 2023-2026. Grafik: hydrosuisse. Quellen: BFE-Monatsdaten für Linien; ENTSO-E und Energy-Charts-Daten wurden für die Unsicherheitsbänder hinzugezogen.",
 source=quelle("bfe_produktion", "energycharts","entsoe"),
-alt = "Stromproduktion nach Energieträger 2023-2026", width = "wide")
+alt = "Stromproduktion nach Energieträger 2022-2026", width = "wide")
 ```
 
 ## Füllstände der Speicherseen {#fuellstaende}
-Auch die Füllstände der Schweizer Speicherseen (Grafik nachgebaut [nach dem BFE-Dashboard](https://energiedashboard.admin.ch/strom/fuellstaende-speicherseen)) reflektieren ebendiese Trockenheit. Auch dieser Indikator darf nicht als scharfe Winterreserve interpretiert werden und zwar aus folgenden Gründen: Die Trockenheit, Zufluss von Gletscher. Tessin hat noch 1 Gletscher Balsodino / Robiei/Cavagnoli. 
-
-So ist es Punkt: mit der oberen Grafik deutlich Trockenheit. nicht Hypothetisch argumentieren. Die Behauptung, dass ... der "Winterstrom im Sommer 2026 in unverhältnismässigem Masse" ausverkauft worden wäre, stimmt also nicht. 
-
-Spotpreise raus. 
-
-Die Abweichung vom Mittel hingegen, welche ebendiese systematischen Unterschiede in Einzugsgebiet und Funktion berücksichtigt, kann auch für die Zuläufe nicht korrigieren. Vielleicht sind ja die Zuflüsse noch relativ viel geringer ausgefallen, als diese Reduktion des Energieinhalts suggeriert und es wurde besonders vorsichtig turbiniert? 
-
-Wobei auch dies eine Hypothese bleibt, kann trotzdem darauf hingewiesen werden, dass die day-ahead Spotpreise im Vergleich zur selben Woche in den letzten Jahren nicht sonderlich interessant gewesen wären, schon gar nicht im Vergleich zu 2022 und 2023. 
+Auch die Füllstände der Schweizer Speicherseen (Grafik nachgebaut [nach dem BFE-Dashboard](https://energiedashboard.admin.ch/strom/fuellstaende-speicherseen)) reflektieren ebendiese Trockenheit. Der Füllstand-Indikator darf also nicht also nicht als Produktion interpretiert werden, vielmehr widerspiegelt dieser das Zusammenspiel zwischen Zufluss und Produktion. Die zurückhaltende Produktion im Vergleich zu den Vorjahren hat die obenstehende Grafik gezeigt. Die Füllstandsgrafik widerspiegelt daher insbesondere die sehr geringen Zuflüsse im Jahr 2026. Daraus folgt, dass die zirkulierende Behauptung "der Winterstrom ist im Sommer 2026 in unverhältnismässigem Masse ausverkauft worden" als nicht haltbar zu werten ist.
 
 ```{r speicherseen}
 sm_frame(
@@ -292,14 +284,7 @@ sm_frame(
 )
 ```
 ### Viel Schmelzwasser = viel Sommer-Energiepotenzial {#schmelzwasser}
-
-
-
-Staudamm: 
-Zentrale: 2'643'797.89, 1'131'519.37
-runterziehen: Druckleitung 
-
-Im Folgenden zeigen wir Ihnen ein Extrembeispiel eines Stauraums, der sehr stark von der Gletscherschmelze geprägt ist.
+Einige Speicherkraftwerke halten besonders viel Schmelzwasser zurück. Im Folgenden zeigen wir Ihnen ein Extrembeispiel eines Stauraums, der sehr stark von der Gletscherschmelze geprägt ist, aber statistisch als Speicherkraftwerk geführt ist:
 
 ```{r vorbereitung}
 kraftwerke <- read.csv("data/kraftwerke.csv") |>
@@ -406,7 +391,7 @@ sm_sidecar(
   narrative_width = "50%",          # text column 50 %, map 50 % (default: 36 %)
   sm_slide(title = "Gebidem – Massa",
            tags$p("Bogenmauer in der Massaschlucht (Naters/Bitsch), 122 m hoch, 1967 fertiggestellt. ",
-                  "Das Speichervolumen der Staumauer Gebidem ist mit knapp 9 Mio. m³ eher klein. Das Einzugsgebiet hingegen, mit fast 200 km², ist gross und entsprechend sind auch die Zuflüsse im Sommer sehr hoch. Im Sommer 2026 wurden Zuflüsse um die 130 m³/s gemessen, welche die Kapazität von 57 m³/s, mit welcher in Bitsch turbinieren werden kann, um mehr als Faktor 2 übertroffen. Dies führt dann zum Überlauf bei der Staumauer Gebidem (siehe Bild im Anhang mit ca.70 m³/s Überlauf). Im Winter liegen die Zuflüsse aber wiederum bei wenigen 100 l/s. Die Produktion von Electra-Massa AG erfolgt somit vorwiegend zwischen Mai-Oktober. In den Wintermonaten kann aufgrund des geringen Zuflusses der See nur einmal geleert werden. Wird aber das ganze Jahr angeschaut, liegen die gesamten Zuflüsse bei rund 600 Mio. m³, heisst der See wird über 60x gefüllt und entleert! Die Zuflüsse setzen sich zusammen aus der Gletscherschmelze, der Schneeschmelze sowie den Niederschlägen während dem Jahr. Auch ein Speicherkraftwerk kann dementsprechend fast ausschliesslich im Sommer Strom produzieren - und funktioniert fast wie ein Laufkraftwerk."),
+                  "Das Speichervolumen der Staumauer Gebidem ist mit knapp 9 Mio. m³ eher klein. Das Einzugsgebiet hingegen, mit fast 200 km², ist gross und entsprechend sind auch die Zuflüsse im Sommer sehr hoch. Im Sommer 2026 wurden Zuflüsse um die 130 m³/s gemessen, welche die Kapazität von 57 m³/s, mit welcher in Bitsch turbinieren werden kann, um mehr als Faktor 2 übertroffen. Dies führt dann zum Überlauf bei der Staumauer Gebidem (siehe Bild im Anhang mit ca.70 m³/s Überlauf). Im Winter liegen die Zuflüsse aber wiederum bei wenigen 100 l/s. Die Produktion von Electra-Massa AG erfolgt somit vorwiegend zwischen Mai-Oktober. In den Wintermonaten kann aufgrund des geringen Zuflusses der See nur einmal geleert werden. Wird aber das ganze Jahr angeschaut, liegen die gesamten Zuflüsse bei rund 600 Mio. m³, heisst der See wird über 60x gefüllt und entleert! Die Zuflüsse setzen sich zusammen aus der Gletscherschmelze, der Schneeschmelze sowie den Niederschlägen während dem Jahr. Auch ein Speicherkraftwerk kann dementsprechend fast ausschliesslich im Sommer Strom produzieren!"),
            sm_slide_image("assets/gibidem_ueberlauf_Juli_26_red.png",
                           caption = "Gibidem im Sommer 2026. Foto: Alpiq, 2026",
                           alt = "Gibidem ist voll"),
@@ -417,21 +402,12 @@ sm_sidecar(
 
 ## Systemdienstleistungen sind auch im Sommer gefragt {#sdl}
 
-Darüber hinaus darf auch die Funktion der Kraftwerke zur Sicherstellung der Netzstabilität nicht ausser Acht gelassen werden. Damit das Stromnetz auf einer Frequenz von 50 Hz stabil bleibt und die Blindleistung nicht zu gross wird, bietet die Wasserkraft in der Schweiz Systemdienstleistungen an. Swissgrid kann innerhalb von Sekunden die Primärregelleistung, innerhalb von Minuten die gröbere Sekundärregelleistung und innerhalb von einer Viertelstunde das schwere Geschütz der Tertiärregelleistung abrufen. Hier gilt es sowohl Lasten (wenn die Frequenz zu hoch ist) oder zusätzliche Leistung (wenn die Frequenz zu tief ist) bereitstellen zu können. Diese Stabilisierungsdienstleistung wird Stand Mai 2026 zu rund 95% über die Schweizer Wasserkraft `r zitat("swissgrid_sdl")` abgedeckt. Solche Regelenergie wird das ganze Jahr hinüber gebraucht, nicht nur im Winter. Zum Beispiel können die Pumpspeicherwerke im grossen Stil (-) Last liefern, indem sie die Pumpen anwerfen und Wasser ins Reservoir hochpumpen, sie bieten also nicht nur (+) zusätzlichen Strom. 
+Darüber hinaus darf auch die Funktion der Wasserkraftwerke zur Sicherstellung der Netzstabilität nicht ausser Acht gelassen werden. Damit das Stromnetz auf einer Frequenz von 50 Hz stabil bleibt und die Blindleistung nicht zu gross wird, bietet die Wasserkraft in der Schweiz Systemdienstleistungen an. Swissgrid kann innerhalb von Sekunden die Primärregelleistung, innerhalb von Minuten die gröbere Sekundärregelleistung und innerhalb von einer Viertelstunde das schwere Geschütz der Tertiärregelleistung abrufen. Hier gilt es sowohl Lasten (wenn die Frequenz zu hoch ist) oder zusätzliche Produktion (wenn die Frequenz zu tief ist) bereitstellen zu können. Zum Beispiel können die Pumpspeicherwerke im grossen Stil (-) Last liefern, indem sie die Pumpen anwerfen und Wasser ins Reservoir hochpumpen, sie bieten also nicht nur (+) zusätzlichen Strom. Die Pumpspeicherkraftwerk- und Umwälzkapazität lag am 1.1.2026 bei einer sehr bedeutsamen Grösse von 4'160 MW `r zitat("bfe_wasta")`. Insbesondere liegt der grosse Vorteil der Speicherkraft im Vergleich zu anderen Erzeugern darin, dass diese massive Zusatzproduktion anbieten kann, wenn die Frequenz im Stromnetz zu tief sein sollte. Insgesamt wird die Stabilisierungsdienstleistung (Stand Mai 2026) zu rund 95% über die Schweizer Wasserkraft `r zitat("swissgrid_sdl")` abgedeckt. Entscheidend hierbei ist, dass solche Regelenergie das ganze Jahr hinüber gebraucht wird, nicht nur im Winter. 
 
-Speicherkraftwerke können viel Leistung in grossem Stil anbieten (Sekundär/Tertiär) --> insbesondere schnell mehr Energie reinbringen wenn Frequenz zu tief. 
-
-KKW fährt voll, Laufwasser auch. 
-
-Laufenburg / Batteriemonitorquellen streichen. 
-
-Die Pumpspeicherkraftwerk- und Umwälzkapazität lag am 1.1.2026 bei 4'160 MW `r zitat("bfe_wasta")`. 
 
 ## Instandhaltung {#wartung}
 
-Können Instandhaltungen nicht im Frühling gemacht werden, wenn der See tief ist... dann muss Sommer/Herbst... dann früher entleert als Normalfall, dann zwei Beispiele. 
-
-Dazu kommt, dass die Tiefstände im Frühling z.T. für Instandhaltungen genutzt werden müssen. Für gewisse Arbeiten muss ein Speichersee sogar ganz abgelassen werden. So zeigen wir im Folgenden zwei Beispiele zu Wartungsarbeiten bei entleerten Seen, denn solche Entleerungen tragen auch zur Speicherwasser-Sommerproduktion bei. 
+Können Instandhaltungen nicht im Frühling gemacht werden, wenn der Speichersee normalerweise am tiefsten ist, dann werden solche Arbeiten im Sommer ausgeführt. Diese führen mitunter auch dazu, dass Speicherkraftwerke im Sommer produzieren müssen, denn wenn diese den See absenken oder entleeren, aber nicht produzieren dürften, entflösse das bereits angestaute Wasser ungenutzt.
 
 ```{r tour 2}
 # 3D tour: swisstopo base map in colour (names, relief shading) draped over
@@ -484,7 +460,7 @@ sm_slide_image("assets/sanetsch_1_red.jpg",
 
 ## Statistik trifft Physik {#statistische_klassifizierung} 
 
-Exportiert wird die Strommenge, die über dem Landesverbrauch produziert wird. Importiert wird das Delta zwischen Landesverbrauch und -Produktion, wenn letztere darunter fällt. Um zu schauen, wieviel Strom gerade exportiert und importiert wurde, wird oft das Dashboard zur Stromproduktion des BFE angeschaut, welches die tägliche Stromproduktion nach Energieträger, Nettoimporte und Landesverbrauch inklusive Speicherpumpen abbildet (s. nachgebaute Grafik unten). 
+Auch geläufige Statistiken können bieten Hand zu einer Fehlinterpretation der Rolle der Speicherkraft. Schauen wir uns z.B. das Thema Export an. Grundsätzlich wird diejenige Strommenge exportiert, die grösser als der gleichzeitige Landesverbrauch ist. Importiert wird das Delta zwischen Landesverbrauch und -Produktion, wenn letztere darunter fällt. Um nachzuschlagen, wieviel Strom gerade exportiert und importiert wird, dient oft das Dashboard zur Stromproduktion des BFE als Referenz. Dieses zeigt die tägliche Stromproduktion nach Energieträgern, Nettoimporten und bildet den Landesverbrauch inklusive Speicherpumpen ab (s. nachgebaute Grafik nach Energiedashboard `r zitat("bfe_produktion"). 
 
 ```{r produktion-bfe}
 sm_frame(
@@ -495,7 +471,7 @@ sm_frame(
   source = quelle("bfe_produktion")
 )
 ```
-Dabei könnte man meinen, dass die Exporte praktisch im Alleingang durch die Speicherkraft bewerkstelligt würden (s. z.B. Sommer 2024). Dies entspricht aber nicht der physikalischen Realität, denn erstens ist es arbiträr, welche Farben man wie aufeinanderlegt und zweitens entspricht der Exportmix dem Produktionsmix zur selben Zeit, d.h. der Export besteht proportional aus dem Produktionsmix. Um Missverständnisse wie jene vorzubeugen, wäre also eine umgebaute Visualisierung mit denselben Daten hilfreicher. Hier ein Vorschlag - zum Herumspielen, wie dies aussehen könnte: 
+Dabei könnte fälschlicherweise interpretiert werden, dass die Exporte praktisch im Alleingang durch die Speicherkraft bewerkstelligt würden (s. z.B. Sommer 2024). Diese Wertung entspricht aber nicht der physikalischen Realität, denn erstens ist es arbiträr, welche Farben man in der Grafik wie aufeinanderlegt und zweitens entspricht der Exportmix dem Produktionsmix zur selben Zeit, d.h. der Export besteht in etwa proportional aus dem Produktionsmix. Um Missverständnisse wie jene vorzubeugen, wäre also eine umgebaute Visualisierung mit denselben Daten hilfreicher. Hier ein Vorschlag - zum Herumspielen, wie dies aussehen könnte: 
 
 ```{r produktion}
 sm_frame(
@@ -508,22 +484,23 @@ sm_frame(
 ``` 
 ### Ist das nun Lauf- oder Speicherwasserstrom? 
 
-In der Tat besteht der Schweizer Wasserkraftwerkspark aus lauter Einzelfällen. Die Statistik der Wasserkraft in der Schweiz (WASTA) kennt vier Idealtypen, wobei eine Anlage in der Statistik zentralenscharf abgebildet ist (Anlagen des gleichen Typs in derselben Zentrale werden zusammengenommen). Grundsätzlich werden bei den Ausleitkraftwerken, d.h. jenen, die den Gewässern Wasser entnehmen, in einer Leitung/Tunnel/Zulauf den Turbinen zuleiten, turbinieren und wieder ins Gewässer zurückgeben, vier Idealtypen (Wortlaut nach `r zitat("bfe_wasta")`):
+Darüber hinaus sollte die statistische Zuteilung der Stromproduktion zu einzelnen Anlagekategorien nicht als trennscharf interpretiert werden. Wie im folgenden gezeigt, kann sich die Zuteilung je nach Modell um bis zu zwei GWh pro Stunde unterscheiden! Grundsätzlich unterscheidet die WASTA vier Idealtypen von Anlagen, wobei Anlagen desselben Typs zentralenscharf abgebildet werden. Die Statistik definiert diese Idealtypen wie folgt `r zitat("bfe_wasta")`):
 
-1. **Laufwasserkraftwerke**: Wasserkraftanlagen ohne eigenen Speicher, die auf die laufendeVerarbeitung des jeweiligen Zuflusses angewiesen sind.
-2. **Speicherkraftwerke**: Nutzen nur einen Teil des gefassten Wassers unverzüglich. Denandern Teil speichern sie und nutzen ihn später. Das Wasser kann auch durch Pumpenzugeführt werden (Zubringerpumpen). Laufkraftwerke bis zu den Alpenrand- undMittellandseen, die ihre Energieproduktion wesentlich durch direkte Einflussnahme aufoberliegende Speicher steuern können, sind ebenfalls als Speicherkraftwerkeaufzufassen. Wesentlich heisst, dass das betreffende Speichervermögen mindestens25% der mittleren Produktionserwartung der Wasserkraftanlage im Winter beträgt.
-3. **Pumpspeicherkraftwerke**: Ein Pumpspeicherkraftwerk ist eine Kombination vonSpeicherkraftwerk und reinem Umwälzwerk. [Anm. hydrosuisse: Ein solches hat i.d.R. natürliche Zuflüsse.]  
-4. **reine Umwälzkraftwerke**: Nutzen nur Wasser, das vorgängig gepumpt und gespeichert wird.Pumpen und Turbinen sind in der Regel an dasselbe Unter- bzw. Oberbeckenangeschlossen. [Anm. hydrosuisse: In R(h)einform gibt es diese allerdings kaum in der Schweiz, nur der Engeweiher in Schaffhausen `r zitat("naturpark_engeweiher")` entspricht der strikten Definition. In der WASTA werden aber noch 8 andere Pumpspeicherkraftwerke als solche geführt.] 
+1. **Laufwasserkraftwerke**: Wasserkraftanlagen ohne eigenen Speicher, die auf die laufende Verarbeitung des jeweiligen Zuflusses angewiesen sind.
+2. **Speicherkraftwerke**: Nutzen nur einen Teil des gefassten Wassers unverzüglich. Den andern Teil speichern sie und nutzen ihn später. Das Wasser kann auch durch Pumpen zugeführt werden (Zubringerpumpen). Laufkraftwerke bis zu den Alpenrand- und Mittellandseen, die ihre Energieproduktion wesentlich durch direkte Einflussnahme auf oberliegende Speicher steuern können, sind ebenfalls als Speicherkraftwerke aufzufassen. Wesentlich heisst, dass das betreffende Speichervermögen mindestens 25% der mittleren Produktionserwartung der Wasserkraftanlage im Winter beträgt.
+3. **Pumpspeicherkraftwerke**: Ein Pumpspeicherkraftwerk ist eine Kombination von Speicherkraftwerk und reinem Umwälzwerk. [Anm. hydrosuisse: Ein solches hat i.d.R. natürliche Zuflüsse.]  
+4. **reine Umwälzkraftwerke**: Nutzen nur Wasser, das vorgängig gepumpt und gespeichert wird. Pumpen und Turbinen sind in der Regel an dasselbe Unter- bzw. Oberbeckenangeschlossen. [Anm. hydrosuisse: In R(h)einform gibt es diese allerdings kaum in der Schweiz, nur der Engeweiher in Schaffhausen `r zitat("naturpark_engeweiher")` entspricht der strikten Definition.] 
 
-In der Realität ist es nicht immer eindeutig, ob man die Produktion einer Wasserkraftanlage (WKA) der Speicher-, Pumpspeicher- oder Laufwasserkategorie zuordnen sollte. Es ist sehr schwer, diese Diversität in den Statistiken scharf abzubilden. 
+Bereits die obenstehende Speicherkraftdefinition als solche gibt bereits eine Unschärfe in der Klassifikation vor: Auch bei 74% Laufwasser im Winter kann eine mitelländische Zentrale statistisch als Speicherkraftwerk geführt werden. Unschärfen betreffen aber auch Zentralen im Alpenraum. Dies zeigt das folgende Beispiel eindrücklich:  
 
-Ein Beispiel: <i>Ein einzelnes Unternehmen, wie z.B. die Kraftwerke Oberhasli AG `r zitat("kwo")` betreibt 13 Zentralen mit 28 Anlagen. Obwohl man gemeinhin denkt, die KWO sei der Speicher am Grimsel hat die KWO daher einen mittleren erwarteten Laufwasseranteil von 2.2% `r zitat("bfe_wasta")`, turbinierte sie einen Laufwasseranteil im Jahr 2025 von 26% (basierend auf Produktionssplit-Daten der KWO). Die Anlagen in deren System können aufgrund existierender Querverbindungen zwischen Lauf- und Speicherwasserfassungen daher nicht trennscharf einer Kategorie zugeordnet werden.</i> 
+<i>Ein einzelnes Unternehmen, wie z.B. die Kraftwerke Oberhasli AG `r zitat("kwo")` betreibt 13 Zentralen mit 28 Anlagen. Obwohl man gemeinhin denkt, die KWO sei der Speicher am Grimsel hat die KWO daher einen mittleren erwarteten Laufwasseranteil von 2.2% `r zitat("bfe_wasta")`, turbinierte sie einen Laufwasseranteil im Jahr 2025 von 26% (basierend auf Produktionssplit-Daten der KWO). Die Anlagen in deren System können aufgrund existierender Querverbindungen zwischen Lauf- und Speicherwasserfassungen nicht trennscharf einer Kategorie zugeordnet werden.</i> 
 
-Es stellt sich die Grundsatzfrage: Wie fasst man eine Anlage zusammen, die beides kann und tut? Bleibt man bei fixierten Kategorie-Zuschreibungen, die über die Betriebsjahre nicht ändern oder müsste man sich die Mühe machen, turbinierte Anteile des Splits Speicherwasser/Laufwasser innerhalb einer Anlage zu erfassen? Dieses Beispiel zeigt, dass in der Tat dieser Split in den aggregierten Statistiken - wie er jährlich geschätzt wird, nicht als trennscharf interpretiert werden kann und sollte.
+Im vorliegenden Falle entspricht der erwartete Split also überhaupt nicht dem tatsächlichen. Der Unterschied ist fast Faktor 13! Daraus kann geschlossen werden, dass die Zuweisung zur Speicherkraft sowohl einen Stauraum erfordert, als auch geographische Bedingungen aufweist. Für Anlagen bis zu den Alpenrand- und Mittellandseen gilt ein anderer Schwellenwert für Speicherwasseranteile als im Alpenraum, wo die Speicherwassermenge als "ein Teil" undefiniert bleibt. Dies bedeutet, dass im Grossen und Ganzen eine definitorische Zuweisung gilt ("Hat es eine Staumauer und steht diese in den Alpen? Dann produziert die Zentrale Strom aus Speicherkraft"). Diese ist im Grossen und Ganzen unabhängig davon, welche Speicher- und Laufwasseranteile in der Realität turbiniert werden. 
+
 
 ### Modellbasierte Schätzungen füllen Messlücken
 
-Das BFE-Energiedashboard, das den Produktionssplit täglich rapportiert hat auch gewisse Unschärfen wegen unterschiedlichen Rapportierhorizonten der Betreiber an die Swissgrid, welche diese Daten, die i.d.R. nicht für die Gesamtheit aller Kraftwerkskategorien und kWh vorliegen, über Modellrechnungen auf den Lastgang hochskaliert. In diesen Rechnungen ist die Wasserkraft das Residual, d.h. die Menge, die übrigbleibt, wenn alle anderen mit Modellen skalierte Wertungen anderer Technologien von der gesamten Last abgezogen werden. So ist es nicht erstaunlich, dass je nach Datenquelle, die jeweils unterschiedliche Modelle und Annahmen im Hintergrund haben, auch unterschiedliche Zuordnungen der Produktion auf verschiedene Technologien resultieren. Wie das untenstehende Bild erkennen lässt, kann diese Unschärfe in Produktionspitzen bis zu ca. 1.5-2 GWh pro Stunde betragen. Um das statistische Argument zu verdeutlichen, kann in der App ganz unten mit stündlichen Daten aus den verschiedenen Modellen des BFE, von den Energy-Charts und von ENTSO-E gespielt werden. 
+Schlussendlich ist die Zuteilung des Stroms zum Typ der Erzeugungsanlage auch eine Modellierungsfrage. Das BFE-Energiedashboard, das den Produktionssplit täglich rapportiert, ist zwingend auf Modelle angewiesen. So haben die Kraftwerksbetreiber von Gross- und Kleinanlagen unterschiedliche Rapportierhorizonte gegenüber der Swissgrid. Bei der Swissgrid liegen in der Regel also nicht zu jedem Zeitpunkt für jeden Kraftwerkstypen und jede kWh vor. Die Swissgrid muss stattdessen die Kraftwerksanteile über Modellierungen komplettieren und auf den gesamten Lastgang hochrechnen. Dazu kommt, dass die Swissgrid, als Betreiberin des Hochspannungsnetzes, auf Daten von Messpunkten der Verteilnetzbetreiber oder der Kraftwerksbetreiber selbst angewiesen ist. In diesen Skalierungen wird die Speicherkraft jeweils als Residual behandelt. Dies bedeutet, dass ihr jene Strommenge zugeteilt wird, welche nach Abzug der anderen (teil-modellierten) Werten übrigbleibt. So ist es nicht erstaunlich, dass je nach Datenquelle, die jeweils unterschiedliche Modelle führen, auch unterschiedliche Zuordnungen der Produktion auf verschiedene Technologien resultieren. Wie das untenstehende Bild erkennen lässt, kann diese Unschärfe zwischen den Modellen bis zu ca. 1.5-2 GWh pro Stunde betragen. (Um das statistische Argument zu verdeutlichen, kann in der App ganz unten mit stündlichen Daten aus den verschiedenen Modellen des BFE, von den Energy-Charts und von ENTSO-E gespielt werden.)
 
 ```{r foto-stat unschaerfe}
 sm_image("assets/wasserkraft_ch_quellenvergleich.png",
@@ -539,13 +516,13 @@ alt = "Quellenvergleich über verschiedene Energieträger in der 1. Augustwoche 
 Werden diese (und es gäbe sicherlich noch mehr) Gründe betrachtet, ergibt sich ein differenziertes Bild der Produktionslogik der Speicherwasserkraft im Sommer.
 
 1. Deren Funktion ist nicht nur die Stromproduktion im Winter; 
-2. Die Füllstände der Speicherseen messen nicht (direkt) die Zuflüsse;
+2. Die Füllstände der Speicherseen messen nicht (direkt) die Produktion;
 3. Die Wasserkraft stemmt grossmehrheitlich die Systemdienstleistungen fürs Stromnetz - das ganze Jahr; 
-4. Unschärfen in der Zuteilung zu Lauf- vs. Speicherwasserkraft können einen statistischen Unterschied machen; 
-5. Gletscher- und Schneewasser füllt manche Speicherseen viel mehr als 1x - deshalb müssen sie im Sommer produzieren;
-6. Die Wartung und Instandhaltung von Speicherseen, Staumauern und -Dämmen geschieht v.a. im Sommerhalbjahr.
+4. Gletscher- und Schneewasser füllen manche Speicherseen viel mehr als 1x pro Jahr, deshalb müssen sie im Sommer produzieren;
+5. Die Instandhaltung von Speicherseen, Staumauern und -Dämmen kann nicht immer beim Tiefstand im Frühling gemacht werden, weshalb z.T. im Sommer Stauseen abgesenkt oder entleert werden müssen; 
+6. Die Statistik selbst hat gewichtige Unschärfen in der Zuteilung zu Lauf- vs. Speicherwasserkraft.
 
-Zuallerletzt kann die interessierte LeserIn in der untentstehenden App (s. Dokumentation zum Verständnis unterhalb) mit verschiedenen Datenquellen selbst erfassen, wie die Datenlage der letzten Jahre in der Produktion der Schweizer Wasserkraft aussieht und welche Grössenordnungen von Unschärfen bei der Zuteilung auf die verschiedenen Wasserkrafttypen etwa zu erwarten sind.  
+Zuallerletzt kann die interessierte LeserIn in der untentstehenden App (s. Dokumentation zum Verständnis bei einem Klick auf "Hinweise / Datenquellen") mit verschiedenen Datenquellen selbst erfassen, wie die Datenlage der letzten Jahre in der Produktion der Schweizer Wasserkraft aussieht und welche Grössenordnungen von Unschärfen bei der Zuteilung auf die verschiedenen Wasserkrafttypen etwa zu erwarten sind.  
 
 ```{r dashboard}
 sm_frame(
