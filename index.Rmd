@@ -531,7 +531,7 @@ sm_frame(
   height = "1300px", height_mobile = "1900px",
   load = "after_page", delay_ms = 2000,   # start 2 s after the story has loaded
   loading_text = "Dashboard wird gestartet … (kann einige Sekunden dauern)",
-  caption = "Interaktives Dashboard «Wasserkraft und Spotpreise».",
+  caption = "Interaktives Dashboard zu Wasserkrafttypen, Spotpreisen und statistischen Unschärfen nach Quelle.",
 source = quelle("energycharts", "smard", "ezb", prefix = "Daten: ")
 )
 ```
