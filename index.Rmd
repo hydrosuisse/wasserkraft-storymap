@@ -354,9 +354,59 @@ tour <- tour |>
     id = "einzugsgebiet-rand", source = einzugsgebiet,
     line_color = "#1B4F72", line_width = 2
   ) |>
-  add_categorical_legend(
-    legend_title = "", values = "Einzugsgebiet Massa bis Gebidem (196 km²)",
-    colors = "#2E86C1", position = "bottom-left"
+add_categorical_legend(
+  legend_title = "",
+  values = c("Einzugsgebiet Gebidem (196 km²)", "Staumauer", "Zentrale"),
+  colors = c("#2E86C1", summit$accent2, "#333333"), position = "bottom-left"
+)
+
+# Gebidem: dam, power station (Zentrale Bitsch) and penstock as a straight line
+# Zentrale: LV95 2'643'797.89 / 1'131'519.37 -> WGS84 8.007441 / 46.333642
+gebidem_pkt <- st_as_sf(
+  data.frame(
+    label = c("Staumauer", "Zentrale"),
+    popup = c("<h4>Staumauer Gebidem</h4>Bogenmauer, 122 m hoch, 1967",
+              "<h4>Zentrale Bitsch</h4>Electra-Massa AG"),
+    farbe = c(summit$accent2, "#333333"),
+    lon   = c(8.002414, 8.007441),
+    lat   = c(46.371158, 46.333642)
+  ),
+  coords = c("lon", "lat"), crs = 4326
+)
+druckleitung <- st_sf(
+  label = "Druckleitung",
+  popup = "<h4>Druckleitung</h4>Staumauer Gebidem – Zentrale Bitsch (schematisch, Luftlinie)",
+  geometry = st_cast(st_combine(gebidem_pkt), "LINESTRING")
+)
+
+tour <- tour |>
+  add_line_layer(
+    id = "druckleitung", source = druckleitung,
+    line_color = "#333333", line_width = 3, line_dasharray = c(2, 1),
+    popup = "popup", tooltip = "label"
+  ) |>
+  add_symbol_layer(
+    id = "druckleitung-label", source = druckleitung,
+    text_field = get_column("label"), text_font = c("Frutiger Neue Medium"),
+    text_size = 13, text_color = "#333333",
+    text_halo_color = "#ffffff", text_halo_width = 2,
+    symbol_placement = "line-center", text_keep_upright = TRUE,
+    text_offset = c(0, -0.9)
+  ) |>
+  add_circle_layer(
+    id = "gebidem-punkte", source = gebidem_pkt,
+    circle_color = get_column("farbe"), circle_radius = 10,
+    circle_stroke_color = "#ffffff", circle_stroke_width = 3,
+    circle_pitch_alignment = "map",
+    popup = "popup", tooltip = "label"
+  ) |>
+  add_symbol_layer(
+    id = "gebidem-labels", source = gebidem_pkt,
+    text_field = get_column("label"), text_font = c("Frutiger Neue Medium"),
+    text_size = 14, text_color = "#1a1a1a",
+    text_halo_color = "#ffffff", text_halo_width = 2,
+    text_anchor = "left", text_offset = c(1.2, 0),
+    text_allow_overlap = TRUE
   )
 
 sm_sidecar(
@@ -370,7 +420,7 @@ sm_sidecar(
                           caption = "Gibidem im Sommer 2026. Foto: Alpiq, 2026",
                           alt = "Gibidem ist voll"),
            # whole catchment in view, from the dam (south) looking up the valley (north)
-           bounds = c(7.890, 46.365, 8.120, 46.566), pitch = 40, bearing = 10)
+           bounds = c(7.890, 46.325, 8.120, 46.566), pitch = 40, bearing = 10)
 )
 ```
 
