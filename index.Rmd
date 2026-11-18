@@ -249,6 +249,7 @@ tagList(
 
 ::: {.sm-abstract}
 [Zusammenfassung]{.sm-abstract-titel}
+Es gibt vielfältige Gründe, weshalb es sinnvoll ist, dass die Speicherwasserkraftwerke auch im Sommer Strom produzieren: Zuallererst entspricht die reine Winterproduktion nicht deren alleiniger Funktion - die erwartete Produktion liegt seit Jahrzehnten konstant etwa hälftig in den Sommer- und Winterhalbjahren. 
 Hier steht der Abstract. Normales Markdown funktioniert: **fett**, *kursiv*.
 :::
 
@@ -439,8 +440,8 @@ sm_sidecar(
   tour,
   terrain = "swisstopo", exaggeration = 1.3,
   sm_slide(title = "Rossens – Lac de la Gruyère",
-           tags$p("barrage-voûte à 83 m, construit 1947. ",
-                  "Le lac de la Gruyère alimente la centrale d'Hauterive pour une production moyenne annuelle de 220 GWh. Son grand volume de stockage de 163 Mio. m³, renouvelé près de 7 fois durant l'année par les apports de la Sarine, permet d'engager l'aménagement de manière saisonnière avec plus de la moitié de sa production en hiver. Ainsi le lac de la Gruyère est monté à son niveau maximum en début d'hiver et est abaissé progressivement pour la production hivernale avec le niveau le plus bas atteint généralement à fin avril. En 2026, cela a été atteint en Septembre, parce que des travaux de remplacement des vannes  ont nécessité l'abaissement du lac. Le but c'est de pouvoir recommencer à produire à pleine charge en décembre pour être prêt pour la production hivernale."),
+           tags$p("Barrage-voûte de 83 m de hauteur, construit en 1947.",
+                  "Le lac de la Gruyère alimente la centrale d'Hauterive pour une production moyenne annuelle de 220 GWh. Son grand volume de stockage de 163 Mio. m³, renouvelé près de 7 fois durant l'année par les apports de la Sarine, permet d'engager l'aménagement de manière saisonnière avec plus de la moitié de sa production en hiver. Ainsi le lac de la Gruyère est monté à son niveau maximum en début d'hiver et est abaissé progressivement pour la production hivernale avec le niveau le plus bas atteint généralement à fin avril. En septembre 2026, un abaissement exceptionnel du lac a été nécessaire en lien avec des travaux de remplacement d’une vanne. Le but est d’assurer à nouveau la pleine disponibilité de la centrale et un lac plein dès décembre pour la production hivernale."),
            sm_slide_image("assets/rossens_1_red.JPG",
                           caption = "Le barrage de Rossens avec un lac de stockage rempli. Foto: groupe e, 2025",
                           alt = "Le barrage de Rossens et le lac de Gruyère avec un lac de stockage rempli"),
