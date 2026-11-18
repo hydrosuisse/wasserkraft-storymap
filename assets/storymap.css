@@ -436,3 +436,9 @@ html.sm-lb-open { overflow: hidden; }
 @media (max-width: 600px) {          /* narrow screens: table scrolls sideways if needed */
   .section > table { display: block; overflow-x: auto; }
 }
+
+/* ---------- lists: numbers/bullets aligned with the body text ---------------- */
+.section > :is(ul, ol) {
+  padding-left: calc(24px + 1.4em);          /* marker starts at the text edge */
+  max-width: calc(var(--sm-col) - 1.4em);    /* right edge stays with the text */
+}
