@@ -17,8 +17,13 @@ bfe_chart_page(bfe_speicherseen_chart(speicher), "_site/charts/speicherseen.html
                updated = speicher$totalCH$currentEntry$date)
 
 produktion <- bfe_data("strom-produktion-import-verbrauch")
+
 bfe_chart_page(bfe_produktion_handel_chart(produktion, years = 5), "_site/charts/produktion.html",
                title = "Landesproduktion, Landesverbrauch und Aussenhandel",
+               updated = produktion$currentEntry$date)
+
+bfe_chart_page(bfe_produktion_chart(produktion, years = 5), "_site/charts/produktion_bfe.html",
+               title = "Stromproduktion nach Energieträger",
                updated = produktion$currentEntry$date)
 
 # 2) Story ---------------------------------------------------------------------
