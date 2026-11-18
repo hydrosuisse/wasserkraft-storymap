@@ -265,7 +265,7 @@ Daten: `r zitat("bfe_elstat", "bfe_elbilanz")`
 Wird anstelle der erwarteten Produktion die realisierte Produktion über die letzten Jahre zu Rate gezogen, so zeigen sich sehr geringfügige Abweichungen des saisonalen Splits. Im Jahr 2026 hat die Speicherwasserkraft im Vergleich zur selben Woche der Vorjahre gar bedeutend weniger produziert, wie die untenstehende Grafik zeigt. Dies widerspiegelt die aussergewöhnliche Trockenheit aufgrund fehlender Niederschläge im Sommer 2026. Gleichzeitig vermochte die hohen Schmelzwasserzuflüsse aufgrund der Hitzeperioden diesen Ausfall nur teilweise kompensieren.  
 
 ```{r foto-jahresvergleich-prod}
-sm_image("assets/wasserkraft_ch_vergleich.pdf",
+sm_image("assets/wasserkraft_ch_vergleich.svg",
 caption = "Produktion aus Speicherwasseranlagen 2023-2026. Grafik: hydrosuisse. Quellen: BFE-Monatsdaten für Linien; ENTSO-E und Energy-Charts-Daten wurden für die Unsicherheitsbänder hinzugezogen.",
 source=quelle("bfe_produktion", "energycharts","entsoe"),
 alt = "Stromproduktion nach Energieträger 2022-2026", width = "wide")
@@ -503,7 +503,7 @@ Im vorliegenden Falle entspricht der erwartete Split also überhaupt nicht dem t
 Schlussendlich ist die Zuteilung des Stroms zum Typ der Erzeugungsanlage auch eine Modellierungsfrage. Das BFE-Energiedashboard, das den Produktionssplit täglich rapportiert, ist zwingend auf Modelle angewiesen. So haben die Kraftwerksbetreiber von Gross- und Kleinanlagen unterschiedliche Rapportierhorizonte gegenüber der Swissgrid. Bei der Swissgrid liegen in der Regel also nicht zu jedem Zeitpunkt für jeden Kraftwerkstypen und jede kWh vor. Die Swissgrid muss stattdessen die Kraftwerksanteile über Modellierungen komplettieren und auf den gesamten Lastgang hochrechnen. Dazu kommt, dass die Swissgrid, als Betreiberin des Hochspannungsnetzes, auf Daten von Messpunkten der Verteilnetzbetreiber oder der Kraftwerksbetreiber selbst angewiesen ist. In diesen Skalierungen wird die Speicherkraft jeweils als Residual behandelt. Dies bedeutet, dass ihr jene Strommenge zugeteilt wird, welche nach Abzug der anderen (teil-modellierten) Werten übrigbleibt. So ist es nicht erstaunlich, dass je nach Datenquelle, die jeweils unterschiedliche Modelle führen, auch unterschiedliche Zuordnungen der Produktion auf verschiedene Technologien resultieren. Wie das untenstehende Bild erkennen lässt, kann diese Unschärfe zwischen den Modellen bis zu ca. 1.5-2 GWh pro Stunde betragen. (Um das statistische Argument zu verdeutlichen, kann in der App ganz unten mit stündlichen Daten aus den verschiedenen Modellen des BFE, von den Energy-Charts und von ENTSO-E gespielt werden.)
 
 ```{r foto-stat unschaerfe}
-sm_image("assets/wasserkraft_ch_quellenvergleich.pdf",
+sm_image("assets/wasserkraft_ch_quellenvergleich.svg",
 caption = "Quellenvergleich und Abweichungen anderer Energieträger-Kategorisierungen gegenüber den BFE-Daten in der 1. Augustwoche 2026. Grafik: hydrosuisse. Quellen: BFE-Energiedashboard, ENTSO-E und Energy-Charts.",
 source=quelle("bfe_produktion", "entsoe", "energycharts"),
 alt = "Quellenvergleich über verschiedene Energieträger in der 1. Augustwoche 2026", width = "wide")
