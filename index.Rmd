@@ -232,7 +232,7 @@ tagList(
   schmelzwasser = "Viel Schmelzwasser = viel Sommerstrom",
     sdl = "Systemdienstleistungen",
     statistische_klassifizierung = "Statistik trifft Physik",
-    Wartung = "Wartung und Instandhaltung",
+    Wartung = "Instandhaltung",
     fazit    = "Fazit und Dashboard",
     quellen      = "Quellen"
   ))
@@ -245,13 +245,13 @@ Es gibt vielfältige Gründe, weshalb es sinnvoll ist, dass die Speicherwasserkr
 :::
 
 ## Winter is coming! {#einleitung}
-Erst in den letzten Jahrzehnten haben es Menschen "geschafft", den Winter zu einer Fussnote im Jahr verkommen zu lassen. Trotzdem ist der Respekt davor nicht verschwunden: Wir feiern Erntedankfeste im Herbst und freuen uns mit der Fastnacht über den Frühling. Allerspätestens seit den Volatilitäten auf den Energiemärkten im Herbst 2022 infolge des russischen Angriffskriegs auf die Ukraine und Elcom-Präsident Luginbühls pointierter Aussage, dass man sich Kerzen und Brennholz für den bevorstehenden Winter besorgen solle `r zitat("sda_kerzen")`, ist die Versorgungssicherheit der kritischen Infrastruktur Strom zurück in aller Munde. Im Speziellen wird dabei die Speicherwasserkraft als unsere "Winterversicherung" verstanden. Die sommerliche Produktion von Speicherwasser wird daher mit Argusaugen beobachtet. Zeit, sich anzuschauen, weshalb es gute Gründe gibt, dass auch die Speicherwasserkraft im Sommer Strom produzieren kann und auch sollte. 
+Erst in den letzten Jahrzehnten haben es Menschen "geschafft", den Winter zu einer Fussnote im Jahr verkommen zu lassen. Trotzdem ist der Respekt davor nicht verschwunden: Wir feiern Erntedankfeste im Herbst und freuen uns mit der Fastnacht über den Frühling. Allerspätestens seit den Volatilitäten auf den Energiemärkten im Herbst 2022 infolge des russischen Angriffskriegs auf die Ukraine und Elcom-Präsident Luginbühls pointierter Aussage, dass man sich Kerzen und Brennholz für den bevorstehenden Winter besorgen solle `r zitat("sda_kerzen")`, ist die Versorgungssicherheit der kritischen Infrastruktur Strom zurück in aller Munde. Im Speziellen wird dabei die Speicherwasserkraft als unsere "Winterversicherung" verstanden. Die Öffentlichkeit verfolgt die sommerliche Produktion von Speicherwasser daher mit grossem Interesse. Zeit, sich anzuschauen, weshalb es gute Gründe gibt, dass auch die Speicherwasserkraft im Sommer Strom produzieren kann und auch sollte. 
 
 Zwei Sätze draus machen: Die folgende interaktive Übersicht listet einige gewichtige Gründe und Begebenheiten zur Schweizer Speicherwasserkraft mit dem Ziel eine Antwort auf die eingehend gestellte Frage zur Sommerproduktion aus Speicherwasserkraft zu liefern. 
 
 ## Speicherwasser ist nicht nur für den Winter gedacht {#funktionspeicherwasser}
 
-Zuallererst ist die Winterstromproduktion nicht die einzige Funktion der Speicherkraftwerke. Aufgrund des Schmelzwassers, das wegen sommerlicher Temperaturen zum grössten Teil im Sommerhalbjahr anfällt, müssen auch Speicherkraftwerke Wasser turbinieren, andernfalls würden die Staumauern überflutet und man liesse das Potenzial ungenutzt. Die meisten Anlagen wurden bei deren Projektion auch nicht als reine Winterspeicher konzipiert, dafür sind v.a. die älteren Stauanlagen meist baulich komplett unterdimensioniert. So erwarteten die Betreiber fürs Jahr 2026 je eine knapp hälftige Produktion der Speicherkraft im Sommer und im Winter `r zitat("bfe_wasta")`. Bei der Laufkraft lag die Produktionserwartung fürs Jahr 2026 hingegen etwa bei 60% im Sommerhalbjahr `r zitat("bfe_wasta")`.  
+Zuallererst ist die Winterstromproduktion nicht die einzige Funktion der Speicherkraftwerke. Aufgrund des Schmelzwassers, das wegen hoher Temperaturen zum grössten Teil im Sommerhalbjahr anfällt, müssen auch Speicherkraftwerke Wasser turbinieren, andernfalls würden die Staumauern überflutet und man liesse das Potenzial ungenutzt. Die meisten Anlagen wurden bei deren Projektion auch nicht als reine Winterspeicher konzipiert, dafür sind v.a. die älteren Stauanlagen meist baulich unterdimensioniert. So erwarteten die Betreiber fürs Jahr 2026 je eine knapp hälftige Produktion der Speicherkraft im Sommer und im Winter `r zitat("bfe_wasta")`. Bei der Laufkraft lag die Produktionserwartung fürs Jahr 2026 hingegen etwa bei 60% im Sommerhalbjahr `r zitat("bfe_wasta")`.  
 
 Tabelle 1: Split Sommer/Winter der realisierten Produktion 2015-2026
 
@@ -283,7 +283,7 @@ sm_frame(
   source = quelle("bfe_speicher")
 )
 ```
-### Viel Schmelzwasser = viel Sommer-Energiepotenzial {#schmelzwasser}
+### Viel Schmelzwasser bedeutet viel Sommer-Energiepotenzial {#schmelzwasser}
 Einige Speicherkraftwerke halten besonders viel Schmelzwasser zurück. Im Folgenden zeigen wir Ihnen ein Extrembeispiel eines Stauraums, der sehr stark von der Gletscherschmelze geprägt ist, aber statistisch als Speicherkraftwerk geführt ist:
 
 ```{r vorbereitung}
@@ -390,7 +390,7 @@ sm_sidecar(
   terrain = "swisstopo", exaggeration = 1.3,
   narrative_width = "50%",          # text column 50 %, map 50 % (default: 36 %)
   sm_slide(title = "Gebidem – Massa",
-           tags$p("Bogenmauer in der Massaschlucht (Naters/Bitsch), 122 m hoch, 1967 fertiggestellt. ",
+           tags$p("Die Bogenmauer in der Massaschlucht (Naters/Bitsch) ist 122 m hoch und wurde 1967 fertiggestellt. ",
                   "Das Speichervolumen der Staumauer Gebidem ist mit knapp 9 Mio. m³ eher klein. Das Einzugsgebiet hingegen, mit fast 200 km², ist gross und entsprechend sind auch die Zuflüsse im Sommer sehr hoch. Im Sommer 2026 wurden Zuflüsse um die 130 m³/s gemessen, welche die Kapazität von 57 m³/s, mit welcher in Bitsch turbinieren werden kann, um mehr als Faktor 2 übertroffen. Dies führt dann zum Überlauf bei der Staumauer Gebidem (siehe Bild im Anhang mit ca.70 m³/s Überlauf). Im Winter liegen die Zuflüsse aber wiederum bei wenigen 100 l/s. Die Produktion von Electra-Massa AG erfolgt somit vorwiegend zwischen Mai-Oktober. In den Wintermonaten kann aufgrund des geringen Zuflusses der See nur einmal geleert werden. Wird aber das ganze Jahr angeschaut, liegen die gesamten Zuflüsse bei rund 600 Mio. m³, heisst der See wird über 60x gefüllt und entleert! Die Zuflüsse setzen sich zusammen aus der Gletscherschmelze, der Schneeschmelze sowie den Niederschlägen während dem Jahr. Auch ein Speicherkraftwerk kann dementsprechend fast ausschliesslich im Sommer Strom produzieren!"),
            sm_slide_image("assets/gibidem_ueberlauf_Juli_26_red.png",
                           caption = "Gibidem im Sommer 2026. Foto: Alpiq, 2026",
@@ -435,7 +435,7 @@ sm_sidecar(
   terrain = "swisstopo", exaggeration = 1.3,
   narrative_width = "50%",          # text column 50 %, map 50 % (default: 36 %)
   sm_slide(title = "Rossens – Lac de la Gruyère",
-           tags$p("Barrage-voûte de 83 m de hauteur, construit en 1947.",
+           tags$p("Le Barrage-voûte à Rossens a 83 m de hauteur et a été construit en 1947.",
                   "Le lac de la Gruyère alimente la centrale d'Hauterive pour une production moyenne annuelle de 220 GWh. Son grand volume de stockage de 163 Mio. m³, renouvelé près de 7 fois durant l'année par les apports de la Sarine, permet d'engager l'aménagement de manière saisonnière avec plus de la moitié de sa production en hiver. Ainsi le lac de la Gruyère est monté à son niveau maximum en début d'hiver et est abaissé progressivement pour la production hivernale avec le niveau le plus bas atteint généralement à fin avril. En septembre 2026, un abaissement exceptionnel du lac a été nécessaire en lien avec des travaux de remplacement d’une vanne. Le but est d’assurer à nouveau la pleine disponibilité de la centrale et un lac plein dès décembre pour la production hivernale."),
            sm_slide_image("assets/rossens_1_red.JPG",
                           caption = "Le barrage de Rossens avec un lac de stockage rempli. Foto: groupe e, 2025",
@@ -449,7 +449,7 @@ sm_sidecar(
            tags$p("Gewichtsstaumauer mit 42m Höhe, 1959-1966 gebaut.",
                   "Die Sanetsch-Staumauer, die ein Reservoir von 2.6 Mio. m³ umfasst, wurde im Frühling 2026 einer Kontrolle unterzogen. Der See musste dafür vollständig entleert werden. Der See staut die Saane und hat ein vergleichsweise kleines Einzugsgebiet von 10.7 km²."),
 sm_slide_image("assets/sanetsch_1_red.jpg",
-                          caption = "Der schneebedeckte Staudamm Sanetsch im Kt. Wallis. Foto: BKW, winter 2020/21",
+                          caption = "Der schneebedeckte Staudamm Sanetsch im Kt. Wallis. Foto: BKW, Winter 2020/21",
                           alt = "Der schneebedeckte Staudamm Sanetsch im Kt. Wallis"),
            sm_slide_image("assets/sanetsch_bas_red.jpg",
                           caption = "Entleerung des Sanetsch-Stausees aufgrund von Kontrollen im Juli 2026. Foto: Marcel Ottenkamp, ewb, Juli 2026.", alt= "Entleerung des Sanetsch-Stausees aufgrund von Kontrollen im Juli 2026"),
@@ -518,7 +518,7 @@ Werden diese (und es gäbe sicherlich noch mehr) Gründe betrachtet, ergibt sich
 1. Deren Funktion ist nicht nur die Stromproduktion im Winter; 
 2. Die Füllstände der Speicherseen messen nicht (direkt) die Produktion;
 3. Die Wasserkraft stemmt grossmehrheitlich die Systemdienstleistungen fürs Stromnetz - das ganze Jahr; 
-4. Gletscher- und Schneewasser füllen manche Speicherseen viel mehr als 1x pro Jahr, deshalb müssen sie im Sommer produzieren;
+4. Gletscher- und Schneewasser füllen manche Speicherseen viel mehr als 1x pro Jahr, deshalb fällt natürlichweise eine gewisse Sommerproduktion an;
 5. Die Instandhaltung von Speicherseen, Staumauern und -Dämmen kann nicht immer beim Tiefstand im Frühling gemacht werden, weshalb z.T. im Sommer Stauseen abgesenkt oder entleert werden müssen; 
 6. Die Statistik selbst hat gewichtige Unschärfen in der Zuteilung zu Lauf- vs. Speicherwasserkraft.
 
