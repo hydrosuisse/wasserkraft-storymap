@@ -249,7 +249,7 @@ tagList(
 
 ::: {.sm-abstract}
 [Zusammenfassung]{.sm-abstract-titel}
-Es gibt vielfältige Gründe, weshalb es sinnvoll ist, dass die Speicherwasserkraftwerke auch im Sommer Strom produzieren: Zuallererst entspricht die reine Winterproduktion nicht deren alleiniger Funktion - die erwartete Produktion liegt seit Jahrzehnten konstant etwa hälftig in den Sommer- und Winterhalbjahren. 
+Es gibt vielfältige Gründe, weshalb es sinnvoll ist, dass die Speicherwasserkraftwerke auch im Sommer Strom produzieren: Zuallererst entspricht die reine Winterproduktion nicht deren alleiniger Funktion - die erwartete Produktion liegt seit Jahrzehnten konstant etwa hälftig in den Sommer- und Winterhalbjahren. Zweitens zeigt ein
 Hier steht der Abstract. Normales Markdown funktioniert: **fett**, *kursiv*.
 :::
 
