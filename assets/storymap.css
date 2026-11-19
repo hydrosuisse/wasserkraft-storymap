@@ -436,7 +436,10 @@ html.sm-lb-open { overflow: hidden; }
 @media (max-width: 600px) {          /* narrow screens: table scrolls sideways if needed */
   .section > table { display: block; overflow-x: auto; }
 }
-
+/* ---------- Swiss quotation marks for "…" typed in the Markdown text --------- */
+/* (needs pandoc_args: ["--html-q-tags"] in the YAML header of index.Rmd)       */
+q { quotes: "«" "»" "‹" "›"; }
+:lang(fr) q { quotes: "«\00a0" "\00a0»" "‹\00a0" "\00a0›"; }
 /* ---------- lists: numbers/bullets aligned with the body text ---------------- */
 .section > :is(ul, ol) {
   padding-left: calc(24px + 1.4em);          /* marker starts at the text edge */
