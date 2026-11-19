@@ -396,10 +396,10 @@ html.sm-lb-open { overflow: hidden; }
 }
 .sm-abstract > :is(p, ul, ol) { max-width: none; padding: 0; margin: 0 0 .75rem; }
 .sm-abstract > :last-child { margin-bottom: 0; }
-.sm-abstract .sm-abstract-titel {
-  display: block; margin-bottom: .5rem;
-  font-family: var(--sm-font-head); font-size: .8125rem; font-weight: 700;
-  letter-spacing: .06em; text-transform: uppercase; color: var(--sm-accent);
+.sm-abstract .sm-abstract-titel {               /* same look as a ## heading */
+  display: block; margin-bottom: 1rem;
+  font-family: var(--sm-font-head); font-size: 2rem; font-weight: 600;
+  line-height: 1.25; color: var(--sm-heading);
 }
 
 /* ---------- tables in the text (Markdown | pipe tables or knitr::kable) ------ */
