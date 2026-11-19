@@ -272,7 +272,7 @@ alt = "Stromproduktion nach Energieträger 2022-2026", width = "wide")
 ```
 
 ## Füllstände der Speicherseen {#fuellstaende}
-Auch die Füllstände der Schweizer Speicherseen (Grafik nachgebaut [nach dem BFE-Dashboard](https://energiedashboard.admin.ch/strom/fuellstaende-speicherseen)) reflektieren ebendiese Trockenheit. Der Füllstand-Indikator darf also nicht also nicht als Produktion interpretiert werden, vielmehr widerspiegelt dieser das Zusammenspiel zwischen Zufluss und Produktion. Die zurückhaltende Produktion im Vergleich zu den Vorjahren hat die obenstehende Grafik gezeigt. Die Füllstandsgrafik widerspiegelt daher insbesondere die sehr geringen Zuflüsse im Jahr 2026. Daraus folgt, dass die zirkulierende Behauptung "der Winterstrom ist im Sommer 2026 in unverhältnismässigem Masse ausverkauft worden" als nicht haltbar zu werten ist.
+Auch die Füllstände der Schweizer Speicherseen (Grafik nachgebaut [nach dem BFE-Dashboard](https://energiedashboard.admin.ch/strom/fuellstaende-speicherseen)) reflektieren ebendiese Trockenheit. Der Füllstand-Indikator darf also nicht als Produktion interpretiert werden, vielmehr widerspiegelt dieser das Zusammenspiel zwischen Zufluss und Produktion. Die zurückhaltende Produktion im Vergleich zu den Vorjahren hat die obenstehende Grafik gezeigt. Die Füllstandsgrafik widerspiegelt daher insbesondere die sehr geringen Zuflüsse im Jahr 2026. Daraus folgt, dass die zirkulierende Behauptung "der Winterstrom ist im Sommer 2026 in unverhältnismässigem Masse ausverkauft worden" als nicht haltbar zu werten ist.
 
 ```{r speicherseen}
 sm_frame(
@@ -460,7 +460,7 @@ sm_slide_image("assets/sanetsch_1_red.jpg",
 
 ## Statistik trifft Physik {#statistische_klassifizierung} 
 
-Auch geläufige Statistiken können bieten Hand zu einer Fehlinterpretation der Rolle der Speicherkraft. Schauen wir uns z.B. das Thema Export an. Grundsätzlich wird diejenige Strommenge exportiert, die grösser als der gleichzeitige Landesverbrauch ist. Importiert wird das Delta zwischen Landesverbrauch und -Produktion, wenn letztere darunter fällt. Um nachzuschlagen, wieviel Strom gerade exportiert und importiert wird, dient oft das Dashboard zur Stromproduktion des BFE als Referenz. Dieses zeigt die tägliche Stromproduktion nach Energieträgern, Nettoimporten und bildet den Landesverbrauch inklusive Speicherpumpen ab (s. nachgebaute Grafik nach Energiedashboard `r zitat("bfe_produktion")`. 
+Auch geläufige Statistiken können Hand zu einer Fehlinterpretation der Rolle der Speicherkraft bieten. Schauen wir uns z.B. das Thema Export an. Grundsätzlich wird diejenige Strommenge exportiert, die grösser als der gleichzeitige Landesverbrauch ist. Importiert wird das Delta zwischen Landesverbrauch und -Produktion, wenn letztere darunter fällt. Um nachzuschlagen, wieviel Strom gerade exportiert und importiert wird, dient oft das Dashboard zur Stromproduktion des BFE als Referenz. Dieses zeigt die tägliche Stromproduktion nach Energieträgern, Nettoimporten und bildet den Landesverbrauch inklusive Speicherpumpen ab (s. nachgebaute Grafik nach Energiedashboard `r zitat("bfe_produktion")`. 
 
 ```{r produktion-bfe}
 sm_frame(
