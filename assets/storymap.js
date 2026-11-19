@@ -47,6 +47,29 @@
   }
 
   /* ---------- sticky nav: shadow + active section ------------------------ */
+  // ---- typography: 2015-2026 -> 2015–2026, 95% -> 95 % (all text, incl. R strings)
+  function initTypography() {
+    var skip = /^(CODE|PRE|SCRIPT|STYLE|TEXTAREA|SVG|IFRAME)$/;
+    var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+      acceptNode: function (n) {
+        for (var e = n.parentNode; e && e !== document.body; e = e.parentNode) {
+          if (skip.test(e.nodeName.toUpperCase()) ||
+              (e.classList && (e.classList.contains("html-widget") || e.classList.contains("no-typo"))))
+            return NodeFilter.FILTER_REJECT;
+        }
+        var v = n.nodeValue;                                   // leave URLs alone
+        return /\d/.test(v) && !/:\/\/|www\.|\.html?\b/.test(v) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
+      }
+    });
+    var nodes = [], n;
+    while ((n = walker.nextNode())) nodes.push(n);
+    nodes.forEach(function (t) {
+      t.nodeValue = t.nodeValue
+        .replace(/(\d)[  ]?-[  ]?(?=\d)/g, "$1–")   // range: en dash, no spaces
+        .replace(/(\d)[  ]?%/g, "$1 %");                 // percent: non-breaking space
+    });
+  }
+
   function initNav() {
     var nav = document.querySelector(".sm-nav");
     if (!nav) return;
@@ -284,6 +307,6 @@
   }
 
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", function () { initNav(); initSidecars(); initFrames(); initLightbox(); });
-  } else { initNav(); initSidecars(); initFrames(); initLightbox(); }
+    document.addEventListener("DOMContentLoaded", function () { initTypography(); initNav(); initSidecars(); initFrames(); initLightbox(); });
+  } else { initTypography(); initNav(); initSidecars(); initFrames(); initLightbox(); }
 })();
