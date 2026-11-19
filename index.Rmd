@@ -460,7 +460,7 @@ sm_slide_image("assets/sanetsch_1_red.jpg",
 
 ## Statistik trifft Physik {#statistische_klassifizierung} 
 
-Auch geläufige Statistiken können bieten Hand zu einer Fehlinterpretation der Rolle der Speicherkraft. Schauen wir uns z.B. das Thema Export an. Grundsätzlich wird diejenige Strommenge exportiert, die grösser als der gleichzeitige Landesverbrauch ist. Importiert wird das Delta zwischen Landesverbrauch und -Produktion, wenn letztere darunter fällt. Um nachzuschlagen, wieviel Strom gerade exportiert und importiert wird, dient oft das Dashboard zur Stromproduktion des BFE als Referenz. Dieses zeigt die tägliche Stromproduktion nach Energieträgern, Nettoimporten und bildet den Landesverbrauch inklusive Speicherpumpen ab (s. nachgebaute Grafik nach Energiedashboard `r zitat("bfe_produktion"). 
+Auch geläufige Statistiken können bieten Hand zu einer Fehlinterpretation der Rolle der Speicherkraft. Schauen wir uns z.B. das Thema Export an. Grundsätzlich wird diejenige Strommenge exportiert, die grösser als der gleichzeitige Landesverbrauch ist. Importiert wird das Delta zwischen Landesverbrauch und -Produktion, wenn letztere darunter fällt. Um nachzuschlagen, wieviel Strom gerade exportiert und importiert wird, dient oft das Dashboard zur Stromproduktion des BFE als Referenz. Dieses zeigt die tägliche Stromproduktion nach Energieträgern, Nettoimporten und bildet den Landesverbrauch inklusive Speicherpumpen ab (s. nachgebaute Grafik nach Energiedashboard `r zitat("bfe_produktion")`. 
 
 ```{r produktion-bfe}
 sm_frame(
