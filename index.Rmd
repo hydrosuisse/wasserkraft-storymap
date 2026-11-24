@@ -449,12 +449,12 @@ sm_sidecar(
            center = c(7.112489, 46.71971), zoom = 12, pitch = 70, bearing = 140),
   sm_slide(title = "Staumauer Sanetsch bei Gstaad",
            tags$p("Die Staumauer Sanetsch ist eine Gewichtsstaumauer mit 42 m Höhe und wurde 1959-1966 gebaut.",
-                  "Die Sanetsch-Staumauer, die ein Reservoir von 2.6 Mio. m³ umfasst, wurde im Frühling 2026 einer Kontrolle unterzogen. Der See musste dafür vollständig entleert werden. Der See staut die Saane und hat ein vergleichsweise kleines Einzugsgebiet von 10.7 km²."),
+                  "Die Sanetsch-Staumauer, die ein Reservoir von 2.6 Mio. m³ umfasst, was einem Energieinhalt von ca. 5'036 MWh entspricht, wurde im Sommer 2026 (20.07.-22.10.) einer geplanten Kontrolle unterzogen. Dafür musste der Seepegel um 13 Meter (Kote 2034 M.ü.M. auf 2021 m.ü.M) auf das betriebliche Minimum abgesenkt werden. Der See staut die Saane und hat ein vergleichsweise kleines Einzugsgebiet von 10.7 km²."),
 sm_slide_image("assets/sanetsch_1_red.jpg",
                           caption = "Die schneebedeckte Staumauer Sanetsch im Kt. Wallis. Foto: BKW, Winter 2020/21",
                           alt = "Der schneebedeckte Staudamm Sanetsch im Kt. Wallis"),
            sm_slide_image("assets/sanetsch_bas_red.jpg",
-                          caption = "Bild vom langsam steigenden Sanetsch-Stauseepegel aufgrund von Kontrollen, vom Juli 2026. Foto: Marcel Ottenkamp, ewb, Juli 2026.", alt= "Bild vom langsam steigenden Sanetsch-Stauseepegel aufgrund von Kontrollen, vom Juli 2026"),
+                          caption = "Bild vom langsam steigenden Sanetsch-Stauseepegel aufgrund von Kontrollen, von Ende Juli 2026. Foto: Marcel Ottenkamp, ewb, Juli 2026.", alt= "Bild vom abgesenkten Sanetsch-Stauseepegel aufgrund von Kontrollen, vom Juli 2026"),
            center = c(7.296233, 46.360081), zoom = 12.5, pitch = 25, bearing = -60)
 )
 ```
