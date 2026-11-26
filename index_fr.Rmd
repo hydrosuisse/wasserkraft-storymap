@@ -1,0 +1,392 @@
+---
+pagetitle: "Pourquoi les centrales à accumulation produisent-elles aussi de l’électricité en été ?"
+lang: fr-CH
+output:
+  html_document:
+    pandoc_args: ["--html-q-tags"]
+    theme: null
+    highlight: null
+    mathjax: null
+    self_contained: false
+    lib_dir: libs
+    section_divs: true
+    css: assets/storymap.css
+    includes:
+      in_header: assets/head.html
+      after_body: assets/after-body.html
+---
+
+```{r setup, include = FALSE}
+# Version française. build.R la publie sous fr/ (les chemins assets/, libs/, charts/
+# y sont réécrits en ../). Les sources (liste APA) ne sont saisies qu'une fois :
+# on reprend le bloc « setup » de index.Rmd tel quel.
+options(sm.lang = "fr")
+src <- readLines("index.Rmd", encoding = "UTF-8")
+a <- grep("^```\\{r setup", src)[1]
+b <- grep("^```\\s*$", src); b <- b[b > a][1]
+eval(parse(text = src[(a + 1):(b - 1)], encoding = "UTF-8"))
+rm(src, a, b)
+
+# Ligne de source sous les graphiques : « Source : OFEN (2026a) » / « Sources : … »
+quelle_de <- quelle
+quelle <- function(..., prefix = NULL) {
+  if (is.null(prefix)) prefix <- if (length(c(...)) > 1) "Sources : " else "Source : "
+  quelle_de(..., prefix = prefix)
+}
+
+# Traductions pour les fenêtres contextuelles des cartes
+typ_fr <- c(Bogenmauer = "barrage-voûte", Gewichtsmauer = "barrage-poids",
+            Bogengewichtsmauer = "barrage poids-voûte",
+            Laufwasser = "centrale au fil de l’eau", Speicher = "centrale à accumulation",
+            Pumpspeicher = "centrale de pompage-turbinage")
+see_fr  <- c("Stausee Gebidem (Massa)" = "lac de retenue de Gebidem (Massa)")
+fr_or <- function(x, dict) ifelse(is.na(dict[x]), x, dict[x])
+```
+
+```{r cover}
+tagList(
+  sm_header(logo = "assets/Logo_hydrosuisse.svg", logo_alt = "hydrosuisse",
+            logo_href = "https://www.hydrosuisse.ch"),
+  sm_cover(
+    title   = "Pourquoi les centrales à accumulation produisent-elles aussi de l’électricité en été ?",
+    summary = "un aperçu interactif de la logique de production et des conventions statistiques",
+    byline  = "hydrosuisse",
+    image   = "assets/Llac-de-moiry_1596657829.jpg",
+    credit = htmltools::HTML(
+    'Image : <a href="https://map.geo.admin.ch/#/map?lang=fr&center=2610219.79,1108336.27&z=7&bgLayer=ch.swisstopo.pixelkarte-farbe&crosshair=marker" target="_blank" rel="noopener">Lac de Moiry</a>'
+  )
+),
+  sm_nav(c(
+    einleitung   = "Hiver",
+    funktionspeicherwasser = "Fonctions",
+    fuellstaende = "Niveaux de remplissage",
+    schmelzwasser = "Beaucoup d’eau de fonte = beaucoup d’électricité estivale",
+    sdl = "Services système",
+    statistische_klassifizierung = "La statistique face à la physique",
+    Wartung = "Maintenance",
+    fazit    = "Conclusion et tableau de bord",
+    quellen      = "Sources"
+  ))
+)
+```
+
+::: {.sm-abstract}
+[Résumé]{.sm-abstract-titel}
+Il existe de nombreuses raisons pour lesquelles il est judicieux que les centrales à accumulation produisent aussi de l’électricité en été. Tout d’abord, la production hivernale n’est pas leur seule fonction : depuis des décennies, la production attendue se répartit de manière constante à peu près à parts égales entre les semestres d’été et d’hiver. Par rapport aux années précédentes, l’été 2026 a d’ailleurs vu une production nettement plus faible des centrales à accumulation, en raison de la sécheresse. Deuxièmement, les faibles niveaux de remplissage reflètent à la fois les apports et la production ; ils ne doivent donc pas être interprétés comme une mesure de la production. Troisièmement, certaines centrales à accumulation doivent produire en été en raison de l’eau de fonte et/ou de grands bassins versants ; l’exemple extrême est celui d’Electra-Massa avec la centrale de Gebidem, dont le lac se remplit plus de 60 fois par an, alors que les apports hivernaux ne dépassent pas quelques centaines de l/s. Quatrièmement, en Suisse, la force hydraulique fournit de loin la plus grande partie de la puissance supplémentaire et de la charge nécessaires au réglage de la fréquence du réseau, c’est-à-dire à la stabilité du réseau. Cinquièmement, les centrales doivent être entretenues. En principe, ces travaux ont lieu lorsque le niveau du lac d’accumulation est au plus bas, généralement au printemps, mais diverses raisons peuvent obliger à reporter la maintenance en été. Enfin, la répartition statistique entre agents énergétiques, et en fin de compte entre centrales à accumulation et au fil de l’eau, n’est pas tranchée, car elle ne repose pas uniquement sur des mesures. Selon le modèle utilisé pour combler les lacunes de mesure, les écarts peuvent être importants.
+:::
+
+## Winter is coming! {#einleitung}
+Ce n’est qu’au cours des dernières décennies que l’être humain a "réussi" à faire de l’hiver une simple note de bas de page dans l’année. Le respect qu’il inspire n’a pourtant pas disparu : nous célébrons les fêtes des récoltes en automne et accueillons le printemps avec carnaval. Depuis la volatilité des marchés de l’énergie à l’automne 2022, conséquence de la guerre d’agression russe contre l’Ukraine, et la déclaration percutante du président de l’ElCom, Werner Luginbühl, invitant à se procurer des bougies et du bois de chauffage pour l’hiver à venir `r zitat("sda_kerzen")`, la sécurité d’approvisionnement de l’électricité, infrastructure critique, est à nouveau sur toutes les lèvres. La force hydraulique à accumulation est notamment perçue comme notre "assurance hiver". Le public suit donc avec beaucoup d’intérêt la production estivale des centrales à accumulation. Il est temps de voir pourquoi il existe de bonnes raisons pour que la force hydraulique à accumulation puisse, et doive, produire de l’électricité en été également.
+
+L’aperçu interactif ci-dessous présente quelques raisons et faits importants concernant la force hydraulique à accumulation en Suisse, afin de répondre à la question posée en titre sur la production estivale.
+
+## L’eau accumulée n’est pas destinée qu’à l’hiver {#funktionspeicherwasser}
+
+Tout d’abord, la production d’électricité hivernale n’est pas la seule fonction des centrales à accumulation. L’eau de fonte arrivant en majeure partie au semestre d’été en raison des températures élevées, les centrales à accumulation doivent elles aussi turbiner de l’eau ; sinon, les barrages déborderaient et ce potentiel resterait inexploité. La plupart des installations n’ont d’ailleurs pas été conçues comme de purs réservoirs d’hiver ; les aménagements les plus anciens, en particulier, sont généralement sous-dimensionnés pour cela. Ainsi, pour 2026, les exploitants prévoyaient une production des centrales à accumulation répartie à un peu moins de la moitié chacune entre l’été et l’hiver `r zitat("bfe_wasta")`. Pour les centrales au fil de l’eau, en revanche, la production attendue en 2026 se situait à environ 60 % au semestre d’été `r zitat("bfe_wasta")`.
+
+Tableau 1 : Répartition été/hiver de la production effective 2015-2026
+
+| Type de centrale      | Part hiver    |
+|:----------------------|:-------------:|
+| Fil de l’eau          |  32,5-39,5 %  |
+| Accumulation          |  43,6-52,8 %  |
+
+Données : `r zitat("bfe_elbilanz", "bfe_elstat")`
+
+Si l’on considère la production effective des dernières années plutôt que la production attendue, la répartition saisonnière ne varie que très légèrement. En 2026, les centrales à accumulation ont même produit nettement moins qu’au cours de la même semaine des années précédentes, comme le montre le graphique ci-dessous. Cela reflète la sécheresse exceptionnelle due au manque de précipitations durant l’été 2026. Dans le même temps, les forts apports d’eau de fonte liés aux périodes de canicule n’ont pu compenser ce déficit que partiellement.
+
+```{r foto-jahresvergleich-prod}
+sm_image("assets/wasserkraft_ch_vergleich.svg",
+caption = "Production des centrales à accumulation 2023-2026. Graphique : hydrosuisse. Sources : données mensuelles de l’OFEN pour les courbes ; données ENTSO-E et Energy-Charts pour les bandes d’incertitude. Graphique en allemand.",
+source=quelle("bfe_produktion", "energycharts","entsoe"),
+alt = "Production des centrales à accumulation 2023-2026", width = "wide")
+```
+
+## Niveaux de remplissage des lacs d’accumulation {#fuellstaende}
+Les niveaux de remplissage des lacs d’accumulation suisses (graphique reproduit [d’après le tableau de bord de l’OFEN](https://energiedashboard.admin.ch/strom/fuellstaende-speicherseen?lang=fr)) reflètent eux aussi cette sécheresse. L’indicateur de remplissage ne doit donc pas être interprété comme une mesure de la production ; il traduit plutôt l’interaction entre apports et production. Le graphique précédent a montré que la production est restée modérée par rapport aux années précédentes. Le graphique des niveaux de remplissage reflète donc surtout les très faibles apports de l’année 2026. Il en découle que l’affirmation qui circule, selon laquelle "l’électricité d’hiver aurait été bradée de manière disproportionnée durant l’été 2026", n’est pas tenable.
+
+```{r speicherseen}
+sm_frame(
+  src = "charts/fr/speicherseen.html",
+  title = "Niveaux de remplissage / contenu énergétique des lacs d’accumulation en Suisse",
+  height = "560px", auto_height = TRUE,
+  caption = "Contenu énergétique des lacs d’accumulation suisses et réserve hydroélectrique. Mise à jour hebdomadaire.",
+  source = quelle("bfe_speicher")
+)
+```
+### Beaucoup d’eau de fonte signifie un important potentiel énergétique en été {#schmelzwasser}
+Certaines centrales à accumulation retiennent une quantité particulièrement importante d’eau de fonte. Nous vous présentons ci-après un exemple extrême d’une retenue fortement marquée par la fonte des glaciers, mais recensée statistiquement comme centrale à accumulation :
+
+```{r vorbereitung}
+kraftwerke <- read.csv("data/kraftwerke.csv") |>
+  st_as_sf(coords = c("lon", "lat"), crs = 4326)
+kraftwerke$popup <- sprintf("<h4>%s</h4>%s · canton %s",
+                            kraftwerke$name, fr_or(kraftwerke$typ, typ_fr), kraftwerke$kanton)
+
+# couleurs comme dans le tableau de bord de l'énergie
+typ_farben <- c(Laufwasser = "#1B84CB", Speicher = "#59BBA4", Pumpspeicher = "#126057")
+```
+
+```{r tour 1}
+staumauern <- read.csv("data/staumauern.csv", encoding = "UTF-8") |>
+  st_as_sf(coords = c("lon", "lat"), crs = 4326)
+staumauern$popup <- sprintf("<h4>Barrage de %s</h4>%s · %s, hauteur %s m · %s",
+                            staumauern$name, fr_or(staumauern$see, see_fr),
+                            fr_or(staumauern$typ, typ_fr),
+                            staumauern$hoehe_m, staumauern$baujahr)
+
+# Bassin versant de la Massa jusqu'au barrage de Gebidem (OFEV, 108611, 196 km²)
+einzugsgebiet <- st_read("data/einzugsgebiet_gebidem.geojson", quiet = TRUE)
+einzugsgebiet$popup <- "<h4>Bassin versant de la Massa</h4>jusqu’au barrage de Gebidem · 196 km²"
+
+tour <- maplibre(style = swisstopo_color, center = c(8.2, 46.75), zoom = 7.2,
+                 projection = "mercator", scrollZoom = FALSE, maxPitch = 85) |>
+  add_navigation_control(position = "top-right", visualize_pitch = TRUE)
+for (typ in names(typ_farben)) {
+  tour <- tour |> add_circle_layer(
+    id = tolower(typ), source = kraftwerke[kraftwerke$typ == typ, ],
+    circle_color = typ_farben[[typ]], circle_radius = 7,
+    circle_stroke_color = "#fff", circle_stroke_width = 2, popup = "popup"
+  )
+}
+tour <- tour |>
+  add_fill_layer(
+    id = "einzugsgebiet", source = einzugsgebiet,
+    fill_color = "#2E86C1", fill_opacity = 0.35,
+    popup = "popup", tooltip = "name"
+  ) |>
+  add_line_layer(
+    id = "einzugsgebiet-rand", source = einzugsgebiet,
+    line_color = "#1B4F72", line_width = 2
+  ) |>
+add_categorical_legend(
+  legend_title = "",
+  values = c("Bassin versant de Gebidem (196 km²)", "Barrage", "Centrale"),
+  colors = c("#2E86C1", summit$accent2, "#333333"), position = "bottom-left"
+)
+
+gebidem_pkt <- st_as_sf(
+  data.frame(
+    label = c("Barrage", "Centrale"),
+    popup = c("<h4>Barrage de Gebidem</h4>barrage-voûte, hauteur 122 m, 1967",
+              "<h4>Centrale de Bitsch</h4>Electra-Massa AG"),
+    farbe = c(summit$accent2, "#333333"),
+    lon   = c(8.002414, 8.007441),
+    lat   = c(46.371158, 46.333642)
+  ),
+  coords = c("lon", "lat"), crs = 4326
+)
+druckleitung <- st_sf(
+  label = "Conduite forcée",
+  popup = "<h4>Conduite forcée</h4>Barrage de Gebidem – centrale de Bitsch (schématique, à vol d’oiseau)",
+  geometry = st_cast(st_combine(gebidem_pkt), "LINESTRING")
+)
+
+tour <- tour |>
+  add_line_layer(
+    id = "druckleitung", source = druckleitung,
+    line_color = "#333333", line_width = 3, line_dasharray = c(2, 1),
+    popup = "popup", tooltip = "label"
+  ) |>
+  add_symbol_layer(
+    id = "druckleitung-label", source = druckleitung,
+    text_field = get_column("label"), text_font = c("Frutiger Neue Medium"),
+    text_size = 13, text_color = "#333333",
+    text_halo_color = "#ffffff", text_halo_width = 2,
+    symbol_placement = "line-center", text_keep_upright = TRUE,
+    text_offset = c(0, -0.9)
+  ) |>
+  add_circle_layer(
+    id = "gebidem-punkte", source = gebidem_pkt,
+    circle_color = get_column("farbe"), circle_radius = 10,
+    circle_stroke_color = "#ffffff", circle_stroke_width = 3,
+    circle_pitch_alignment = "map",
+    popup = "popup", tooltip = "label"
+  ) |>
+  add_symbol_layer(
+    id = "gebidem-labels", source = gebidem_pkt,
+    text_field = get_column("label"), text_font = c("Frutiger Neue Medium"),
+    text_size = 14, text_color = "#1a1a1a",
+    text_halo_color = "#ffffff", text_halo_width = 2,
+    text_anchor = "left", text_offset = c(1.2, 0),
+    text_allow_overlap = TRUE
+  )
+
+sm_sidecar(
+  tour,
+  terrain = "swisstopo", exaggeration = 1.3,
+  narrative_width = "50%",
+  sm_slide(title = "Gebidem – Massa",
+           tags$p("Le barrage-voûte situé dans les gorges de la Massa (Naters/Bitsch) mesure 122 m de hauteur et a été achevé en 1967. ",
+                  "Avec à peine 9 millions de m³, le volume de stockage du barrage de Gebidem est plutôt modeste. Son bassin versant, en revanche, est vaste avec près de 200 km², et les apports estivaux sont donc très élevés. Durant l’été 2026, des apports d’environ 130 m³/s ont été mesurés, soit plus du double de la capacité de 57 m³/s pouvant être turbinée à Bitsch. Il en résulte un déversement au barrage de Gebidem (voir l’image ci-dessous, avec un déversement d’environ 70 m³/s). En hiver, en revanche, les apports ne sont que de quelques centaines de l/s. La production d’Electra-Massa AG a donc lieu principalement entre mai et octobre. Durant les mois d’hiver, le lac ne peut être vidé qu’une seule fois en raison des faibles apports. Sur l’ensemble de l’année toutefois, les apports totaux atteignent environ 600 millions de m³ : le lac est donc rempli et vidé plus de 60 fois ! Ces apports proviennent de la fonte des glaciers, de la fonte des neiges et des précipitations tout au long de l’année. Une centrale à accumulation peut donc, elle aussi, produire de l’électricité presque exclusivement en été !"),
+           sm_slide_image("assets/gibidem_ueberlauf_Juli_26_red.png",
+                          caption = "Gebidem durant l’été 2026. Photo : Alpiq, 2026",
+                          alt = "Le barrage de Gebidem est plein et déverse"),
+           bounds = c(7.890, 46.325, 8.120, 46.566), pitch = 40, bearing = 10)
+)
+```
+
+## Les services système sont aussi demandés en été {#sdl}
+
+Par ailleurs, il ne faut pas négliger le rôle des centrales hydroélectriques dans la stabilité du réseau. Pour que le réseau électrique reste stable à une fréquence de 50 Hz et que la puissance réactive ne devienne pas trop importante, la force hydraulique fournit des services système en Suisse. Swissgrid peut solliciter la puissance de réglage primaire en quelques secondes, la puissance de réglage secondaire, plus grossière, en quelques minutes, et l’artillerie lourde du réglage tertiaire en un quart d’heure. Il s’agit de pouvoir fournir aussi bien de la charge (lorsque la fréquence est trop élevée) qu’une production supplémentaire (lorsque la fréquence est trop basse). Les centrales de pompage-turbinage, par exemple, peuvent fournir de la charge (-) à grande échelle en mettant en marche leurs pompes pour remonter l’eau dans le réservoir ; elles n’offrent donc pas seulement (+) de l’électricité supplémentaire. Au 1.1.2026, la capacité de pompage et de pompage-turbinage atteignait le volume très significatif de 4160 MW `r zitat("bfe_wasta")`. Le grand avantage des centrales à accumulation par rapport aux autres producteurs réside notamment dans leur capacité à offrir une production supplémentaire massive lorsque la fréquence du réseau est trop basse. Au total, la prestation de stabilisation est couverte (état mai 2026) à environ 95 % par la force hydraulique suisse `r zitat("swissgrid_sdl")`. L’essentiel est que cette énergie de réglage est nécessaire toute l’année, et pas seulement en hiver.
+
+
+## Maintenance {#wartung}
+
+Lorsque les travaux de maintenance ne peuvent pas être réalisés au printemps, période où le lac d’accumulation est normalement au plus bas, ils sont effectués en été. Ils obligent parfois les centrales à accumulation à produire en été : si elles abaissaient ou vidaient le lac sans pouvoir produire, l’eau déjà retenue s’écoulerait sans être utilisée.
+
+```{r tour 2}
+tour <- maplibre(style = swisstopo_color, center = c(8.2, 46.75), zoom = 7.2,
+                 projection = "mercator", scrollZoom = FALSE, maxPitch = 85) |>
+  add_navigation_control(position = "top-right", visualize_pitch = TRUE)
+for (typ in names(typ_farben)) {
+  tour <- tour |> add_circle_layer(
+    id = tolower(typ), source = kraftwerke[kraftwerke$typ == typ, ],
+    circle_color = typ_farben[[typ]], circle_radius = 7,
+    circle_stroke_color = "#fff", circle_stroke_width = 2, popup = "popup"
+  )
+}
+tour <- tour |> add_circle_layer(
+  id = "staumauern", source = staumauern,
+  circle_color = summit$accent2, circle_radius = 10,
+  circle_stroke_color = "#ffffff", circle_stroke_width = 3,
+  circle_pitch_alignment = "map",
+  popup = "popup", tooltip = "name"
+)
+
+sm_sidecar(
+  tour,
+  terrain = "swisstopo", exaggeration = 1.3,
+  narrative_width = "50%",
+  sm_slide(title = "Rossens – Lac de la Gruyère",
+           tags$p("Le barrage-voûte de Rossens mesure 83 m de hauteur et a été construit en 1947. ",
+                  "Le lac de la Gruyère alimente la centrale d’Hauterive pour une production moyenne annuelle de 220 GWh. Son grand volume de stockage de 163 millions de m³, renouvelé près de 7 fois durant l’année par les apports de la Sarine, permet d’engager l’aménagement de manière saisonnière avec plus de la moitié de sa production en hiver. Ainsi le lac de la Gruyère est monté à son niveau maximum en début d’hiver et est abaissé progressivement pour la production hivernale avec le niveau le plus bas atteint généralement fin avril. En septembre 2026, un abaissement exceptionnel du lac a été nécessaire en lien avec des travaux de remplacement d’une vanne. Le but est d’assurer à nouveau la pleine disponibilité de la centrale et un lac plein dès décembre pour la production hivernale."),
+           sm_slide_image("assets/rossens_1_red.JPG",
+                          caption = "Le barrage de Rossens avec un lac de stockage rempli. Photo : groupe e, 2025",
+                          alt = "Le barrage de Rossens et le lac de la Gruyère avec un lac de stockage rempli"),
+           sm_slide_image("assets/rossens_bas_red.jpg",
+                          caption = "Le lac de la Gruyère abaissé à cause des travaux en novembre 2026. Photo : Lionel Chapuis, 2026", alt = "Le lac de la Gruyère abaissé à cause des travaux en novembre 2026"),
+           sm_slide_image("assets/rossens_panneau_red.jpg",
+                          caption = "Panneau d’information pour le public sur la rive du lac de la Gruyère. Photo : Lionel Chapuis, 2026", alt = "Panneau d’information sur les travaux pour le public sur la rive du lac de la Gruyère"),
+           center = c(7.112489, 46.71971), zoom = 12, pitch = 70, bearing = 140),
+  sm_slide(title = "Barrage du Sanetsch près de Gstaad",
+           tags$p("Le barrage du Sanetsch est un barrage-poids de 42 m de hauteur, construit de 1959 à 1966. ",
+                  "Le barrage du Sanetsch, qui retient un réservoir de 2,6 millions de m³, soit un contenu énergétique d’environ 5036 MWh, a fait l’objet d’un contrôle planifié durant l’été 2026 (20.07–22.10). Pour cela, le niveau du lac a dû être abaissé de 13 mètres (de la cote 2034 m à 2021 m d’altitude), jusqu’au minimum d’exploitation. Le lac retient la Sarine et possède un bassin versant relativement petit de 10,7 km²."),
+           sm_slide_image("assets/sanetsch_1_red.jpg",
+                          caption = "Le barrage du Sanetsch enneigé, en Valais. Photo : BKW, hiver 2020/21",
+                          alt = "Le barrage du Sanetsch enneigé, en Valais"),
+           sm_slide_image("assets/sanetsch_bas_red.jpg",
+                          caption = "Le niveau du lac du Sanetsch remonte lentement après les contrôles, fin juillet 2026. Photo : Marcel Ottenkamp, ewb, juillet 2026.", alt = "Le niveau abaissé du lac du Sanetsch en raison des contrôles, juillet 2026"),
+           center = c(7.296233, 46.360081), zoom = 12.5, pitch = 25, bearing = -60)
+)
+```
+
+
+## La statistique face à la physique {#statistische_klassifizierung}
+
+Des statistiques courantes peuvent elles aussi conduire à une interprétation erronée du rôle des centrales à accumulation. Prenons par exemple la question des exportations. En principe, c’est la quantité d’électricité dépassant la consommation nationale simultanée qui est exportée. On importe la différence entre consommation et production nationales lorsque cette dernière lui est inférieure. Pour savoir combien d’électricité est exportée ou importée à un moment donné, on se réfère souvent au tableau de bord de la production d’électricité de l’OFEN. Celui-ci montre la production quotidienne par agent énergétique ainsi que les importations nettes, et représente la consommation nationale y compris les pompes d’accumulation (voir le graphique reproduit d’après le tableau de bord de l’énergie `r zitat("bfe_produktion")`).
+
+```{r produktion-bfe}
+sm_frame(
+  src = "charts/fr/produktion_bfe.html",
+  title = "Production d’électricité par agent énergétique d’après le tableau de bord de l’énergie",
+  height = "480px", auto_height = TRUE,
+  caption = "Production quotidienne d’électricité par agent énergétique, importations nettes et consommation nationale. Mise à jour quotidienne.",
+  source = quelle("bfe_produktion")
+)
+```
+On pourrait en conclure à tort que les exportations sont pratiquement assurées à elles seules par les centrales à accumulation (voir p. ex. l’été 2024). Cette lecture ne correspond toutefois pas à la réalité physique : premièrement, l’ordre dans lequel on empile les couleurs du graphique est arbitraire et, deuxièmement, le mix d’exportation correspond au mix de production au même moment, c’est-à-dire que l’exportation se compose à peu près proportionnellement du mix de production. Pour éviter de tels malentendus, une visualisation remaniée à partir des mêmes données serait plus utile. Voici une proposition, à explorer librement, de ce à quoi elle pourrait ressembler :
+
+```{r produktion}
+sm_frame(
+  src = "charts/fr/produktion.html",
+  title = "Production d’électricité et consommation nationale",
+  height = "540px", auto_height = TRUE,
+  caption = "Production et consommation nationale, y compris la consommation des pompes d’accumulation. Mise à jour quotidienne.",
+  source = quelle("bfe_produktion", "energycharts","entsoe")
+)
+```
+### Est-ce alors de l’électricité au fil de l’eau ou à accumulation ?
+
+Par ailleurs, l’attribution statistique de la production d’électricité à certaines catégories d’installations ne doit pas être considérée comme tranchée. Comme nous le montrons ci-après, cette attribution peut varier de jusqu’à deux GWh par heure selon le modèle ! En principe, la statistique des aménagements hydroélectriques (WASTA) distingue quatre types idéaux d’installations, les installations d’un même type étant représentées au niveau de chaque centrale. La statistique définit ces types idéaux comme suit `r zitat("bfe_wasta")` :
+
+1. **Centrales au fil de l’eau** : aménagements hydroélectriques sans réservoir propre, qui dépendent du traitement en continu des apports du moment.
+2. **Centrales à accumulation** : elles n’utilisent immédiatement qu’une partie de l’eau captée. Elles stockent l’autre partie et l’utilisent plus tard. L’eau peut aussi être amenée par pompage (pompes d’adduction). Les centrales au fil de l’eau jusqu’aux lacs du bord des Alpes et du Plateau qui peuvent piloter leur production d’énergie de manière significative en agissant directement sur des réservoirs situés en amont doivent également être considérées comme des centrales à accumulation. Significative signifie que la capacité de stockage concernée représente au moins 25 % de la production hivernale moyenne attendue de l’aménagement.
+3. **Centrales de pompage-turbinage** : une centrale de pompage-turbinage est une combinaison d’une centrale à accumulation et d’une centrale de pompage-turbinage pure. [Remarque d’hydrosuisse : une telle centrale dispose en règle générale d’apports naturels.]
+4. **Centrales de pompage-turbinage pures** : elles n’utilisent que de l’eau préalablement pompée et stockée. Pompes et turbines sont en règle générale raccordées au même bassin inférieur et supérieur. [Remarque d’hydrosuisse : sous cette forme pure, elles n’existent pratiquement pas en Suisse ; seul l’Engeweiher à Schaffhouse `r zitat("naturpark_engeweiher")` répond à la définition stricte.]
+
+La définition des centrales à accumulation citée plus haut introduit déjà un premier flou dans la classification : même avec 74 % d’eau au fil de l’eau en hiver, une centrale du Plateau peut être recensée statistiquement comme centrale à accumulation. Ce flou concerne cependant aussi des centrales de l’espace alpin, comme le montre de manière frappante l’exemple suivant :
+
+<i>Une seule entreprise, comme les Kraftwerke Oberhasli AG `r zitat("kwo")`, exploite 13 centrales comprenant 28 installations. Bien que l’on associe généralement KWO aux réservoirs du Grimsel et que sa part moyenne attendue d’eau au fil de l’eau soit de 2,2 % `r zitat("bfe_wasta")`, elle a turbiné en 2025 une part d’eau au fil de l’eau de 26 % (sur la base des données de répartition de la production de KWO). En raison des interconnexions existant entre les prises d’eau au fil de l’eau et d’accumulation, les installations de ce système ne peuvent pas être attribuées de manière tranchée à une seule catégorie.</i>
+
+Dans ce cas, la répartition attendue ne correspond donc pas du tout à la répartition effective. L’écart atteint presque un facteur 12 ! On peut en conclure que l’attribution à la catégorie accumulation suppose à la fois un volume de retenue et certaines conditions géographiques. Pour les installations jusqu’aux lacs du bord des Alpes et du Plateau, le seuil de la part d’eau accumulée est différent de celui de l’espace alpin, où la quantité d’eau accumulée reste indéfinie ("une partie"). Globalement, c’est donc une attribution par définition qui s’applique ("Y a-t-il un barrage et se trouve-t-il dans les Alpes ? Alors la centrale produit de l’électricité à accumulation"), indépendamment des parts d’eau accumulée et d’eau au fil de l’eau réellement turbinées.
+
+
+### Des estimations fondées sur des modèles comblent les lacunes de mesure
+
+Enfin, l’attribution de l’électricité au type d’installation de production est aussi une question de modélisation. Le tableau de bord de l’énergie de l’OFEN, qui publie chaque jour la répartition de la production, dépend nécessairement de modèles. Les exploitants de grandes et de petites installations ont en effet des délais de communication différents envers Swissgrid. En règle générale, Swissgrid ne dispose donc pas, à tout moment, de données mesurées pour chaque type de centrale et chaque kWh. Elle doit plutôt compléter les parts des centrales au moyen de modélisations et les extrapoler à l’ensemble de la courbe de charge. De plus, en tant qu’exploitante du réseau à très haute tension, Swissgrid dépend des données de points de mesure des gestionnaires de réseaux de distribution ou des exploitants de centrales eux-mêmes. Dans ces extrapolations, les centrales à accumulation sont traitées comme valeur résiduelle : on leur attribue la quantité d’électricité qui reste après déduction des autres valeurs (en partie modélisées). Il n’est donc pas étonnant que des sources de données utilisant des modèles différents aboutissent à des attributions différentes de la production aux diverses technologies. Comme le montre l’image ci-dessous, ce flou entre les modèles peut atteindre environ 1,5-2 GWh par heure. (Pour illustrer l’argument statistique, l’application tout en bas de la page permet d’explorer les données horaires des différents modèles de l’OFEN, d’Energy-Charts et d’ENTSO-E.)
+
+```{r foto-stat unschaerfe}
+sm_image("assets/wasserkraft_ch_quellenvergleich.svg",
+caption = "Comparaison des sources et écarts d’autres catégorisations des agents énergétiques par rapport aux données de l’OFEN durant la 1re semaine d’août 2026. Graphique : hydrosuisse. Sources : tableau de bord de l’énergie de l’OFEN, ENTSO-E et Energy-Charts. Graphique en allemand.",
+source=quelle("bfe_produktion", "entsoe", "energycharts"),
+alt = "Comparaison des sources pour différents agents énergétiques durant la 1re semaine d’août 2026", width = "wide")
+```
+
+
+
+## Conclusion et tableau de bord {#fazit}
+
+À la lumière de ces raisons (et il y en aurait certainement d’autres), la logique de production estivale des centrales à accumulation apparaît nuancée.
+
+1. Leur fonction n’est pas uniquement la production d’électricité en hiver ;
+2. Les niveaux de remplissage des lacs d’accumulation ne mesurent pas (directement) la production ;
+3. La force hydraulique assure la très grande majorité des services système du réseau électrique, toute l’année ;
+4. L’eau des glaciers et de la neige remplit certains lacs d’accumulation bien plus d’une fois par an, d’où une production estivale naturelle ;
+5. La maintenance des lacs d’accumulation, des barrages et des digues ne peut pas toujours être effectuée lors du niveau le plus bas au printemps ; c’est pourquoi des retenues doivent parfois être abaissées ou vidées en été ;
+6. La statistique elle-même comporte des flous importants dans l’attribution entre centrales au fil de l’eau et à accumulation.
+
+Enfin, la lectrice ou le lecteur intéressé peut, dans l’application ci-dessous (voir la documentation en cliquant sur "Hinweise / Datenquellen" ; application en allemand), explorer différentes sources de données pour se faire sa propre idée de la production de la force hydraulique suisse au cours des dernières années, et de l’ordre de grandeur des flous à attendre dans l’attribution aux différents types de centrales hydroélectriques.
+
+```{r dashboard}
+sm_frame(
+  src = dashboard_url,
+  title = "Tableau de bord force hydraulique et prix spot",
+  height = "1300px", height_mobile = "1900px",
+  load = "after_page", delay_ms = 2000,
+  loading_text = "Démarrage du tableau de bord … (cela peut prendre quelques secondes)",
+  caption = "Tableau de bord interactif sur les types de centrales hydroélectriques, les prix spot et les flous statistiques selon la source (en allemand).",
+source = quelle("energycharts", "smard", "ezb", prefix = "Données : ")
+)
+```
+
+## Sources {#quellen}
+
+```{r quellen}
+quellenverzeichnis()
+```
+
+### Crédits photographiques
+
+```{r bildnachweise}
+sm_credits(
+  sm_credit("Image de couverture : Lac de Moiry (VS)", "CC0 Public Domain"),
+  sm_credit("Déversement au barrage de Gebidem, été 2026", "Alpiq, 2026"),
+  sm_credit("Barrage de Rossens, lac rempli", "groupe e, 2025"),
+  sm_credit("Lac de la Gruyère abaissé ; panneau d’information", "Lionel Chapuis, 2026"),
+  sm_credit("Barrage du Sanetsch en hiver", "BKW, 2020/21"),
+  sm_credit("Vidange du lac du Sanetsch, juillet 2026", "Marcel Ottenkamp, 2026")
+)
+```
+### Source du tableau
+
+```{r tabellennachweis}
+sm_credits(
+sm_credit("Tableau 1 : Répartition été/hiver de la production effective 2015–2026",
+          paste0("Données : ", zitat("bfe_elbilanz", "bfe_elstat")))
+)
+```
+
+```{r footer}
+sm_footer("© hydrosuisse · Réalisé avec R, R Markdown et mapgl")
+```

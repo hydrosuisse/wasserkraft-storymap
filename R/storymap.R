@@ -17,6 +17,10 @@
 
 library(htmltools)
 
+# UI language of the helpers: options(sm.lang = "fr") switches the few built-in
+# labels (aria labels, frame buttons) to French. Default German.
+sm_t <- function(de, fr) if (identical(getOption("sm.lang"), "fr")) fr else de
+
 # Summit theme colours (ArcGIS StoryMaps standard theme reference)
 summit <- list(
   background = "#FFFFFF",
@@ -65,7 +69,7 @@ sm_cover <- function(title, summary = NULL, byline = NULL, date = NULL,
     ),
     if (!is.null(credit)) tags$span(class = "sm-cover-credit", credit),
     tags$a(class = "sm-cover-scroll", href = "#sm-start",
-           `aria-label` = "Weiterlesen", HTML("&#8964;"))
+           `aria-label` = sm_t("Weiterlesen", "Continuer la lecture"), HTML("&#8964;"))
   )
 }
 
@@ -73,7 +77,7 @@ sm_cover <- function(title, summary = NULL, byline = NULL, date = NULL,
 # e.g. c(einleitung = "Einleitung", karte = "Übersichtskarte")
 sm_nav <- function(links) {
   tags$nav(
-    class = "sm-nav", id = "sm-start", `aria-label` = "Inhalt",
+    class = "sm-nav", id = "sm-start", `aria-label` = sm_t("Inhalt", "Sommaire"),
     tags$ul(lapply(names(links), function(id) {
       tags$li(tags$a(href = paste0("#", id), `data-target` = id, links[[id]]))
     }))
@@ -100,7 +104,7 @@ sm_image <- function(src, caption = NULL, alt = "",
   width <- match.arg(width)
   img <- tags$img(src = src, alt = alt, loading = "lazy")
   if (zoom) img <- tags$button(type = "button", class = "sm-zoom", `data-full` = src,
-                               `aria-label` = paste("Bild vergrössern:", alt), img,
+                               `aria-label` = paste(sm_t("Bild vergrössern:", "Agrandir l\u2019image\u00A0:"), alt), img,
                                tags$span(class = "sm-zoom-icon", `aria-hidden` = "true",
                                          HTML("&#x2922;")))
   tags$figure(
@@ -158,7 +162,7 @@ sm_slide_image <- function(src, caption = NULL, alt = "", full = src, source = N
     class = "sm-slide-figure",
     tags$button(
       type = "button", class = "sm-zoom", `data-full` = full,
-      `aria-label` = paste("Bild vergrössern:", if (nzchar(alt)) alt else "Bild"),
+      `aria-label` = paste(sm_t("Bild vergrössern:", "Agrandir l\u2019image\u00A0:"), if (nzchar(alt)) alt else sm_t("Bild", "image")),
       tags$img(src = src, alt = alt, loading = "lazy"),
       tags$span(class = "sm-zoom-icon", `aria-hidden` = "true", HTML("&#x2922;"))
     ),
@@ -209,8 +213,8 @@ sm_sidecar <- function(map, ..., panel = c("left", "right"),
 sm_frame <- function(src, title, height = "600px", height_mobile = height,
                      auto_height = FALSE, load = c("lazy", "after_page"),
                      delay_ms = 2000, caption = NULL, source = NULL,
-                     loading_text = "Wird geladen …",
-                     open_label = "In neuem Fenster öffnen",
+                     loading_text = sm_t("Wird geladen …", "Chargement\u00A0…"),
+                     open_label = sm_t("In neuem Fenster öffnen", "Ouvrir dans une nouvelle fenêtre"),
                      width = c("wide", "standard", "full")) {
   width <- match.arg(width)
   load <- match.arg(load)

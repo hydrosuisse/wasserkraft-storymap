@@ -63,10 +63,38 @@
     });
     var nodes = [], n;
     while ((n = walker.nextNode())) nodes.push(n);
+    var fr = /^fr/i.test(document.documentElement.lang || "");
+    nodes.forEach(function (t) {
+      var v = t.nodeValue
+        .replace(/(\d)[ \u00A0]?-[ \u00A0]?(?=\d)/g, "$1\u2013")   // range: en dash, no spaces
+        .replace(/(\d)[ \u00A0]?%/g, "$1\u00A0%");                // percent: non-breaking space
+      if (fr) v = v.replace(/(\d) (?=(GWh|TWh|MW|MWh|GW|km|m|m³|hm³|°C|ans?|jours?)\b)/g, "$1\u00A0");
+      t.nodeValue = v;
+    });
+    if (fr) initFrenchPunctuation(skip);
+  }
+
+  // French: narrow no-break space before ; ! ? and no-break space before :
+  function initFrenchPunctuation(skip) {
+    var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+      acceptNode: function (n) {
+        for (var e = n.parentNode; e && e !== document.body; e = e.parentNode) {
+          if (skip.test(e.nodeName.toUpperCase()) ||
+              (e.classList && (e.classList.contains("html-widget") || e.classList.contains("no-typo"))))
+            return NodeFilter.FILTER_REJECT;
+        }
+        return /[;:!?«»]/.test(n.nodeValue) && !/:\/\/|www\./.test(n.nodeValue)
+          ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
+      }
+    });
+    var nodes = [], n;
+    while ((n = walker.nextNode())) nodes.push(n);
     nodes.forEach(function (t) {
       t.nodeValue = t.nodeValue
-        .replace(/(\d)[  ]?-[  ]?(?=\d)/g, "$1–")   // range: en dash, no spaces
-        .replace(/(\d)[  ]?%/g, "$1 %");                 // percent: non-breaking space
+        .replace(/[ \u00A0]?([;!?])(?=\s|$)/g, "\u202F$1")
+        .replace(/(\S)[ \u00A0]?:(?=\s|$)/g, "$1\u00A0:")
+        .replace(/«[ \u00A0]?/g, "«\u202F")
+        .replace(/[ \u00A0]?»/g, "\u202F»");
     });
   }
 
@@ -242,13 +270,16 @@
     if (!document.querySelector(".sm-zoom")) return;
 
     var box = document.createElement("dialog");
+    var fr = /^fr/i.test(document.documentElement.lang || "");
+    var L = fr ? ["Affichage de l\u2019image", "Fermer", "Image précédente", "Image suivante"]
+               : ["Bildansicht", "Schliessen", "Vorheriges Bild", "Nächstes Bild"];
     box.className = "sm-lightbox";
-    box.setAttribute("aria-label", "Bildansicht");
+    box.setAttribute("aria-label", L[0]);
     box.innerHTML =
-      '<button type="button" class="sm-lb-close" aria-label="Schliessen">&times;</button>' +
-      '<button type="button" class="sm-lb-prev" aria-label="Vorheriges Bild">&#8249;</button>' +
+      '<button type="button" class="sm-lb-close" aria-label="' + L[1] + '">&times;</button>' +
+      '<button type="button" class="sm-lb-prev" aria-label="' + L[2] + '">&#8249;</button>' +
       '<figure><img alt=""><figcaption class="sm-lb-caption"></figcaption></figure>' +
-      '<button type="button" class="sm-lb-next" aria-label="Nächstes Bild">&#8250;</button>';
+      '<button type="button" class="sm-lb-next" aria-label="' + L[3] + '">&#8250;</button>';
     document.body.appendChild(box);
     var img = box.querySelector("img"), cap = box.querySelector(".sm-lb-caption");
     var group = [], index = 0, opener = null;

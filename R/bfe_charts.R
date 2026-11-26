@@ -45,6 +45,41 @@ bfe_font <- list(family = "'Frutiger Web', 'Frutiger LT Com', 'Frutiger Neue', F
                  size = 11, color = "#000000")
 bfe_bg <- "#F9FAFB"
 
+# ---- language of the chart labels: "de" (default) or "fr" ------------------------
+# build.R sets bfe_lang <- "fr" before writing the French chart pages (charts/fr/).
+bfe_lang <- "de"
+bfe_fr <- c(
+  "Min / Max der letzten 10 Jahre" = "Min / max des 10 dernières années",
+  "Min / Max 10 Jahre" = "Min / max 10 ans",
+  "Mittelwert" = "Moyenne",
+  "Aktuell" = "Actuel",
+  "Minimum plus Wasserreserve" = "Minimum plus réserve hydroélectrique",
+  "Historisches Minimum" = "Minimum historique",
+  "Laufwasser" = "Fil de l\u2019eau",
+  "Kernenergie" = "Nucléaire",
+  "Photovoltaik" = "Photovoltaïque",
+  "Wind" = "Éolien",
+  "Speicherwasser" = "Accumulation",
+  "Thermische (inkl. KVA)" = "Thermique (y c. UIOM)",
+  "Nettoimport" = "Importations nettes",
+  "Nettoexport" = "Exportations nettes",
+  "Landesverbrauch" = "Consommation nationale",
+  "Landesproduktion" = "Production nationale",
+  "Nettoexport (Produktion > Verbrauch)" = "Exportations nettes (production > consommation)",
+  "Nettoimport (Verbrauch > Produktion)" = "Importations nettes (consommation > production)",
+  "Export" = "Exportation",
+  "Saldo (Export \u2013 Import)" = "Solde (exportations \u2013 importations)",
+  "Gesamt" = "Tout",
+  "Jahre" = "ans",
+  "Landesproduktion und Landesverbrauch" = "Production et consommation nationales",
+  "Nettoexport (+) nach Energieträger, anteilig zum Produktionsmix, und Nettoimport (\u2013)" =
+    "Exportations nettes (+) par agent énergétique, au prorata du mix de production, et importations nettes (\u2013)",
+  "Stand" = "État",
+  "Daten" = "Données",
+  "Bundesamt für Energie BFE" = "Office fédéral de l\u2019énergie OFEN"
+)
+tl <- function(x) if (identical(bfe_lang, "fr") && !is.na(bfe_fr[x])) unname(bfe_fr[x]) else x
+
 bfe_layout <- function(p, ...) {
   p |>
     layout(
@@ -58,7 +93,7 @@ bfe_layout <- function(p, ...) {
                     itemdoubleclick = "toggleothers", traceorder = "normal"),
       ...
     ) |>
-    config(locale = "de-CH", displaylogo = FALSE, responsive = TRUE,
+    config(locale = if (identical(bfe_lang, "fr")) "fr" else "de-CH", displaylogo = FALSE, responsive = TRUE,
            modeBarButtonsToRemove = c("lasso2d", "select2d", "autoScale2d",
                                       "zoomIn2d", "zoomOut2d", "toggleSpikelines",
                                       "hoverClosestCartesian", "hoverCompareCartesian"))
@@ -68,7 +103,7 @@ bfe_xaxis <- function(...) {
   list(title = "", showgrid = FALSE, zeroline = FALSE,
        showline = TRUE, linecolor = "#333333", linewidth = 1,
        ticks = "outside", tickcolor = "#333333", ticklen = 4,
-       hoverformat = "%-d. %B %Y", ...)
+       hoverformat = if (identical(bfe_lang, "fr")) "%-d %B %Y" else "%-d. %B %Y", ...)
 }
 bfe_yaxis <- function(...) {
   list(title = "", gridcolor = "#DDDDDD", gridwidth = 1, zeroline = FALSE,
@@ -82,7 +117,9 @@ bfe_speicherseen_chart <- function(data, region = "totalCH", height = 460) {
   d$date <- as.Date(d$date)
 
   # monthly ticks, year shown under the first and last three months (as in the dashboard)
-  mon <- c("Jan", "Feb", "Mär", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dez")
+  mon <- if (identical(bfe_lang, "fr"))
+    c("janv.", "févr.", "mars", "avr.", "mai", "juin", "juil.", "août", "sept.", "oct.", "nov.", "déc.") else
+    c("Jan", "Feb", "Mär", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dez")
   tv <- seq(as.Date(format(min(d$date), "%Y-%m-01")), max(d$date), by = "month")
   tv <- tv[tv >= min(d$date) - 3]
   show_year <- seq_along(tv) <= 3 | seq_along(tv) > length(tv) - 3
@@ -100,24 +137,24 @@ bfe_speicherseen_chart <- function(data, region = "totalCH", height = 460) {
     add_trace(y = ~fiveYearMax, type = "scatter", mode = "lines",
               fill = "tonexty", fillcolor = col$band,
               line = list(width = 0, color = col$band),
-              name = "Min / Max der letzten 10 Jahre", legendgroup = "band",
+              name = tl("Min / Max der letzten 10 Jahre"), legendgroup = "band",
               customdata = ~fiveYearMin,
-              hovertemplate = "Min / Max 10 Jahre: %{customdata:.1f} – %{y:.1f} %<extra></extra>") |>
+              hovertemplate = paste0(tl("Min / Max 10 Jahre"), ": %{customdata:.1f} – %{y:.1f} %<extra></extra>")) |>
     add_trace(y = ~fiveYearMittelwert, type = "scatter", mode = "lines",
-              line = list(color = col$mittel, width = 1.5), name = "Mittelwert",
-              hovertemplate = "Mittelwert: %{y:.1f} %<extra></extra>") |>
+              line = list(color = col$mittel, width = 1.5), name = tl("Mittelwert"),
+              hovertemplate = paste0(tl("Mittelwert"), ": %{y:.1f} %<extra></extra>")) |>
     add_trace(y = ~speicherstandProzent, type = "scatter", mode = "lines",
-              line = list(color = col$aktuell, width = 4), name = "Aktuell",
+              line = list(color = col$aktuell, width = 4), name = tl("Aktuell"),
               connectgaps = FALSE, customdata = ~speicherstandGWh,
-              hovertemplate = "Aktuell: %{y:.1f} % (%{customdata:,.0f} GWh)<extra></extra>") |>
+              hovertemplate = paste0(tl("Aktuell"), ": %{y:.1f} % (%{customdata:,.0f} GWh)<extra></extra>")) |>
     add_trace(y = ~historicalMinWithReserves, type = "scatter", mode = "lines",
               line = list(color = col$reserve, width = 1.5),
-              name = "Minimum plus Wasserreserve", connectgaps = FALSE,
-              hovertemplate = "Minimum plus Wasserreserve: %{y:.1f} %<extra></extra>") |>
+              name = tl("Minimum plus Wasserreserve"), connectgaps = FALSE,
+              hovertemplate = paste0(tl("Minimum plus Wasserreserve"), ": %{y:.1f} %<extra></extra>")) |>
     add_trace(y = ~historicalMin, type = "scatter", mode = "lines",
               line = list(color = col$histmin, width = 1.5),
-              name = "Historisches Minimum",
-              hovertemplate = "Historisches Minimum: %{y:.1f} %<extra></extra>") |>
+              name = tl("Historisches Minimum"),
+              hovertemplate = paste0(tl("Historisches Minimum"), ": %{y:.1f} %<extra></extra>")) |>
     bfe_layout(
       xaxis = bfe_xaxis(tickmode = "array", tickvals = ticks$vals, ticktext = ticks$text,
                         range = range(d$date) + c(-3, 3)),
@@ -150,16 +187,16 @@ bfe_produktion_chart <- function(data, years = 5, height = 420) {
     if (k == "nettoimporte") y <- pmax(y, 0)    # net exports are not stacked
     p <- p |> add_trace(
       y = y, type = "scatter", mode = "none", stackgroup = "produktion",
-      fillcolor = s[2], name = s[1],
+      fillcolor = s[2], name = tl(s[1]),
       legendrank = as.numeric(s[3]),
-      hovertemplate = paste0(s[1], ": %{y:.1f} GWh<extra></extra>")
+      hovertemplate = paste0(tl(s[1]), ": %{y:.1f} GWh<extra></extra>")
     )
   }
   p <- p |> add_trace(
     y = ~stromverbrauch, type = "scatter", mode = "lines",
-    line = list(color = "#000000", width = 2), name = "Landesverbrauch",
+    line = list(color = "#000000", width = 2), name = tl("Landesverbrauch"),
     legendrank = 1,
-    hovertemplate = "Landesverbrauch: %{y:.1f} GWh<extra></extra>"
+    hovertemplate = paste0(tl("Landesverbrauch"), ": %{y:.1f} GWh<extra></extra>")
   )
 
   last  <- max(d$date[!is.na(d$eigenproduktion)])
@@ -168,11 +205,11 @@ bfe_produktion_chart <- function(data, years = 5, height = 420) {
   yr_range <- function(y) list(as.character(as.Date(paste0(y, "-01-01"))),
                                as.character(min(as.Date(paste0(y, "-12-31")), last)))
   buttons <- c(
-    list(list(label = "Gesamt", method = "relayout",
+    list(list(label = tl("Gesamt"), method = "relayout",
               args = list(list(xaxis.range = as.character(range(d$date)))))),
     lapply(rev(yrs), function(y) list(label = as.character(y), method = "relayout",
                                       args = list(list(xaxis.range = yr_range(y))))),
-    list(list(label = paste(years, "Jahre"), method = "relayout",
+    list(list(label = paste(years, tl("Jahre")), method = "relayout",
               args = list(list(xaxis.range = as.character(c(start, last))))))
   )
 
@@ -212,7 +249,7 @@ bfe_produktion_handel_chart <- function(data, years = 5, height = 620) {
   )
   prod_mat <- sapply(names(src), function(k) { v <- d[[k]]; v[is.na(v)] <- 0; v })
   produktion <- rowSums(prod_mat)
-  has_data <- !is.na(d$nettoimporte) & produktion > 0
+  has_data <- !is.na(d$nettoimporte) & !is.na(d$stromverbrauch) & produktion > 0
   d <- d[has_data, ]; prod_mat <- prod_mat[has_data, , drop = FALSE]
   produktion <- produktion[has_data]
 
@@ -237,7 +274,7 @@ bfe_produktion_handel_chart <- function(data, years = 5, height = 620) {
                 hoverinfo = "skip", showlegend = FALSE, legendgroup = group) |>
       add_trace(y = upper, type = "scatter", mode = "lines", fill = "tonexty",
                 fillcolor = colour, line = list(width = 0, color = colour),
-                hoverinfo = "skip", name = name, legendgroup = group)
+                hoverinfo = "skip", name = tl(name), legendgroup = group)
   }
   # hover-only rows: values only on the days where the area exists (NA elsewhere),
   # with a small square in the area's colour in front of the text
@@ -245,8 +282,8 @@ bfe_produktion_handel_chart <- function(data, years = 5, height = 620) {
     p |> add_trace(
       y = ifelse(aktiv, pmax(produktion, verbrauch), NA), type = "scatter", mode = "lines",
       line = list(width = 0, color = "rgba(0,0,0,0)"), showlegend = FALSE, legendgroup = group,
-      name = label, connectgaps = FALSE,
-      text = paste0("<span style='color:", colour, "'>\u25A0</span> <b>", label, ": ", gwh(wert), "</b>"),
+      name = tl(label), connectgaps = FALSE,
+      text = paste0("<span style='color:", colour, "'>\u25A0</span> <b>", tl(label), ": ", gwh(wert), "</b>"),
       hovertemplate = "%{text}<extra></extra>")
   }
   top <- plot_ly(x = d$date) |>
@@ -257,32 +294,32 @@ bfe_produktion_handel_chart <- function(data, years = 5, height = 620) {
     hover_trace(ist_export, produktion - verbrauch, "#9E9E9E", "Nettoexport", "export_area") |>
     hover_trace(!ist_export, verbrauch - produktion, "#EB9F46", "Nettoimport", "import") |>
     add_trace(y = produktion, type = "scatter", mode = "lines",
-              line = list(color = "#000000", width = 1.5), name = "Landesproduktion",
+              line = list(color = "#000000", width = 1.5), name = tl("Landesproduktion"),
               legendgroup = "prodline",
-              hovertemplate = "Landesproduktion: %{y:.1f} GWh<extra></extra>") |>
+              hovertemplate = paste0(tl("Landesproduktion"), ": %{y:.1f} GWh<extra></extra>")) |>
     add_trace(y = verbrauch, type = "scatter", mode = "lines",
               line = list(color = "#000000", width = 1.5, dash = "dot"),
-              name = "Landesverbrauch", legendgroup = "verbrauch",
-              hovertemplate = "Landesverbrauch: %{y:.1f} GWh<extra></extra>")
+              name = tl("Landesverbrauch"), legendgroup = "verbrauch",
+              hovertemplate = paste0(tl("Landesverbrauch"), ": %{y:.1f} GWh<extra></extra>"))
 
   # --- bottom panel ---
   bottom <- plot_ly(x = d$date)
   for (k in names(src)) {
     bottom <- bottom |> add_trace(
       y = export_mat[, k], type = "scatter", mode = "none", stackgroup = "export",
-      fillcolor = src[[k]][2], name = src[[k]][1], legendgroup = k,
-      hovertemplate = paste0("Export ", src[[k]][1], ": %{y:.1f} GWh<extra></extra>")
+      fillcolor = src[[k]][2], name = tl(src[[k]][1]), legendgroup = k,
+      hovertemplate = paste0(tl("Export"), " ", tl(src[[k]][1]), ": %{y:.1f} GWh<extra></extra>")
     )
   }
   bottom <- bottom |>
     add_trace(y = import, type = "scatter", mode = "none", fill = "tozeroy",
-              fillcolor = "#EB9F46", name = "Nettoimport", legendgroup = "import",
+              fillcolor = "#EB9F46", name = tl("Nettoimport"), legendgroup = "import",
               showlegend = FALSE,
-              hovertemplate = "Nettoimport: %{y:.1f} GWh<extra></extra>") |>
+              hovertemplate = paste0(tl("Nettoimport"), ": %{y:.1f} GWh<extra></extra>")) |>
     # invisible: only adds the balance to the hover box
     add_trace(y = nettoexport, type = "scatter", mode = "lines",
               line = list(width = 0, color = "rgba(0,0,0,0)"), showlegend = FALSE,
-              name = "Saldo", hovertemplate = "Saldo (Export – Import): %{y:.1f} GWh<extra></extra>")
+              name = "Saldo", hovertemplate = paste0(tl("Saldo (Export \u2013 Import)"), ": %{y:.1f} GWh<extra></extra>"))
 
   # --- range buttons (as in the dashboard) ---
   last  <- max(d$date)
@@ -290,10 +327,10 @@ bfe_produktion_handel_chart <- function(data, years = 5, height = 620) {
   yrs   <- seq(as.integer(format(last, "%Y")) - 2, as.integer(format(last, "%Y")))
   rng <- function(a, b) list(xaxis.range = as.character(c(a, b)))
   buttons <- c(
-    list(list(label = "Gesamt", method = "relayout", args = list(rng(min(d$date), last)))),
+    list(list(label = tl("Gesamt"), method = "relayout", args = list(rng(min(d$date), last)))),
     lapply(yrs, function(y) list(label = as.character(y), method = "relayout",
       args = list(rng(as.Date(paste0(y, "-01-01")), min(as.Date(paste0(y, "-12-31")), last))))),
-    list(list(label = paste(years, "Jahre"), method = "relayout", args = list(rng(start, last))))
+    list(list(label = paste(years, tl("Jahre")), method = "relayout", args = list(rng(start, last))))
   )
 
   panel_title <- function(text, y) list(
@@ -311,8 +348,8 @@ bfe_produktion_handel_chart <- function(data, years = 5, height = 620) {
       yaxis2 = bfe_yaxis(ticksuffix = " GWh", zeroline = TRUE, zerolinecolor = "#333333",
                          zerolinewidth = 1),
       annotations = list(
-        panel_title("<b>Landesproduktion und Landesverbrauch</b>", 1.0),
-        panel_title("<b>Nettoexport (+) nach Energieträger, anteilig zum Produktionsmix, und Nettoimport (–)</b>", 0.465)
+        panel_title(paste0("<b>", tl("Landesproduktion und Landesverbrauch"), "</b>"), 1.0),
+        panel_title(paste0("<b>", tl("Nettoexport (+) nach Energieträger, anteilig zum Produktionsmix, und Nettoimport (\u2013)"), "</b>"), 0.465)
       ),
       updatemenus = list(list(
         type = "buttons", direction = "right", showactive = TRUE,
@@ -331,14 +368,14 @@ bfe_produktion_handel_chart <- function(data, years = 5, height = 620) {
   p <- plotly_build(p)
   for (i in seq_along(p$x$data)) {
     h <- p$x$data[[i]]$hoverinfo
-    if (!is.null(h) && length(h) > 1 && all(h == "skip")) p$x$data[[i]]$hoverinfo <- "skip"
+    if (!is.null(h) && length(h) > 1 && isTRUE(all(unlist(h) == "skip", na.rm = TRUE))) p$x$data[[i]]$hoverinfo <- "skip"
   }
   p
 }
 
 # Write one chart as a standalone page (embedded in the story via sm_frame()).
 # The page reports its height to the story so the frame fits exactly.
-bfe_chart_page <- function(chart, file, title, updated = Sys.Date()) {
+bfe_chart_page <- function(chart, file, title, updated = Sys.Date(), assets = "../assets") {
   chart$sizingPolicy$browser$fill <- FALSE      # no viewport-filling inside the frame
   chart$sizingPolicy$browser$padding <- 0
   chart$width <- "100%"
@@ -349,17 +386,17 @@ bfe_chart_page <- function(chart, file, title, updated = Sys.Date()) {
       tags$title(title),
       tags$link(rel = "stylesheet",
                 href = "https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap"),
-      tags$link(rel = "stylesheet", href = "../assets/chart.css")
+      tags$link(rel = "stylesheet", href = file.path(assets, "chart.css"))
     ),
     tags$main(class = "bfe-chart", chart),
     tags$p(class = "bfe-stand",
-           sprintf("Stand: %s · Daten: Bundesamt für Energie BFE, ",
-                   format(as.Date(updated), "%d.%m.%Y")),
+           sprintf(if (identical(bfe_lang, "fr")) "%s\u00A0: %s · %s\u00A0: %s, " else "%s: %s · %s: %s, ",
+                   tl("Stand"), format(as.Date(updated), "%d.%m.%Y"), tl("Daten"), tl("Bundesamt für Energie BFE")),
            tags$a(href = "https://energiedashboard.admin.ch", target = "_blank",
                   rel = "noopener", "energiedashboard.admin.ch")),
-    tags$script(src = "../assets/chart.js")
+    tags$script(src = file.path(assets, "chart.js"))
   )
   dir.create(dirname(file), showWarnings = FALSE, recursive = TRUE)
-  htmltools::save_html(page, file, libdir = "lib", lang = "de")
+  htmltools::save_html(page, file, libdir = "lib", lang = if (identical(bfe_lang, "fr")) "fr" else "de")
   invisible(file)
 }

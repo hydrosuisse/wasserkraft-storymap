@@ -439,6 +439,7 @@ html.sm-lb-open { overflow: hidden; }
 /* ---------- Swiss quotation marks for "…" typed in the Markdown text --------- */
 /* (needs pandoc_args: ["--html-q-tags"] in the YAML header of index.Rmd)       */
 q { quotes: "«" "»" "‹" "›"; }
+:lang(fr) q { quotes: "«\202F" "\202F»" "‹\202F" "\202F›"; }
 :lang(fr) q { quotes: "«\00a0" "\00a0»" "‹\00a0" "\00a0›"; }
 /* ---------- lists: numbers/bullets aligned with the body text ---------------- */
 .section > :is(ul, ol) {
